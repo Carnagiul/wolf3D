@@ -21,11 +21,6 @@ typedef struct	s_vector
 	double		y;
 }				t_vector;
 
-typedef struct 	s_texture
-{
-
-}				t_texture;
-
 typedef struct s_map
 {
 	char		*gnl;
@@ -180,19 +175,7 @@ void	ft_wolf_display_texture_woodenplanks(int y, int min, int max, t_coucou *cou
 	if (ray.sidedist.x <= 2 && ray.sidedist.y <= 2)
 		coucou->p.can_open = 1;
 }
-/*
-void	ft_wolf_display_texture(int y, int min, int max, t_coucou *coucou, int id)
-{
-	if (id == 0)
-		ft_wolf_display_texture_ground(y, min, max, coucou);
-	if (id == 1)
-		ft_wolf_display_texture_stonebrick(y, min, max, coucou);
-	if (id == 1)
-		ft_wolf_display_texture_woodenplanks(y, min, max, coucou);
 
-}
-	scanf("%s", ret);
-*/
 void	verLine(int y, int min, int max, t_color_mlx color, t_coucou *coucou)
 {
 	int chute;
