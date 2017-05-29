@@ -25,7 +25,7 @@ obj/%.o: %.c
 	gcc -o $@ -c $< $(CFLAGS)
 
 $(NAME): $(OBJ_2)
-	gcc -c $(SRC) -I ../
+	gcc -c -Wall -Werror -Wextra $(SRC) -I ../
 	ar rc $(NAME) $(OBJ)
 	mv $(OBJ) obj/
 	ranlib $(NAME)

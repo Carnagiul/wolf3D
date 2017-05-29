@@ -38,7 +38,7 @@ LIB += ft_wstr/libft_wstr.a
 LIB += ft_fdf/libft_fdf.a
 LIB += ft_mlx/libft_mlx.a
 
-CFLAGS = -I /usr/X11/include -g -L /usr/X11/lib -lX11 -lmlx -lXext -framework OpenGL -framework AppKit mlx/libmlxS.a $(LIB)
+CFLAGS = -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlxS.a $(LIB)
 
 $(NAME):
 	make libmaker

@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 05:12:28 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/21 12:06:15 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/29 03:41:40 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		calc(int color, int data2, int data1)
 
 t_point	create_pt(int x, int y)
 {
-	t_point		pt;
+	t_point	pt;
 
 	pt.x = x;
 	pt.y = y;
