@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gnl.h                                           :+:      :+:    :+:   */
+/*   ft_string_join_path.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/19 00:05:01 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 00:01:48 by piquerue         ###   ########.fr       */
+/*   Created: 2017/05/30 00:08:19 by piquerue          #+#    #+#             */
+/*   Updated: 2017/05/30 00:44:15 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GNL_H
-# define FT_GNL_H
+#include "../libft.h"
 
-# define BUFF_SIZE	32
-# define MAX_FD		1000
-
-typedef struct		s_gnl
+char			*ft_string_join_path(char *p1, char *p2)
 {
-	int				fd;
-	char			*new;
-	size_t			size;
-	unsigned int	passage;
-}					t_gnl;
+	char	*str;
+	size_t	i;
 
-int					get_next_line(int fd, char **line);
-
-#endif
+	i = 0;
+	if (!p1 || !p2)
+		return (0);
+	str = ft_strnew(ft_strlen(p1) + ft_strlen(p2) + 2);
+	if (str)
+	{
+		while (*p1)
+			str[i++] = *p1++;
+		while (*p2)
+			str[i++] = *p2++;
+		str[i] = '\0';
+	}
+	return (str);
+}

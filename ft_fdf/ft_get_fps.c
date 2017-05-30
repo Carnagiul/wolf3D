@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gnl.h                                           :+:      :+:    :+:   */
+/*   ft_get_fps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/19 00:05:01 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 00:01:48 by piquerue         ###   ########.fr       */
+/*   Created: 2017/05/29 23:20:16 by piquerue          #+#    #+#             */
+/*   Updated: 2017/05/29 23:20:33 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GNL_H
-# define FT_GNL_H
+#include "../libft.h"
 
-# define BUFF_SIZE	32
-# define MAX_FD		1000
-
-typedef struct		s_gnl
+unsigned int    get_fps(void)
 {
-	int				fd;
-	char			*new;
-	size_t			size;
-	unsigned int	passage;
-}					t_gnl;
+	static struct timeval    prev;
+	static struct timeval    t;
+	unsigned int             fps;
 
-int					get_next_line(int fd, char **line);
+	gettimeofday(&t, NULL);
+	fps = ((t.tv_sec * 1000000 + t.tv_usec) - (prev.tv_sec * 1000000 +
+				prev.tv_usec));
+	prev = t;
+	return (1000000 / fps);
+}
 
-#endif

@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gnl.h                                           :+:      :+:    :+:   */
+/*   ft_mlx_draw_linept.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/19 00:05:01 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 00:01:48 by piquerue         ###   ########.fr       */
+/*   Created: 2017/05/29 23:06:50 by piquerue          #+#    #+#             */
+/*   Updated: 2017/05/29 23:08:22 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GNL_H
-# define FT_GNL_H
+#include "../libft.h"
 
-# define BUFF_SIZE	32
-# define MAX_FD		1000
-
-typedef struct		s_gnl
+void	ft_mlx_draw_linept(t_point pt1, t_point pt2, t_img *img,
+		t_color_mlx color)
 {
-	int				fd;
-	char			*new;
-	size_t			size;
-	unsigned int	passage;
-}					t_gnl;
+	int cpy;
 
-int					get_next_line(int fd, char **line);
-
-#endif
+	cpy = pt1.y;
+	while (pt1.x < pt2.x)
+	{
+		pt1.y = cpy;
+		while (pt1.y < pt2.y)
+		{
+			ft_mlx_put_pixel_img(pt1.x, pt1.y, color, img);
+			pt1.y++;
+		}
+		pt1.x++;
+	}
+}

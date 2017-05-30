@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 16:01:37 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/17 07:02:22 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/29 23:43:57 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <wchar.h>
 # include <fcntl.h>
 # include <stdint.h>
+# include <dirent.h>
+# include "ft_files.h"
 # include "ft_math.h"
 # include "mlx.h"
 # include "ft_gnl.h"

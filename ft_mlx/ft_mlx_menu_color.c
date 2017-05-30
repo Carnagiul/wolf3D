@@ -6,13 +6,13 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 05:12:28 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/29 03:41:40 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/29 23:26:03 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int		calc(int color, int data2, int data1)
+int		calc_color(int color, int data2, int data1)
 {
 	int x;
 	int	ratio;
@@ -44,17 +44,17 @@ void	ft_line(t_point pt, t_fractol *fractol, int h, int i)
 		pt.x++;
 	}
 	if (i == 2)
-		tmp.x = calc(fractol->color_bg.red, pt.y, tmp.x);
+		tmp.x = calc_color(fractol->color_bg.red, pt.y, tmp.x);
 	if (i == 3)
-		tmp.x = calc(fractol->color_bg.green, pt.y, tmp.x);
+		tmp.x = calc_color(fractol->color_bg.green, pt.y, tmp.x);
 	if (i == 4)
-		tmp.x = calc(fractol->color_bg.blue, pt.y, tmp.x);
+		tmp.x = calc_color(fractol->color_bg.blue, pt.y, tmp.x);
 	if (i == 10)
-		tmp.x = calc(fractol->color_pt.red, pt.y, tmp.x);
+		tmp.x = calc_color(fractol->color_pt.red, pt.y, tmp.x);
 	if (i == 11)
-		tmp.x = calc(fractol->color_pt.green, pt.y, tmp.x);
+		tmp.x = calc_color(fractol->color_pt.green, pt.y, tmp.x);
 	if (i == 12)
-		tmp.x = calc(fractol->color_pt.blue, pt.y, tmp.x);
+		tmp.x = calc_color(fractol->color_pt.blue, pt.y, tmp.x);
 	ft_sphere(fractol, tmp, 5);
 }
 

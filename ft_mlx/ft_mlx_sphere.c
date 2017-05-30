@@ -6,21 +6,11 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 23:35:28 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/21 15:47:15 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/29 23:27:24 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-int		calc(int color, int data2, int data1)
-{
-	int x;
-	int	ratio;
-
-	ratio = (data2 - data1) / 255;
-	x = (color * ratio) + data1;
-	return (x);
-}
 
 void	ft_pixel_put(t_fractol *fractol, t_point pt)
 {

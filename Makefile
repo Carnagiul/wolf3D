@@ -6,7 +6,7 @@
 #    By: piquerue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 14:20:07 by piquerue          #+#    #+#              #
-#    Updated: 2017/05/22 07:23:55 by piquerue         ###   ########.fr        #
+#    Updated: 2017/05/29 23:42:56 by piquerue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ LIB += ft_utils/libft_utils.a
 LIB += ft_wstr/libft_wstr.a
 LIB += ft_fdf/libft_fdf.a
 LIB += ft_mlx/libft_mlx.a
+LIB += ft_files/libft_files.a
 
 CFLAGS = -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlxS.a $(LIB)
 
@@ -60,6 +61,7 @@ libmaker:
 	make -C ft_utils
 	make -C ft_wstr
 	make -C ft_mlx
+	make -C ft_files
 	make -C ft_fdf
 
 project_maker:
@@ -84,6 +86,7 @@ clean:
 	make -C ft_utils clean
 	make -C ft_wstr clean
 	make -C ft_mlx clean
+	make -C ft_files clean
 	make -C ft_fdf clean
 	rm -rf $(OBJ_2)
 fclean: clean
@@ -97,6 +100,7 @@ fclean: clean
 	make -C ft_string fclean
 	make -C ft_utils fclean
 	make -C ft_wstr fclean
+	make -C ft_files fclean
 	make -C ft_mlx fclean
 	make -C ft_fdf fclean
 	rm -f $(NAME)
@@ -113,6 +117,7 @@ re: fclean all
 	make -C ft_utils re
 	make -C ft_wstr re
 	make -C ft_mlx re
+	make -C ft_files re
 	make -C ft_fdf re
 
 .PHONY : all clean fclean re

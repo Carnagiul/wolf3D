@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 03:17:20 by piquerue          #+#    #+#             */
-/*   Updated: 2016/12/31 05:09:21 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 00:02:22 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char				*ft_stock_the_new_line(char *str)
 	return (new);
 }
 
-static char			*ft_clean_new(char *str, int fd, t_files files[MAX_FD])
+static char			*ft_clean_new(char *str, int fd, t_gnl files[MAX_FD])
 {
 	char			*new;
 	int				i;
@@ -70,7 +70,7 @@ int					get_next_line(const int fd, char **line)
 {
 	char			buff[BUFF_SIZE + 1];
 	int				ret;
-	static t_files	files[MAX_FD];
+	static t_gnl	files[MAX_FD];
 
 	if (BUFF_SIZE < 0 || !line || fd > MAX_FD || fd < 0)
 		return (-1);
