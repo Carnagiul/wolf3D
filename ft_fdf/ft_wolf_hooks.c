@@ -6,11 +6,12 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:12:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 04:31:23 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 05:39:13 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+#include "../ft_fdf_map.h"
 
 int		hooker2(t_coucou *coucou)
 {
@@ -30,7 +31,7 @@ int		hooker2(t_coucou *coucou)
 		ft_wolf_hooks_move_right(coucou);
 	if (coucou->p.move_left == 1)
 		ft_wolf_hooks_move_left(coucou);
-	if (coucou->p.in_menu_map == 1 || coucou->p.in_config == 1)
+	if (coucou->p.in_menu_map == 1 || coucou->p.in_config == 1 || coucou->p.in_chat == 1)
 	{
 		coucou->p.move_up = 0;
 		coucou->p.move_down = 0;
@@ -38,8 +39,10 @@ int		hooker2(t_coucou *coucou)
 		coucou->p.move_left = 0;
 		if (coucou->p.in_config == 1)
 			ft_open_menu_config(coucou);
-		else
+		else if (coucou->p.in_menu_map == 1)
 			calc_menu(coucou);
+		else
+			ft_menu_chat(coucou);
 	}
 	else
 		calc2(coucou);
@@ -66,7 +69,7 @@ void	update_texture(t_coucou *coucou)
 int		hooker(int k, t_coucou *coucou)
 {
 
-	if (coucou->p.in_menu_map == 0 && coucou->p.in_config == 0)
+	if (coucou->p.in_menu_map == 0 && coucou->p.in_config == 0 && coucou->p.in_chat == 0)
 	{
 		if (k == 126 || k == 13)
 			coucou->p.move_up = 1;
@@ -126,7 +129,7 @@ int		hooker(int k, t_coucou *coucou)
 
 int		hooker_release(int k, t_coucou *coucou)
 {
-	if (coucou->p.in_menu_map == 0 && coucou->p.in_config == 0)
+	if (coucou->p.in_menu_map == 0 && coucou->p.in_config == 0 && coucou->p.in_chat == 0)
 	{
 		if (k == 126 || k == 13)
 			coucou->p.move_up = 0;
@@ -138,6 +141,30 @@ int		hooker_release(int k, t_coucou *coucou)
 			coucou->p.move_right = 0;
 		if (k == 49)
 			coucou->p.move_speed = 0.1;
+	}
+	if (coucou->p.in_chat == 1)
+	{
+		int i;
+		int	j;
+
+		j = 0;
+		i = 0;
+		while (i < 38)
+		{
+			if (k == g_t_keycode[i].keycode)
+			{
+				coucou->p.message = ft_strjoin(coucou->p.message, g_t_keycode[i].key);
+				i = 38;
+				j = 1;
+			}
+			i++;
+		}
+		if (k == 76 && j == 0)
+		{
+			ft_printf("%s\n\n\n\n\n\n", coucou->p.message);
+			free(coucou->p.message);
+			coucou->p.message = ft_strdup("");
+		}
 	}
 	hooker2(coucou);
 	return (1);
@@ -151,11 +178,14 @@ int		mouse_click(int keycode, int x, int y, t_coucou *coucou)
 		{
 			coucou->p.in_menu_map = (coucou->p.in_menu_map == 0) ? 1 : 0;
 			coucou->p.in_config = 0;
+			coucou->p.in_chat = 0;
 		}
 		if (x >= (coucou->win->width - coucou->settings->width) && y <= (coucou->settings->height))
 		{
-			coucou->p.in_config = (coucou->p.in_config == 0) ? 1 : 0;
+			//coucou->p.in_config = (coucou->p.in_config == 0) ? 1 : 0;
+			coucou->p.in_chat = (coucou->p.in_chat == 0) ? 1 : 0;
 			coucou->p.in_menu_map = 0;
+			coucou->p.in_config = 0;
 		}
 	}
 	hooker2(coucou);

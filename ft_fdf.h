@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 04:21:11 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 05:10:01 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ typedef struct 	s_player
 	int 		in_menu_map;
 	int 		in_menu_map_close;
 	int			in_config;
+	int			in_chat;
 	int 		can_open;
+	char		*message;
 }				t_player;
 
 typedef struct s_coucou
@@ -174,6 +176,7 @@ int		mouse_click(int keycode, int x, int y, t_coucou *coucou);
 void	calc(t_core *core);
 void	calc2(t_coucou *coucou);
 void	calc_menu(t_coucou *coucou);
+void	ft_menu_chat(t_coucou *coucou);
 
 /*
 **

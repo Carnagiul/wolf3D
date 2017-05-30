@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 01:32:28 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/21 15:46:59 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 05:19:32 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ typedef struct	s_win
 	int			height;
 	char		*name;
 }				t_win;
+
+typedef struct	s_keycode_mlx
+{
+	int			keycode;
+	char		*key;
+}				t_keycode_mlx;
 
 t_img			*ft_mlx_extended_gen_img(t_win *win);
 t_img			*ft_mlx_extended_gen_imgxpm(t_win *win, char *name);
