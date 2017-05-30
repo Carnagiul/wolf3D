@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 05:10:01 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 05:52:08 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_coucou
 	struct s_img		*bg;
 	struct s_img		*settings;
 	struct s_img		*xmap;
+	struct s_img		*chat;
 	struct s_img		*texture1;
 	struct s_img		*texture2;
 	struct s_img		*texture3;

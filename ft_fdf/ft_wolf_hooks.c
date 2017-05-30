@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:12:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 05:39:13 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 05:53:46 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		hooker2(t_coucou *coucou)
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->img->img_ptr, 0, 0);
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->xmap->img_ptr, (coucou->win->width - coucou->xmap->width), (coucou->win->height - coucou->xmap->height));
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->settings->img_ptr, (coucou->win->width - coucou->settings->width), 0);
+	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->chat->img_ptr, 0, 0);
 
 	ft_printf("\033[3A\033[Kfps: %d\nX: %d\nY: %d\n", get_fps(), (int)coucou->pos.x, (int)coucou->pos.y);
 	return (0);
@@ -182,7 +183,12 @@ int		mouse_click(int keycode, int x, int y, t_coucou *coucou)
 		}
 		if (x >= (coucou->win->width - coucou->settings->width) && y <= (coucou->settings->height))
 		{
-			//coucou->p.in_config = (coucou->p.in_config == 0) ? 1 : 0;
+			coucou->p.in_config = (coucou->p.in_config == 0) ? 1 : 0;
+			coucou->p.in_menu_map = 0;
+			coucou->p.in_chat = 0;
+		}
+		if (x <= coucou->chat->width  && y <= (coucou->chat->height))
+		{
 			coucou->p.in_chat = (coucou->p.in_chat == 0) ? 1 : 0;
 			coucou->p.in_menu_map = 0;
 			coucou->p.in_config = 0;
