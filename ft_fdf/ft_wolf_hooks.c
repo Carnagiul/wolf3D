@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:12:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 05:53:46 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 06:20:51 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		hooker2(t_coucou *coucou)
 		else if (coucou->p.in_menu_map == 1)
 			calc_menu(coucou);
 		else
-			ft_menu_chat(coucou);
+			calc2(coucou);
 	}
 	else
 		calc2(coucou);
@@ -51,7 +51,7 @@ int		hooker2(t_coucou *coucou)
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->settings->img_ptr, (coucou->win->width - coucou->settings->width), 0);
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->chat->img_ptr, 0, 0);
 
-	ft_printf("\033[3A\033[Kfps: %d\nX: %d\nY: %d\n", get_fps(), (int)coucou->pos.x, (int)coucou->pos.y);
+	//ft_printf("\033[2A\033[Kfps: %d\nchat: %s\n", get_fps(), coucou->p.message);
 	return (0);
 }
 
@@ -160,9 +160,10 @@ int		hooker_release(int k, t_coucou *coucou)
 			}
 			i++;
 		}
+		ft_printf("\033[1A\033[Kchat: %s\n", coucou->p.message);
 		if (k == 76 && j == 0)
 		{
-			ft_printf("%s\n\n\n\n\n\n", coucou->p.message);
+			ft_printf("\033[1A\033[K%s say: @R%s@@\n\n", "George", coucou->p.message);
 			free(coucou->p.message);
 			coucou->p.message = ft_strdup("");
 		}

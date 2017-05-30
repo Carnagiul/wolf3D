@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 05:58:22 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 06:13:17 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ void	ft_wolf_init(char **argv)
 	coucou.xmap = ft_mlx_extended_gen_imgxpm(coucou.win, "./texture_win/map.xpm");
 	coucou.chat = ft_mlx_extended_gen_imgxpm(coucou.win, "./texture_win/chat.xpm");
 	coucou.d = d[0];
-	ft_printf("c\nc\nc\n");
+	ft_printf("c\nc\n");
 	mlx_hook(win->win, 2, (1L << 0), hooker, &coucou);
 	mlx_hook(win->win, 4, (1L << 2), mouse_click, &coucou);
 	mlx_hook(win->win, 3, (1L << 1), hooker_release, &coucou);

@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 05:04:21 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 05:05:02 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 06:10:05 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_menu_chat(t_coucou *coucou)
 {
-	(void)coucou;
+	mlx_string_put(coucou->win->mlx, coucou->win->win, 100, 100, 0xFFFFFF, coucou->p.message);
 }
