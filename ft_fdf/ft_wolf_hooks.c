@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:12:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 03:54:48 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 04:31:23 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,11 @@ int		hooker(int k, t_coucou *coucou)
 		if (k == 126 || k == 13)
 			coucou->texturepack -= (coucou->texturepack > 0) ? 1 : 0;
 		if (k == 125 || k == 1)
-			coucou->texturepack += (coucou->texturepack < ft_files_count_dir_wa("./textures/")) ? 1 : 0;
+		{
+			//coucou->texturepack += (coucou->texturepack < ft_files_count_dir_wa("./textures/")) ? 1 : 0;
+			if (coucou->texturepack + 1< ft_files_count_dir_wa("./textures/"))
+				coucou->texturepack += 1;
+		}
 		update_texture(coucou);
 	}
 	coucou->p.can_open = 0;

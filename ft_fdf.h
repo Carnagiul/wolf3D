@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 03:15:36 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/05/30 04:21:11 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_coucou
 	struct s_img		*texture3;
 	struct s_map		map;
 	struct s_player		p;
+	int					d;
 }				t_coucou;
 
 typedef struct			s_core
