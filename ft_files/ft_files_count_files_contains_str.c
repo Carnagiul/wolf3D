@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:34:54 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/29 23:56:46 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/06/02 05:31:47 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_files_count_files_contains_str(char *path, char *extension)
 {
 	struct dirent	*files;
-	int count;
+	int				count;
 	DIR				*dir;
 	char			**split;
 
@@ -32,6 +32,7 @@ int		ft_files_count_files_contains_str(char *path, char *extension)
 				count++;
 		}
 	}
+	free(files);
 	closedir(dir);
 	return (count);
 }

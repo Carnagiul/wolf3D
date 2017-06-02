@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 03:28:20 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/29 03:33:47 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/06/02 03:30:16 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,3 @@ void	ft_mlx_extended_put_pixel(t_img *img, int x, int y, t_color_mlx color)
 	img->img[++data] = color.green;
 	img->img[++data] = color.blue;
 }
-

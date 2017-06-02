@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:18:12 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/29 23:18:57 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/06/02 05:34:19 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_ray	set_ray_side(t_ray ray)
 	if (ray.step.x == -1)
 		ray.sidedist.x = (ray.raypos.x - ray.map.x) * ray.deltadist.x;
 	else
-		ray.sidedist.x = (ray.map.x + 1.0 - ray.raypos.x ) * ray.deltadist.x;
+		ray.sidedist.x = (ray.map.x + 1.0 - ray.raypos.x) * ray.deltadist.x;
 	ray.step.y = (ray.raydir.y < 0) ? -1 : 1;
 	if (ray.step.y == -1)
 		ray.sidedist.y = (ray.raypos.y - ray.map.y) * ray.deltadist.y;
@@ -36,12 +36,14 @@ t_ray	init_ray(t_coucou *coucou, int x)
 	ray.plan = create_vector(coucou->plan.x, coucou->plan.y);
 	ray.camera = 2 * x / (double)coucou->win->width - 1;
 	ray.raypos = create_vector(ray.pos.x, ray.pos.y);
-	ray.raydir = create_vector(ray.dir.x + ray.plan.x * ray.camera, ray.dir.y + ray.plan.y * ray.camera);
+	ray.raydir = create_vector(ray.dir.x + ray.plan.x *
+			ray.camera, ray.dir.y + ray.plan.y * ray.camera);
 	ray.map.x = (int)ray.raypos.x;
 	ray.map.y = (int)ray.raypos.y;
-	ray.deltadist.x = sqrt(1 + (ft_dpower(ray.raydir.y, 2) / ft_dpower(ray.raydir.x, 2)));
-	ray.deltadist.y = sqrt(1 + (ft_dpower(ray.raydir.x, 2) / ft_dpower(ray.raydir.y, 2)));
+	ray.deltadist.x = sqrt(1 + (ft_dpower(ray.raydir.y, 2) /
+				ft_dpower(ray.raydir.x, 2)));
+	ray.deltadist.y = sqrt(1 + (ft_dpower(ray.raydir.x, 2) /
+				ft_dpower(ray.raydir.y, 2)));
 	ray = set_ray_side(ray);
 	return (ray);
 }
-

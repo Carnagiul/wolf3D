@@ -6,12 +6,87 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:12:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 06:20:51 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/06/02 05:36:57 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 #include "../ft_fdf_map.h"
+
+void	free_t_win(t_win *win)
+{
+	free(win->win);
+	free(win->mlx);
+	free(win);
+}
+
+void	free_t_img(t_img *img, t_win *win)
+{
+	mlx_destroy_image(win->mlx, img->img_ptr);
+	free(img);
+}
+
+void	free_texture(t_texture **texture)
+{
+	int		i;
+	int		j;
+	char	*path;
+	char	*path2;
+	t_file	*files;
+
+	i = 0;
+	path = ft_strdup("./textures/");
+	files = ft_create_array_dir_wa(path);
+	while (i < ft_files_count_dir_wa(path))
+	{
+		path2 = ft_string_join_path(path, files[i].name);
+		j = 0;
+		while (j < ft_files_count_dir_wa(path2))
+		{
+			j++;
+			free(texture[i][j].img);
+			free(texture[i][j].name);
+		}
+		free(files[i].name);
+		free(texture[i]);
+		free(path2);
+		i++;
+	}
+	free(files);
+	free(path);
+	free(texture);
+}
+
+void	free_map(t_map map)
+{
+	int i;
+
+	free(map.gnl);
+	free(map.get);
+	i = 0;
+	while (i < map.height)
+	{
+		if (map.map[i])
+			free(map.map[i]);
+		if (map.nb[i])
+			free(map.nb[i]);
+		if (map.world[i])
+			free(map.world[i]);
+		i++;
+	}
+	if (map.map)
+		free(map.map);
+	if (map.nb)
+		free(map.nb);
+	if (map.world)
+		free(map.world);
+}
+
+void	exit_prgm(t_coucou *coucou)
+{
+	exit(0);
+	(void)coucou;
+}
 
 int		hooker2(t_coucou *coucou)
 {
@@ -50,26 +125,28 @@ int		hooker2(t_coucou *coucou)
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->xmap->img_ptr, (coucou->win->width - coucou->xmap->width), (coucou->win->height - coucou->xmap->height));
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->settings->img_ptr, (coucou->win->width - coucou->settings->width), 0);
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->chat->img_ptr, 0, 0);
-
+	if (coucou->p.in_chat == 1)
+		ft_menu_chat(coucou);
 	//ft_printf("\033[2A\033[Kfps: %d\nchat: %s\n", get_fps(), coucou->p.message);
 	return (0);
 }
 
 void	update_texture(t_coucou *coucou)
 {
-	if (ft_strcmp(coucou->texture[coucou->texturepack][0].name, "door.xpm") == 0)
-		coucou->texture3 = coucou->texture[coucou->texturepack][0].img;
+	if (ft_strcmp(coucou->texture[coucou->texturepack][0]->name, "door.xpm") == 0)
+		coucou->texture3 = coucou->texture[coucou->texturepack][0]->img;
 	else
-		coucou->texture3 = coucou->texture[coucou->texturepack][1].img;
-	if (ft_strcmp(coucou->texture[coucou->texturepack][0].name, "door.xpm") == 0)
-		coucou->texture2 = coucou->texture[coucou->texturepack][1].img;
+		coucou->texture3 = coucou->texture[coucou->texturepack][1]->img;
+	if (ft_strcmp(coucou->texture[coucou->texturepack][0]->name, "door.xpm") == 0)
+		coucou->texture2 = coucou->texture[coucou->texturepack][1]->img;
 	else
-		coucou->texture2 = coucou->texture[coucou->texturepack][0].img;
+		coucou->texture2 = coucou->texture[coucou->texturepack][0]->img;
 }
 
 int		hooker(int k, t_coucou *coucou)
 {
-
+	if (k == 53)
+		exit_prgm(coucou);
 	if (coucou->p.in_menu_map == 0 && coucou->p.in_config == 0 && coucou->p.in_chat == 0)
 	{
 		if (k == 126 || k == 13)

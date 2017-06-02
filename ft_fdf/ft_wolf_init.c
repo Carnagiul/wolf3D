@@ -6,27 +6,11 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 06:13:17 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/06/02 02:33:07 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-void	ft_wolf_display_texture_ground(int y, int min, int max, t_coucou *coucou)
-{
-	int texturechute;
-	int chute;
-
-	while (min < max)
-	{
-		texturechute = ((y % coucou->texture1->height) * 4) + ((min % coucou->texture1->width) * coucou->texture1->size_line);
-		chute = (y * 4) + (min * coucou->img->size_line);
-		coucou->img->img[chute] = coucou->texture1->img[texturechute];
-		coucou->img->img[++chute] = coucou->texture1->img[++texturechute];
-		coucou->img->img[++chute] = coucou->texture1->img[++texturechute];
-		min++;
-	}
-}
 
 void	ft_wolf_display_texture_stonebrick(int y, int min, int max, t_coucou *coucou, t_ray ray)
 {
@@ -125,19 +109,19 @@ t_map	ft_gen_world(char *name)
 	int		j;
 
 	map.get = ft_strnew(1);
-	map.gnl = ft_strnew(1);
 	map.fd = open(name, O_RDONLY);
 	i = 0;
 	while (get_next_line(map.fd, &(map.gnl)) >= 1)
 	{
-		map.get = ft_free_join(map.get, map.gnl);
+		map.get = ft_free_join1(map.get, map.gnl);
 		map.get = ft_free_join1(map.get, "\n");
-		map.gnl = ft_strnew(1);
+		ft_strdel(&(map.gnl));
 		i++;
 	}
 	close(map.fd);
 	map.world = (int **)malloc(sizeof(int *) * i);
 	map.height = i;
+	map.width = 0;
 	map.map = ft_strsplit(map.get, '\n');
 	i = 0;
 	while (map.map[i])
@@ -154,8 +138,14 @@ t_map	ft_gen_world(char *name)
 			map.world[i][j] = ft_atoi(map.nb[j]);
 			j++;
 		}
+		j = 0;
+		while (map.nb[j])
+			free(map.nb[j++]);
+		free(map.nb);
 		i++;
 	}
+	free(map.get);
+	free(map.gnl);
 	return (map);
 }
 
@@ -177,7 +167,7 @@ t_player	ft_gen_player(void)
 	return (p);
 }
 
-t_texture	**texturepack(t_win *win)
+t_texture	***texturepack(t_win *win)
 {
 	t_file	*files;
 	char	*path;
@@ -185,30 +175,34 @@ t_texture	**texturepack(t_win *win)
 	int i;
 	t_file	*content;
 	int	j;
-	t_texture	**texture;
+	t_texture	***texture;
 	char		*name;
 	int			count;
 
 	i = 0;
 	count = 0;
 	path = ft_strdup("./textures/");
-	texture = (t_texture **)malloc(sizeof(t_texture *) * ft_files_count_dir_wa(path));
+	texture = (t_texture ***)malloc(sizeof(t_texture **) * ft_files_count_dir_wa(path));
 	files = ft_create_array_dir_wa("./textures/");
 	while (i < ft_files_count_dir_wa(path))
 	{
 		path2 = ft_string_join_path(path, files[i].name);
 		content = ft_create_array_files_wa(path2);
-		texture[i] = (t_texture *)malloc(sizeof(t_texture) * ft_files_count_files_wa(path2));
+		texture[i] = (t_texture **)malloc(sizeof(t_texture *) * ft_files_count_files_wa(path2));
 		j = 0;
 		while (j < ft_files_count_files_wa(path2))
 		{
 			name = ft_strjoin(path2, "/");
-			name = ft_strjoin(name, content[j].name);
-			texture[i][j].img = ft_mlx_extended_gen_imgxpm(win, name);
-			texture[i][j].name = ft_strdup(content[j].name);
+			name = ft_free_join1(name, content[j].name);
+			texture[i][j] = (t_texture *)malloc(sizeof(t_texture));
+			texture[i][j]->name = content[j].name;
+			texture[i][j]->img = ft_mlx_extended_gen_imgxpm(win, name);
+			free(content[j].name);
+			free(name);
 			count++;
 			j++;
 		}
+		free(files[i].name);
 		free(path2);
 		free(content);
 		i++;
@@ -221,40 +215,32 @@ t_texture	**texturepack(t_win *win)
 
 void	ft_wolf_init(char **argv)
 {
-	t_win *win;
 	int		d[2];
-	t_coucou coucou;
+	t_coucou *coucou;
 
 	d[0] = 1280;
 	d[1] = 720;
-	win = ft_mlx_extended_gen_win(d[0], d[1], "wolf piquerue");
-	coucou.win = win;
-	coucou.passage = 0;
-	coucou.pos = create_vector(1.25, 1.26);
-	coucou.dir = create_vector(-1, 0);
-	coucou.plan = create_vector(0, 0.66);
-	coucou.img = ft_mlx_extended_gen_img(coucou.win);
-	coucou.map = ft_gen_world(argv[1]);
-	coucou.p = ft_gen_player();
-	coucou.texture = texturepack(coucou.win);
-	coucou.texturepack = 0;
-	if (ft_strcmp(coucou.texture[coucou.texturepack][0].name, "door.xpm") == 0)
-		coucou.texture3 = coucou.texture[coucou.texturepack][0].img;
-	else
-		coucou.texture3 = coucou.texture[coucou.texturepack][1].img;
-	if (ft_strcmp(coucou.texture[coucou.texturepack][0].name, "door.xpm") == 0)
-		coucou.texture2 = coucou.texture[coucou.texturepack][1].img;
-	else
-		coucou.texture2 = coucou.texture[coucou.texturepack][0].img;
-	coucou.settings = ft_mlx_extended_gen_imgxpm(coucou.win, "./texture_win/settings.xpm");
-	coucou.xmap = ft_mlx_extended_gen_imgxpm(coucou.win, "./texture_win/map.xpm");
-	coucou.chat = ft_mlx_extended_gen_imgxpm(coucou.win, "./texture_win/chat.xpm");
-	coucou.d = d[0];
+	coucou = (t_coucou *)malloc(sizeof(t_coucou));
+	coucou->win = ft_mlx_extended_gen_win(d[0], d[1], "wolf piquerue");
+	coucou->passage = 0;
+	coucou->pos = create_vector(1.25, 1.26);
+	coucou->dir = create_vector(-1, 0);
+	coucou->plan = create_vector(0, 0.66);
+	coucou->img = ft_mlx_extended_gen_img(coucou->win);
+	coucou->map = ft_gen_world(argv[1]);
+	coucou->p = ft_gen_player();
+	coucou->texture = texturepack(coucou->win);
+	coucou->texturepack = 0;
+	update_texture(coucou);
+	coucou->settings = ft_mlx_extended_gen_imgxpm(coucou->win, "./texture_win/settings.xpm");
+	coucou->xmap = ft_mlx_extended_gen_imgxpm(coucou->win, "./texture_win/map.xpm");
+	coucou->chat = ft_mlx_extended_gen_imgxpm(coucou->win, "./texture_win/chat.xpm");
+	coucou->d = d[0];
 	ft_printf("c\nc\n");
-	mlx_hook(win->win, 2, (1L << 0), hooker, &coucou);
-	mlx_hook(win->win, 4, (1L << 2), mouse_click, &coucou);
-	mlx_hook(win->win, 3, (1L << 1), hooker_release, &coucou);
+	mlx_hook(coucou->win->win, 2, (1L << 0), hooker, coucou);
+	mlx_hook(coucou->win->win, 4, (1L << 2), mouse_click, coucou);
+	mlx_hook(coucou->win->win, 3, (1L << 1), hooker_release, coucou);
 
-	mlx_loop_hook (win->mlx, hooker2, &coucou);
-	mlx_loop(win->mlx);
+	mlx_loop_hook (coucou->win->mlx, hooker2, coucou);
+	mlx_loop(coucou->win->mlx);
 }

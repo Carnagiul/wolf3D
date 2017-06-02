@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 05:52:08 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/06/02 04:26:18 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,13 @@ typedef struct s_coucou
 	struct s_vector pos;
 	struct s_vector dir;
 	struct s_vector plan;
-	struct s_texture	**texture;
+	struct s_texture	***texture;
 	int					texturepack;
 	int		passage;
 	struct s_img		*img;
-	struct s_img		*bg;
 	struct s_img		*settings;
 	struct s_img		*xmap;
 	struct s_img		*chat;
-	struct s_img		*texture1;
 	struct s_img		*texture2;
 	struct s_img		*texture3;
 	struct s_map		map;
@@ -134,11 +132,11 @@ typedef struct	s_ray
 	struct s_point	map;
 	struct s_point	step;
 	double 			camera;
-	int				lineHeight;
+	int				lineheight;
 	double			perpWallDist;
 	int				h;
-	int				Start;
-	int				End;
+	int				start;
+	int				end;
 	int				hit;
 	int				side;
 }				t_ray;
@@ -168,6 +166,7 @@ int		hooker2(t_coucou *coucou);
 int		hooker(int k, t_coucou *coucou);
 int		hooker_release(int k, t_coucou *coucou);
 int		mouse_click(int keycode, int x, int y, t_coucou *coucou);
+void	update_texture(t_coucou *coucou);
 
 /*
 **

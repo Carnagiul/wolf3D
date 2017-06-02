@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:15:45 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 04:28:56 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/06/02 04:25:44 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	calc(t_core *core)
 	{
 		ray = init_ray(core->coucou, x);
 
-		ray.hit = 0; //was there a wall hit?
-		ray.side = 0; //was a NS or a EW wall hit?
+		ray.hit = 0;
+		ray.side = 0;
 		while (ray.hit == 0)
 		{
 			if (ray.sidedist.x < ray.sidedist.y)
@@ -43,27 +43,28 @@ void	calc(t_core *core)
 		if (ray.side == 0) ray.perpWallDist = (ray.map.x - ray.raypos.x + (1 - ray.step.x) / 2) / ray.raydir.x;
 		else           ray.perpWallDist = (ray.map.y - ray.raypos.y + (1 - ray.step.y) / 2) / ray.raydir.y;
 
-		ray.lineHeight = (int)(h / ray.perpWallDist);
+		ray.lineheight = (int)(h / ray.perpWallDist);
+		ray.start = -ray.lineheight / 2 + h / 2;
+		ray.end = ray.lineheight / 2 + h / 2;
+		if(ray.start < 0)
+			ray.start = 0;
+		if(ray.end >= h)
+			ray.end = h - 1;
 
-		int drawStart = -ray.lineHeight / 2 + h / 2;
-		if(drawStart < 0)drawStart = 0;
-		int drawEnd = ray.lineHeight / 2 + h / 2;
-		if(drawEnd >= h)drawEnd = h - 1;
-
-		if (drawStart > 0)
-			verLine(x, 0, drawStart, create_color(0x00, 0xFF, 0xFF), core->coucou);
-		if (drawEnd < h)
-			verLine(x, drawStart, h, create_color(0x99, 0x99, 0x99), core->coucou);
+		if (ray.start > 0)
+			verLine(x, 0, ray.start, create_color(0x00, 0xFF, 0xFF), core->coucou);
+		if (ray.end < h)
+			verLine(x, ray.start, h, create_color(0x99, 0x99, 0x99), core->coucou);
 		if (ray.side == 0)
 			color = (ray.raydir.x >= 0) ? create_color(0xFF, 0, 0) : create_color(0x00, 0xFF, 0);
 		else
 			color = (ray.raydir.y >= 0) ? create_color(0, 0, 0xFF) : create_color(0xFF, 0, 0xFF);
 		if (core->coucou->map.world[ray.map.x][ray.map.y] == 1)
-			ft_wolf_display_texture_stonebrick(x, drawStart, drawEnd, core->coucou, ray);
+			ft_wolf_display_texture_stonebrick(x, ray.start, ray.end, core->coucou, ray);
 		else if (core->coucou->map.world[ray.map.x][ray.map.y] == 2)
-			ft_wolf_display_texture_woodenplanks(x, drawStart, drawEnd, core->coucou, ray);
+			ft_wolf_display_texture_woodenplanks(x, ray.start, ray.end, core->coucou, ray);
 		else
-			verLine(x, drawStart, drawEnd, color, core->coucou);
+			verLine(x, ray.start, ray.end, color, core->coucou);
 	}
 }
 
@@ -109,13 +110,17 @@ void	calc_menu(t_coucou *coucou)
 			pt[0].y = (i + 1) * h;
 			pt[1].y = (i + 2) * h;
 			if (coucou->map.world[i][j] == 0 && j == (int)coucou->pos.y && i == (int)coucou->pos.x)
-				ft_mlx_draw_linept(pt[0], pt[1], coucou->img, create_color(0, 0, 255));
+				ft_mlx_draw_linept(pt[0], pt[1], coucou->img,
+						create_color(0, 0, 255));
 			else if (coucou->map.world[i][j] == 0)
-				ft_mlx_draw_linept(pt[0], pt[1], coucou->img, create_color(255, 255, 255));
+				ft_mlx_draw_linept(pt[0], pt[1], coucou->img,
+						create_color(255, 255, 255));
 			else if (coucou->map.world[i][j] == 2)
-				ft_mlx_draw_linept(pt[0], pt[1], coucou->img, create_color(0, 150, 0));
+				ft_mlx_draw_linept(pt[0], pt[1], coucou->img,
+						create_color(0, 150, 0));
 			else
-				ft_mlx_draw_linept(pt[0], pt[1], coucou->img, create_color(30, 30, 30));
+				ft_mlx_draw_linept(pt[0], pt[1], coucou->img,
+						create_color(30, 30, 30));
 			j++;
 		}
 		i++;
