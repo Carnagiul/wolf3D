@@ -12,45 +12,59 @@
 
 #include "../libft.h"
 
+t_ray	calc_two(t_ray ray, t_coucou *coucou)
+{
+	ray.lineheight = (int)(coucou->win->height / ray.perpWallDist);
+	ray.start = -ray.lineheight / 2 + coucou->win->height / 2;
+	ray.end = ray.lineheight / 2 + coucou->win->height / 2;
+	if(ray.start < 0)
+		ray.start = 0;
+	if(ray.end >= coucou->win->height)
+		ray.end = coucou->win->height - 1;
+	return (ray);
+}
+
+t_ray	calc_hit(t_ray ray, t_coucou *coucou)
+{
+	ray.hit = 0;
+	ray.side = 0;
+	while (ray.hit == 0)
+	{
+		if (ray.sidedist.x < ray.sidedist.y)
+		{
+			ray.sidedist.x += ray.deltadist.x;
+			ray.map.x += ray.step.x;
+			ray.side = 0;
+		}
+		else
+		{
+			ray.sidedist.y += ray.deltadist.y;
+			ray.map.y += ray.step.y;
+			ray.side = 1;
+		}
+		if (coucou->map.world[ray.map.x][ray.map.y] > 0) ray.hit = 1;
+	}
+	if (ray.side == 0)
+		ray.perpWallDist = (ray.map.x - ray.raypos.x + (1 - ray.step.x) / 2)
+			/ ray.raydir.x;
+	else
+		ray.perpWallDist = (ray.map.y - ray.raypos.y + (1 - ray.step.y) / 2)
+			/ ray.raydir.y;
+	return (calc_two(ray, coucou));
+}
+
 void	calc(t_core *core)
 {
-	t_ray	ray;
-	t_color_mlx color;
+	t_ray		ray;
+	t_color_mlx	color;
+	int			x;
+	int			h;
 
-	int h = core->coucou->win->height;
-	for(int x = core->min; x < core->max; x++)
+	h = core->coucou->win->height;
+	for(x = core->min; x < core->max; x++)
 	{
 		ray = init_ray(core->coucou, x);
-
-		ray.hit = 0;
-		ray.side = 0;
-		while (ray.hit == 0)
-		{
-			if (ray.sidedist.x < ray.sidedist.y)
-			{
-				ray.sidedist.x += ray.deltadist.x;
-				ray.map.x += ray.step.x;
-				ray.side = 0;
-			}
-			else
-			{
-				ray.sidedist.y += ray.deltadist.y;
-				ray.map.y += ray.step.y;
-				ray.side = 1;
-			}
-			if (core->coucou->map.world[ray.map.x][ray.map.y] > 0) ray.hit = 1;
-		}
-		if (ray.side == 0) ray.perpWallDist = (ray.map.x - ray.raypos.x + (1 - ray.step.x) / 2) / ray.raydir.x;
-		else           ray.perpWallDist = (ray.map.y - ray.raypos.y + (1 - ray.step.y) / 2) / ray.raydir.y;
-
-		ray.lineheight = (int)(h / ray.perpWallDist);
-		ray.start = -ray.lineheight / 2 + h / 2;
-		ray.end = ray.lineheight / 2 + h / 2;
-		if(ray.start < 0)
-			ray.start = 0;
-		if(ray.end >= h)
-			ray.end = h - 1;
-
+		ray = calc_hit(ray, core->coucou);
 		if (ray.start > 0)
 			verLine(x, 0, ray.start, create_color(0x00, 0xFF, 0xFF), core->coucou);
 		if (ray.end < h)

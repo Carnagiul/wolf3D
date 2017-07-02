@@ -78,6 +78,7 @@ void	ft_wolf_display_texture_woodenplanks(int y, int min, int max, t_coucou *cou
 	}
 	if (ray.sidedist.x <= 2 && ray.sidedist.y <= 2)
 		coucou->p.can_open = 1;
+	ft_printf("DONE\n");
 }
 
 void	verLine(int y, int min, int max, t_color_mlx color, t_coucou *coucou)
@@ -240,7 +241,8 @@ void	ft_wolf_init(char **argv)
 	mlx_hook(coucou->win->win, 2, (1L << 0), hooker, coucou);
 	mlx_hook(coucou->win->win, 4, (1L << 2), mouse_click, coucou);
 	mlx_hook(coucou->win->win, 3, (1L << 1), hooker_release, coucou);
-
+	ft_printf("GG\n");
 	mlx_loop_hook (coucou->win->mlx, hooker2, coucou);
+	ft_printf("GG\n");
 	mlx_loop(coucou->win->mlx);
 }

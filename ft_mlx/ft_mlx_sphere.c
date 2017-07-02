@@ -17,7 +17,7 @@ void	ft_pixel_put(t_fractol *fractol, t_point pt)
 	int chute;
 
 	chute = (pt.x * 4) + (pt.y * fractol->img->size_line);
-	fractol->img->img[chute] = 255;
+	fractol->img->img[chute] = (char)255;
 	fractol->img->img[++chute] = 120;
 	fractol->img->img[++chute] = 0;
 	fractol->img->img[++chute] = 90;

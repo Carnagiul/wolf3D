@@ -14,5 +14,7 @@
 
 void	ft_wolf_draw_texture(t_ray ray, t_coucou *coucou)
 {
-
+	(void)ray;
+	(void)coucou;
 }
+
