@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:12:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/06/02 05:36:57 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/04 02:43:05 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ int		hooker_release(int k, t_coucou *coucou)
 		{
 			if (k == g_t_keycode[i].keycode)
 			{
-				coucou->p.message = ft_strjoin(coucou->p.message, g_t_keycode[i].key);
+				coucou->p.message = ft_free_join1(coucou->p.message, g_t_keycode[i].key);
 				i = 38;
 				j = 1;
 			}

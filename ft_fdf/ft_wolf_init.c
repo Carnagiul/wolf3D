@@ -6,100 +6,59 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/06/02 02:33:07 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/04 02:41:51 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
+void	ft_wolf_display_texture(t_point pts[2], t_ray ray, t_img *img,
+		t_img *texture)
+{
+	int		tab[5];
+	double	tab2[3];
+
+	tab[0] = pts[1].x - pts[0].x;
+	tab2[1] = (double)texture->height / tab[0];
+	tab2[0] = 0;
+	tab2[2] = (ray.side == 0) ? ray.raypos.y + ray.perpWallDist * ray.raydir.y :
+		ray.raypos.x + ray.perpWallDist * ray.raydir.x;
+	tab2[2] -= floor(tab2[2]);
+	tab[1] = (int)(tab2[2] * (double)texture->width);
+	if ((ray.side == 0 && ray.raydir.x > 0) ||
+			(ray.side == 1 && ray.raydir.y < 0))
+		tab[1] = texture->width - tab[1] - 1;
+	while (pts[0].x < pts[1].x)
+	{
+		tab[2] = (int)tab2[0] * texture->size_line;
+		tab[3] = tab[2] + (tab[1] * 4);
+		tab2[0] += tab2[1];
+		tab[4] = (pts[0].y * 4) + (pts[0].x * img->size_line);
+		img->img[tab[4]] = texture->img[tab[3]];
+		img->img[++tab[4]] = texture->img[++tab[3]];
+		img->img[++tab[4]] = texture->img[++tab[3]];
+		pts[0].x++;
+	}
+}
+
 void	ft_wolf_display_texture_stonebrick(int y, int min, int max, t_coucou *coucou, t_ray ray)
 {
-	int texturechute;
-	int chute;
-	int dat;
-	double ratio;
-	double add;
+	t_point	pts[2];
 
-	dat = max - min;
-	ratio = (double)coucou->texture2->height / (double)dat;
-	add = 0;
-	double wallX; //where exactly the wall was hit
-	if (ray.side == 0) wallX = ray.raypos.y + ray.perpWallDist * ray.raydir.y;
-	else           wallX = ray.raypos.x + ray.perpWallDist * ray.raydir.x;
-	wallX -= floor((wallX));
-	int texX = (int)(wallX * (double)coucou->texture2->width);
-
-	if(ray.side == 0 && ray.raydir.x > 0) texX = coucou->texture2->width - texX - 1;
-	if(ray.side == 1 && ray.raydir.y < 0) texX = coucou->texture2->width - texX - 1;
-
-	while (min < max)
-	{
-		int texY = (int)add * coucou->texture2->size_line;
-		texturechute = texY + texX * 4;
-		add += ratio;
-		chute = (y * 4) + (min * coucou->img->size_line);
-		coucou->img->img[chute] = coucou->texture2->img[texturechute];
-		coucou->img->img[++chute] = coucou->texture2->img[++texturechute];
-		coucou->img->img[++chute] = coucou->texture2->img[++texturechute];
-		min++;
-	}
+	pts[0] = ft_create_point(min, y);
+	pts[1] = ft_create_point(max, y);
+	ft_wolf_display_texture(pts, ray, coucou->img, coucou->texture2);
 }
 
 void	ft_wolf_display_texture_woodenplanks(int y, int min, int max, t_coucou *coucou, t_ray ray)
 {
-	int texturechute;
-	int chute;
-	int dat;
-	double ratio;
-	double add;
+	t_point	pts[2];
 
-	dat = max - min;
-	ratio = (double)coucou->texture3->height / (double)dat;
-	add = 0;
-	double wallX; //where exactly the wall was hit
-	if (ray.side == 0) wallX = ray.raypos.y + ray.perpWallDist * ray.raydir.y;
-	else           wallX = ray.raypos.x + ray.perpWallDist * ray.raydir.x;
-	wallX -= floor((wallX));
-	int texX = (int)(wallX * (double)coucou->texture3->width);
-
-	if(ray.side == 0 && ray.raydir.x > 0) texX = coucou->texture3->width - texX - 1;
-	if(ray.side == 1 && ray.raydir.y < 0) texX = coucou->texture3->width - texX - 1;
-
-	while (min < max)
-	{
-		int texY = (int)add * coucou->texture3->size_line;
-		texturechute = texY + texX * 4;
-		add += ratio;
-		chute = (y * 4) + (min * coucou->img->size_line);
-		coucou->img->img[chute] = coucou->texture3->img[texturechute];
-		coucou->img->img[++chute] = coucou->texture3->img[++texturechute];
-		coucou->img->img[++chute] = coucou->texture3->img[++texturechute];
-		min++;
-	}
+	pts[0] = ft_create_point(min, y);
+	pts[1] = ft_create_point(max, y);
+	ft_wolf_display_texture(pts, ray, coucou->img, coucou->texture3);
 	if (ray.sidedist.x <= 2 && ray.sidedist.y <= 2)
 		coucou->p.can_open = 1;
-	ft_printf("DONE\n");
-}
-
-void	verLine(int y, int min, int max, t_color_mlx color, t_coucou *coucou)
-{
-	int chute;
-	int red;
-	int green;
-	int blue;
-
-	red = color.red;
-	green = color.green;
-	blue = color.blue;
-	while (min < max)
-	{
-		chute = (y * 4) + (min * coucou->img->size_line);
-		coucou->img->img[chute] = blue;
-		coucou->img->img[++chute] = green;
-		coucou->img->img[++chute] = red;
-		coucou->img->img[++chute] = 0;
-		min++;
-	}
 }
 
 t_map	ft_gen_world(char *name)
@@ -241,8 +200,6 @@ void	ft_wolf_init(char **argv)
 	mlx_hook(coucou->win->win, 2, (1L << 0), hooker, coucou);
 	mlx_hook(coucou->win->win, 4, (1L << 2), mouse_click, coucou);
 	mlx_hook(coucou->win->win, 3, (1L << 1), hooker_release, coucou);
-	ft_printf("GG\n");
-	mlx_loop_hook (coucou->win->mlx, hooker2, coucou);
-	ft_printf("GG\n");
+	mlx_loop_hook(coucou->win->mlx, hooker2, coucou);
 	mlx_loop(coucou->win->mlx);
 }

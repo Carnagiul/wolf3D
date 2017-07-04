@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx_draw_linept.c                               :+:      :+:    :+:   */
+/*   ft_create_point.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/29 23:06:50 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/03 19:46:47 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/03 21:40:09 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/03 21:40:52 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_mlx_draw_linept(t_point pt1, t_point pt2, t_img *img,
-		t_color_mlx color)
+t_point		ft_create_point(int x, int y)
 {
-	int cpy;
+	t_point	pt;
 
-	cpy = pt1.y;
-	while (pt1.x <= pt2.x)
-	{
-		pt1.y = cpy;
-		while (pt1.y <= pt2.y)
-		{
-			ft_mlx_put_pixel_img(pt1.x, pt1.y, color, img);
-			pt1.y++;
-		}
-		pt1.x++;
-	}
+	pt.x = x;
+	pt.y = y;
+	return (pt);
 }

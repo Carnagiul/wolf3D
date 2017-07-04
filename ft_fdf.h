@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/06/02 04:26:18 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/03 21:39:54 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,12 @@ typedef struct	s_ray
 	int				side;
 }				t_ray;
 
-
+typedef struct		s_mlx_line
+{
+	struct s_point		min;
+	struct s_point		max;
+	struct s_color_mlx	color;
+}					t_mlx_line;
 
 void	ft_wolf_init(char **argv);
 
@@ -208,5 +213,7 @@ unsigned int    get_fps(void);
 
 void	ft_mlx_put_pixel_img(int x, int y, t_color_mlx color, struct s_img *img);
 void	ft_mlx_draw_linept(t_point pt1, t_point pt2, struct s_img *img, t_color_mlx color);
+
+t_point		ft_create_point(int x, int y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:18:12 by piquerue          #+#    #+#             */
-/*   Updated: 2017/06/02 05:34:19 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/03 19:37:25 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ t_ray	init_ray(t_coucou *coucou, int x)
 	ray.deltadist.y = sqrt(1 + (ft_dpower(ray.raydir.x, 2) /
 				ft_dpower(ray.raydir.y, 2)));
 	ray = set_ray_side(ray);
+	ray.hit = 0;
+	ray.side = 0;
 	return (ray);
 }

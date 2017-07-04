@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 05:35:44 by piquerue          #+#    #+#             */
-/*   Updated: 2017/06/02 05:36:18 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/04 00:51:08 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,3 @@ void	ft_wolf_draw_texture(t_ray ray, t_coucou *coucou)
 	(void)ray;
 	(void)coucou;
 }
-
