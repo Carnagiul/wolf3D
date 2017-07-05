@@ -6,29 +6,27 @@
 #    By: piquerue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 14:20:07 by piquerue          #+#    #+#              #
-#    Updated: 2017/05/18 01:20:14 by piquerue         ###   ########.fr        #
+#    Updated: 2017/07/04 17:16:38 by piquerue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft_list_point.a
-
-OBJ = ft_t_point_create.o \
-	  ft_t_point_free.o
-
-OBJ_2 = obj/ft_t_point_create.o \
-		obj/ft_t_point_free.o
-
-INCLUDE = $(shell find ../ -type f | grep "\.h")
+NAME = lib.a
 
 SRC = $(shell find . -type f | grep "\.c")
 
+OBJ= $(SRC:.c=.o)
+
+OBJ_2 = $(addprefix obj/, $(OBJ))
+
+INCLUDE = $(shell find ../ -type f | grep "\.h")
+
 obj/%.o: %.c
-	mkdir -p obj/
 	gcc -o $@ -c $< $(CFLAGS)
 
 $(NAME): $(OBJ_2)
 	gcc -c -Wall -Werror -Wextra $(SRC) -I ../
 	ar rc $(NAME) $(OBJ)
+	mkdir -p obj/
 	mv $(OBJ) obj/
 	ranlib $(NAME)
 

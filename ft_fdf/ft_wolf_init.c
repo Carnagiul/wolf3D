@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/04 02:41:51 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/05 01:07:36 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,45 @@ t_texture	***texturepack(t_win *win)
 	return (texture);
 }
 
+char	*ft_get_extension(char *str)
+{
+	char	**tab;
+	int		i;
+	char	*ret;
+
+	i = 0;
+	tab = ft_strsplit(str, '.');
+	while (tab[i])
+		i++;
+	ret = ft_strdup(tab[i - 1]);
+	while (i > 0)
+		free(tab[--i]);
+	free(tab);
+	return (ret);
+}
+
+void	ft_wolf_init2(char **argv)
+{
+	int		i;
+	char	*ret;
+
+	i = 1;
+	while (argv[i])
+		i++;
+	if (i < 2)
+	{
+		ft_printf("Error: ./wolf3d <filename.wolf3d> [-username]\n");
+		exit(0);
+	}
+	ret = ft_get_extension(argv[1]);
+	if (ft_strcmp(ret, "wolf3d") != 0)
+	{
+		ft_printf("Error: ./wolf3d <filename.wolf3d> [-username]\n");
+		exit(0);
+	}
+	free(ret);
+}
+
 void	ft_wolf_init(char **argv)
 {
 	int		d[2];
@@ -180,6 +219,7 @@ void	ft_wolf_init(char **argv)
 
 	d[0] = 1280;
 	d[1] = 720;
+	ft_wolf_init2(argv);
 	coucou = (t_coucou *)malloc(sizeof(t_coucou));
 	coucou->win = ft_mlx_extended_gen_win(d[0], d[1], "wolf piquerue");
 	coucou->passage = 0;
@@ -200,6 +240,7 @@ void	ft_wolf_init(char **argv)
 	mlx_hook(coucou->win->win, 2, (1L << 0), hooker, coucou);
 	mlx_hook(coucou->win->win, 4, (1L << 2), mouse_click, coucou);
 	mlx_hook(coucou->win->win, 3, (1L << 1), hooker_release, coucou);
+	mlx_hook(coucou->win->win, 17, (1L << 17), red_cross, coucou);
 	mlx_loop_hook(coucou->win->mlx, hooker2, coucou);
 	mlx_loop(coucou->win->mlx);
 }

@@ -6,12 +6,19 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:12:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/04 02:43:05 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/04 16:56:49 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 #include "../ft_fdf_map.h"
+
+int		red_cross(t_coucou *coucou)
+{
+	(void)coucou;
+	exit(0);
+	return (0);
+}
 
 void	free_t_win(t_win *win)
 {

@@ -6,47 +6,41 @@
 #    By: piquerue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 14:20:07 by piquerue          #+#    #+#              #
-#    Updated: 2017/05/29 23:42:56 by piquerue         ###   ########.fr        #
+#    Updated: 2017/07/04 23:04:33 by piquerue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 
 SRC = ./main.c
-SRC2 = ./map_generator.c
 
 OBJ = ./main.o
-OBJ2 = ./map_generator.o
 
 OBJ_2 = ./obj/main.o
-OBJ_2 = ./obj/map_generator.o
 
 INCLUDE = $(shell find . -type f | grep "\.h")
 
-LIB = ft_delimiteur/libft_delimiteur.a
-LIB += ft_display/libft_display.a
-LIB += ft_gnl/libft_gnl.a
-LIB += ft_gnl/libft_gnl.a
-LIB += ft_list/t_point/libft_list_point.a
-LIB += ft_list/t_complex/libft_list_complex.a
-LIB += ft_math/libft_math.a
-LIB += ft_memory/libft_memory.a
-LIB += ft_printf/libft_printf.a
-LIB += ft_string/libft_string.a
-LIB += ft_utils/libft_utils.a
-LIB += ft_wstr/libft_wstr.a
-LIB += ft_fdf/libft_fdf.a
-LIB += ft_mlx/libft_mlx.a
-LIB += ft_files/libft_files.a
+LIB = ft_delimiteur/lib.a
+LIB += ft_display/lib.a
+LIB += ft_gnl/lib.a
+LIB += ft_gnl/lib.a
+LIB += ft_list/t_point/lib.a
+LIB += ft_list/t_complex/lib.a
+LIB += ft_math/lib.a
+LIB += ft_memory/lib.a
+LIB += ft_printf/lib.a
+LIB += ft_string/lib.a
+LIB += ft_utils/lib.a
+LIB += ft_wstr/lib.a
+LIB += ft_fdf/lib.a
+LIB += ft_mlx/lib.a
+LIB += ft_files/lib.a
 
 CFLAGS = -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlxS.a $(LIB)
 
-$(NAME):
-	make libmaker
-	make project_maker
+$(NAME): libmaker project_maker
 
 obj/%.o: %.c
-	mkdir -p obj/
 	gcc -o $@ -c $< $(CFLAGS)
 
 libmaker:
@@ -65,12 +59,10 @@ libmaker:
 	make -C ft_fdf
 
 project_maker:
+	mkdir -p obj/
 	gcc -c $(SRC) -Wall -Werror -Wextra
 	gcc -o $(NAME) $(OBJ) $(CFLAGS)
 	mv -f $(OBJ) obj/
-	gcc -c $(SRC2) -Wall -Werror -Wextra
-	gcc -o generator $(OBJ2) $(CFLAGS)
-	mv -f $(OBJ2) obj/
 
 all: $(NAME)
 
@@ -120,4 +112,11 @@ re: fclean all
 	make -C ft_files re
 	make -C ft_fdf re
 
+update:
+	git add -A
+	git commit -m "update"
+	git push
+
+testaaa:
+	$(LIBA)
 .PHONY : all clean fclean re

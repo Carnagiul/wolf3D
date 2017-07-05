@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/03 21:39:54 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/04 17:55:29 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void	ft_wolf_hooks_move_left(t_coucou *coucou);
 void	ft_wolf_hooks_move_right(t_coucou *coucou);
 void	ft_wolf_hooks_move_down(t_coucou *coucou);
 void	ft_wolf_hooks_move_up(t_coucou *coucou);
+int		red_cross(t_coucou *coucou);
 
 /*
 **
