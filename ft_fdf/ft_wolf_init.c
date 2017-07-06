@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/05 01:07:36 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/05 20:07:40 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,6 @@ void	ft_wolf_display_texture(t_point pts[2], t_ray ray, t_img *img,
 		img->img[++tab[4]] = texture->img[++tab[3]];
 		pts[0].x++;
 	}
-}
-
-void	ft_wolf_display_texture_stonebrick(int y, int min, int max, t_coucou *coucou, t_ray ray)
-{
-	t_point	pts[2];
-
-	pts[0] = ft_create_point(min, y);
-	pts[1] = ft_create_point(max, y);
-	ft_wolf_display_texture(pts, ray, coucou->img, coucou->texture2);
-}
-
-void	ft_wolf_display_texture_woodenplanks(int y, int min, int max, t_coucou *coucou, t_ray ray)
-{
-	t_point	pts[2];
-
-	pts[0] = ft_create_point(min, y);
-	pts[1] = ft_create_point(max, y);
-	ft_wolf_display_texture(pts, ray, coucou->img, coucou->texture3);
-	if (ray.sidedist.x <= 2 && ray.sidedist.y <= 2)
-		coucou->p.can_open = 1;
 }
 
 t_map	ft_gen_world(char *name)
@@ -171,23 +151,6 @@ t_texture	***texturepack(t_win *win)
 	free(files);
 	ft_printf("%d texture loaded in %d texturepack\n", count, i);
 	return (texture);
-}
-
-char	*ft_get_extension(char *str)
-{
-	char	**tab;
-	int		i;
-	char	*ret;
-
-	i = 0;
-	tab = ft_strsplit(str, '.');
-	while (tab[i])
-		i++;
-	ret = ft_strdup(tab[i - 1]);
-	while (i > 0)
-		free(tab[--i]);
-	free(tab);
-	return (ret);
 }
 
 void	ft_wolf_init2(char **argv)

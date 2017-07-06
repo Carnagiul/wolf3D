@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:15:45 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/04 17:55:42 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/05 19:45:18 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void			draw(t_ray ray, t_core *core, int x, int h)
 		color = (ray.raydir.y >= 0) ? create_color(0, 0, 0xFF) :
 			create_color(0xFF, 0, 0xFF);
 	if (core->coucou->map.world[ray.map.x][ray.map.y] == 1)
-		ft_wolf_display_texture_stonebrick(x, ray.start, ray.end,
-				core->coucou, ray);
+		ft_wolf_display_texture_stonebrick(x,
+				ft_create_point(ray.start, ray.end), core->coucou, ray);
 	else if (core->coucou->map.world[ray.map.x][ray.map.y] == 2)
-		ft_wolf_display_texture_woodenplanks(x, ray.start, ray.end,
-				core->coucou, ray);
+		ft_wolf_display_texture_woodenplanks(x,
+				ft_create_point(ray.start, ray.end), core->coucou, ray);
 	else
 		ft_mlx_draw_linept(ft_create_point(x, ray.start),
 				ft_create_point(x, ray.end), core->coucou->img, color);
@@ -114,45 +114,4 @@ void			calc2(t_coucou *coucou)
 	i = 0;
 	while (i < 4)
 		pthread_join(thread[i++], NULL);
-}
-
-void			calc_menu(t_coucou *coucou)
-{
-	int			h;
-	int			w;
-	int			i;
-	int			j;
-	t_point		pt[2];
-
-	w = coucou->win->width / (2 + coucou->map.width);
-	h = coucou->win->height / (2 + coucou->map.height);
-	i = 0;
-	while (i < coucou->map.height)
-	{
-		j = 0;
-		while (j < coucou->map.width)
-		{
-			pt[0].x = (j + 1) * w;
-			pt[1].x = (j + 2) * w;
-			pt[0].y = (i + 1) * h;
-			pt[1].y = (i + 2) * h;
-			if (coucou->map.world[i][j] == 0 && j == (int)coucou->pos.y &&
-					i == (int)coucou->pos.x)
-				ft_mlx_draw_linept(pt[0], pt[1], coucou->img,
-						create_color(0, 0, 255));
-			else if (coucou->map.world[i][j] == 0)
-				ft_mlx_draw_linept(pt[0], pt[1], coucou->img,
-						create_color(255, 255, 255));
-			else if (coucou->map.world[i][j] == 2)
-				ft_mlx_draw_linept(pt[0], pt[1], coucou->img,
-						create_color(0, 150, 0));
-			else
-				ft_mlx_draw_linept(pt[0], pt[1], coucou->img,
-						create_color(30, 30, 30));
-			j++;
-		}
-		i++;
-	}
-	/*
-	 * */
 }

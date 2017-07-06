@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/04 17:55:29 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/05 20:06:21 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,8 +204,8 @@ void	ft_open_menu_config(t_coucou *coucou);
 
 
 void	ft_wolf_display_texture_ground(int y, int min, int max, t_coucou *coucou);
-void	ft_wolf_display_texture_stonebrick(int y, int min, int max, t_coucou *coucou, t_ray ray);
-void	ft_wolf_display_texture_woodenplanks(int y, int min, int max, t_coucou *coucou, t_ray ray);
+void	ft_wolf_display_texture_stonebrick(int y, t_point pt, t_coucou *coucou, t_ray ray);
+void	ft_wolf_display_texture_woodenplanks(int y, t_point pt, t_coucou *coucou, t_ray ray);
 void	verLine(int y, int min, int max, t_color_mlx color, t_coucou *coucou);
 
 
@@ -217,4 +217,5 @@ void	ft_mlx_draw_linept(t_point pt1, t_point pt2, struct s_img *img, t_color_mlx
 
 t_point		ft_create_point(int x, int y);
 
+void	ft_wolf_display_texture(t_point pts[2], t_ray ray, struct s_img *img, struct s_img *texture);
 #endif

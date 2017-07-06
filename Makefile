@@ -6,7 +6,7 @@
 #    By: piquerue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 14:20:07 by piquerue          #+#    #+#              #
-#    Updated: 2017/07/04 23:04:33 by piquerue         ###   ########.fr        #
+#    Updated: 2017/07/05 19:49:07 by piquerue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ LIB += ft_files/lib.a
 
 CFLAGS = -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlxS.a $(LIB)
 
-$(NAME): libmaker project_maker
+$(NAME): libmaker
+	make project_maker
 
 obj/%.o: %.c
 	gcc -o $@ -c $< $(CFLAGS)
@@ -118,5 +119,9 @@ update:
 	git push
 
 testaaa:
-	$(LIBA)
+	say -v thomas $(cat Makefile) &
+	say -v thomas $(cat main.c) &
+	say -v thomas $(cat Makefile) &
+	say -v thomas $(cat Makefile) &
+	say -v thomas $(cat Makefile) &
 .PHONY : all clean fclean re
