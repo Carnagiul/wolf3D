@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 20:20:16 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/17 04:16:57 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/07 02:47:39 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ t_list				*ft_list_push_param(int argc, char **argv);
 void				ft_list_reverse(t_list **begin_list);
 int					ft_list_size(t_list *list);
 void				ft_list_sort(t_list **begin_list);
-
+t_point				ft_create_point(int x, int y);
 t_point				*ft_t_point_create(int x, int y);
 void				ft_t_point_free(t_point *pt);
-
 t_complex			ft_t_complex_init(double reel, double i);
+
 #endif

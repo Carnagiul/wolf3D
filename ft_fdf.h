@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/05 20:06:21 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/07 04:10:48 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,6 @@ typedef struct			s_fractol
 	int					id;
 }						t_fractol;
 
-typedef struct			s_fdf_map
-{
-	int					key;
-	wchar_t				*key_display;
-	void				(*f)(t_fractol *fractol);
-}						t_fdf_map;
-
 typedef struct			s_vector
 {
 	double				x;
@@ -64,44 +57,44 @@ typedef struct			s_texture
 	char				*name;
 }						t_texture;
 
-typedef struct s_map
+typedef struct			s_map
 {
-	char		*gnl;
-	char		*get;
-	int			fd;
-	char		**map;
-	char		**nb;
-	int			**world;
-	int			height;
-	int			width;
-}				t_map;
+	char				*gnl;
+	char				*get;
+	int					fd;
+	char				**map;
+	char				**nb;
+	int					**world;
+	int					height;
+	int					width;
+}						t_map;
 
-typedef struct 	s_player
+typedef struct			s_player
 {
-	int 		move_up;
-	int 		move_down;
-	int 		move_left;
-	int 		move_right;
-	int 		life;
-	double 		move_speed;
-	double		rotate_speed;
-	int 		in_menu_map;
-	int 		in_menu_map_close;
-	int			in_config;
-	int			in_chat;
-	int 		can_open;
-	char		*message;
-}				t_player;
+	int					move_up;
+	int					move_down;
+	int					move_left;
+	int					move_right;
+	int					life;
+	double				move_speed;
+	double				rotate_speed;
+	int					in_menu_map;
+	int					in_menu_map_close;
+	int					in_config;
+	int					in_chat;
+	int					can_open;
+	char				*message;
+}						t_player;
 
-typedef struct s_coucou
+typedef struct			s_coucou
 {
-	struct s_win *win;
-	struct s_vector pos;
-	struct s_vector dir;
-	struct s_vector plan;
+	struct s_win		*win;
+	struct s_vector		pos;
+	struct s_vector		dir;
+	struct s_vector		plan;
 	struct s_texture	***texture;
 	int					texturepack;
-	int		passage;
+	int					passage;
 	struct s_img		*img;
 	struct s_img		*settings;
 	struct s_img		*xmap;
@@ -111,7 +104,7 @@ typedef struct s_coucou
 	struct s_map		map;
 	struct s_player		p;
 	int					d;
-}				t_coucou;
+}						t_coucou;
 
 typedef struct			s_core
 {
@@ -120,102 +113,82 @@ typedef struct			s_core
 	int					max;
 }						t_core;
 
-typedef struct	s_ray
+typedef struct			s_ray
 {
-	struct s_vector	pos;
-	struct s_vector	dir;
-	struct s_vector	plan;
-	struct s_vector	raypos;
-	struct s_vector	raydir;
-	struct s_vector	sidedist;
-	struct s_vector	deltadist;
-	struct s_point	map;
-	struct s_point	step;
-	double 			camera;
-	int				lineheight;
-	double			perpWallDist;
-	int				h;
-	int				start;
-	int				end;
-	int				hit;
-	int				side;
-}				t_ray;
+	struct s_vector		pos;
+	struct s_vector		dir;
+	struct s_vector		plan;
+	struct s_vector		raypos;
+	struct s_vector		raydir;
+	struct s_vector		sidedist;
+	struct s_vector		deltadist;
+	struct s_point		map;
+	struct s_point		step;
+	double				camera;
+	int					lineheight;
+	double				perpwalldist;
+	int					h;
+	int					start;
+	int					end;
+	int					hit;
+	int					side;
+}						t_ray;
 
-typedef struct		s_mlx_line
+typedef struct			s_mlx_line
 {
 	struct s_point		min;
 	struct s_point		max;
 	struct s_color_mlx	color;
-}					t_mlx_line;
+}						t_mlx_line;
 
-void	ft_wolf_init(char **argv);
+void					ft_wolf_init(char **argv);
+void					ft_wolf_hooks_move_left(t_coucou *coucou);
+void					ft_wolf_hooks_move_right(t_coucou *coucou);
+void					ft_wolf_hooks_move_down(t_coucou *coucou);
+void					ft_wolf_hooks_move_up(t_coucou *coucou);
+int						red_cross(t_coucou *coucou);
+void					ft_wolf_hooks_exit(t_coucou *coucou);
+int						hooker2(t_coucou *coucou);
+int						hooker(int k, t_coucou *coucou);
+int						hooker_release(int k, t_coucou *coucou);
+int						mouse_click(int keycode, int x, int y,
+		t_coucou *coucou);
+void					update_texture(t_coucou *coucou);
+int						red_cross(struct s_coucou *coucou);
+int						player_is_in_menu(t_coucou *coucou);
+void					calc(t_core *core);
+void					calc2(t_coucou *coucou);
+void					calc_menu(t_coucou *coucou);
+void					ft_menu_chat(t_coucou *coucou);
+void					update_texture(t_coucou *coucou);
+t_ray					set_ray_side(t_ray ray);
+t_ray					init_ray(t_coucou *coucou, int x);
+t_vector				create_vector(double x, double y);
+t_vector				create_vector3d(double x, double y, double z);
+double					ft_dpower(double n, size_t power);
+void					ft_open_menu_config(t_coucou *coucou);
+void					ft_wolf_display_texture_ground(int y, int min, int max,
+		t_coucou *coucou);
+void					ft_wolf_display_texture_stonebrick(int y, t_point pt,
+		t_coucou *coucou, t_ray ray);
+void					ft_wolf_display_texture_woodenplanks(int y, t_point pt,
+		t_coucou *coucou, t_ray ray);
+void					verline(int y, int min, int max, t_color_mlx color,
+		t_coucou *coucou);
+unsigned int			get_fps(void);
+void					ft_mlx_put_pixel_img(int x, int y, t_color_mlx color,
+		struct s_img *img);
+void					ft_mlx_draw_linept(t_point pt1, t_point pt2,
+		struct s_img *img, t_color_mlx color);
+t_point					ft_create_point(int x, int y);
+void					ft_wolf_display_texture(t_point pts[2], t_ray ray,
+		struct s_img *img, struct s_img *texture);
+t_texture				***texturepack(struct s_win *win);
+t_map					ft_gen_world(char *name);
+void					ft_wolf_destroy_block(t_coucou *coucou, int id,
+		int dist);
+void					ft_wolf_tp(t_coucou *coucou, int x, int y);
+void					ft_cheat_tp(t_coucou *coucou);
+void					ft_cheat_destroy(t_coucou *coucou);
 
-
-/*
-**
-**
-**
-*/
-void	ft_wolf_hooks_move_left(t_coucou *coucou);
-void	ft_wolf_hooks_move_right(t_coucou *coucou);
-void	ft_wolf_hooks_move_down(t_coucou *coucou);
-void	ft_wolf_hooks_move_up(t_coucou *coucou);
-int		red_cross(t_coucou *coucou);
-
-/*
-**
-** FT_WOLF_HOOKS.c
-**
-*/
-
-int		hooker2(t_coucou *coucou);
-int		hooker(int k, t_coucou *coucou);
-int		hooker_release(int k, t_coucou *coucou);
-int		mouse_click(int keycode, int x, int y, t_coucou *coucou);
-void	update_texture(t_coucou *coucou);
-
-/*
-**
-** FT_WOLF_CALC.c
-**
-*/
-void	calc(t_core *core);
-void	calc2(t_coucou *coucou);
-void	calc_menu(t_coucou *coucou);
-void	ft_menu_chat(t_coucou *coucou);
-
-/*
-**
-** FT_WOLF_RAY.c
-**
-*/
-
-t_ray	set_ray_side(t_ray ray);
-t_ray	init_ray(t_coucou *coucou, int x);
-
-
-t_vector		create_vector(double x, double y);
-t_vector		create_vector3d(double x, double y, double z);
-
-double			ft_dpower(double n, size_t power);
-
-
-void	ft_open_menu_config(t_coucou *coucou);
-
-
-void	ft_wolf_display_texture_ground(int y, int min, int max, t_coucou *coucou);
-void	ft_wolf_display_texture_stonebrick(int y, t_point pt, t_coucou *coucou, t_ray ray);
-void	ft_wolf_display_texture_woodenplanks(int y, t_point pt, t_coucou *coucou, t_ray ray);
-void	verLine(int y, int min, int max, t_color_mlx color, t_coucou *coucou);
-
-
-
-unsigned int    get_fps(void);
-
-void	ft_mlx_put_pixel_img(int x, int y, t_color_mlx color, struct s_img *img);
-void	ft_mlx_draw_linept(t_point pt1, t_point pt2, struct s_img *img, t_color_mlx color);
-
-t_point		ft_create_point(int x, int y);
-
-void	ft_wolf_display_texture(t_point pts[2], t_ray ray, struct s_img *img, struct s_img *texture);
 #endif

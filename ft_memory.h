@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 20:14:08 by piquerue          #+#    #+#             */
-/*   Updated: 2016/12/18 20:16:35 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/06 18:29:58 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ char				*ft_memchr(void const *src, int c, size_t len);
 void				*ft_memccpy(void *dest, void const *src, int c, size_t n);
 void				*ft_memalloc(size_t size);
 void				ft_bzero(void *ptr, size_t size);
+void				ft_strdel_array(char **array);
 
 #endif

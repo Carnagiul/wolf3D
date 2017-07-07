@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_create_point.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/30 23:54:44 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/07 02:31:16 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/03 21:40:09 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/07 02:47:06 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../libft.h"
 
-int	main(int argc, char **argv)
+t_point		ft_create_point(int x, int y)
 {
-	ft_wolf_init(argv);
-	(void)argc;
-	return (0);
+	t_point	pt;
+
+	pt.x = x;
+	pt.y = y;
+	return (pt);
 }

@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdel_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/30 23:54:44 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/07 02:31:16 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/06 18:28:44 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/06 18:33:58 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+void	ft_strdel_array(char **array)
 {
-	ft_wolf_init(argv);
-	(void)argc;
-	return (0);
+	int	i;
+
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
 }

@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_mlx_free_img.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/30 23:54:44 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/07 02:31:16 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/06 18:58:24 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/06 19:01:34 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+void	free_t_img(t_img *img, t_win *win)
 {
-	ft_wolf_init(argv);
-	(void)argc;
-	return (0);
+	mlx_destroy_image(win->mlx, img->img_ptr);
+	free(img);
 }

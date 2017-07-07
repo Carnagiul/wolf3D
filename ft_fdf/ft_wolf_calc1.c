@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:15:45 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/05 19:45:18 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/07 02:52:10 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_ray			calc_two(t_ray ray, t_coucou *coucou)
 {
-	ray.lineheight = (int)(coucou->win->height / ray.perpWallDist);
+	ray.lineheight = (int)(coucou->win->height / ray.perpwalldist);
 	ray.start = -ray.lineheight / 2 + coucou->win->height / 2;
 	ray.end = ray.lineheight / 2 + coucou->win->height / 2;
 	if (ray.start < 0)
@@ -43,10 +43,10 @@ t_ray			calc_hit(t_ray ray, t_coucou *coucou)
 		ray.hit = (coucou->map.world[ray.map.x][ray.map.y] > 0) ? 1 : 0;
 	}
 	if (ray.side == 0)
-		ray.perpWallDist = (ray.map.x - ray.raypos.x + (1 - ray.step.x) / 2)
+		ray.perpwalldist = (ray.map.x - ray.raypos.x + (1 - ray.step.x) / 2)
 			/ ray.raydir.x;
 	else
-		ray.perpWallDist = (ray.map.y - ray.raypos.y + (1 - ray.step.y) / 2)
+		ray.perpwalldist = (ray.map.y - ray.raypos.y + (1 - ray.step.y) / 2)
 			/ ray.raydir.y;
 	return (calc_two(ray, coucou));
 }

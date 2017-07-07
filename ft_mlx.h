@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 01:32:28 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/30 05:19:32 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/07 02:34:57 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ typedef struct	s_img
 	int			endian;
 	int			size_line;
 	void		*img_ptr;
-	int 		width;
-	int 		height;
+	int			width;
+	int			height;
 }				t_img;
 
 typedef struct	s_win
@@ -54,6 +54,10 @@ t_color_mlx		create_color(int red, int green, int blue);
 void			ft_sphere(t_fractol *fractol, t_point pt, int r);
 t_color_mlx		create_color(int red, int green, int blue);
 
-void	ft_pixel_put(t_fractol *fractol, t_point pt);
-void	ft_pixel_put3(t_fractol *fractol, t_point pt, t_color_mlx color);
+void			ft_pixel_put(t_fractol *fractol, t_point pt);
+void			ft_pixel_put3(t_fractol *fractol, t_point pt,
+		t_color_mlx color);
+
+void			free_t_img(t_img *img, t_win *win);
+void			free_t_win(t_win *win);
 #endif

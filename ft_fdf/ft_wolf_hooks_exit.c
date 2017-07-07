@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_point.c                                  :+:      :+:    :+:   */
+/*   ft_wolf_hooks_exit.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/03 21:40:09 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/03 21:40:52 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/06 18:55:28 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/06 18:56:05 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-t_point		ft_create_point(int x, int y)
+void	ft_wolf_hooks_exit(t_coucou *coucou)
 {
-	t_point	pt;
-
-	pt.x = x;
-	pt.y = y;
-	return (pt);
+	(void)coucou;
+	exit(0);
 }

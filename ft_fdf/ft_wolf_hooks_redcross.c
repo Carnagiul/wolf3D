@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_wolf_hooks_redcross.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/30 23:54:44 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/07 02:31:16 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/06 18:56:20 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/06 18:57:04 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+int		red_cross(t_coucou *coucou)
 {
-	ft_wolf_init(argv);
-	(void)argc;
+	ft_wolf_hooks_exit(coucou);
 	return (0);
 }
