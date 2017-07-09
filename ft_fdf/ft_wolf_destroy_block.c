@@ -6,11 +6,54 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 03:58:40 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/07 04:14:06 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/08 00:54:41 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+
+int		check_arround(t_coucou *coucou, int i, int col)
+{
+	char	**split;
+	int		k;
+	int		cp;
+
+	i = (i < 0) ? 0 : i;
+	split = ft_strsplit(coucou->map.map[i], ' ');
+	k = 0;
+	cp = 0;
+	while (split[k])
+		k++;
+	k--;
+	cp = (k > col) ? 0 : 1;
+	while (k >= 0)
+		free(split[k--]);
+	free(split);
+	if (cp == 1 || col <= 0)
+		return (1);
+	return (0);
+}
+
+int		block_exist(t_coucou *coucou, int i, int col)
+{
+	char	**split;
+	int		k;
+	int		cp;
+
+	split = ft_strsplit(coucou->map.map[i], ' ');
+	k = 0;
+	cp = 0;
+	while (split[k])
+		k++;
+	k--;
+	cp = (k > col) ? 0 : 1;
+	while (k >= 0)
+		free(split[k--]);
+	free(split);
+	if (cp == 1 || col <= 0 || check_arround(coucou, i - 1, col))
+		return (1);
+	return (0);
+}
 
 void	ft_wolf_destroy_block(t_coucou *coucou, int id, int dist)
 {
@@ -29,8 +72,11 @@ void	ft_wolf_destroy_block(t_coucou *coucou, int id, int dist)
 		{
 			if (y >= coucou->map.width - 1)
 				break ;
-			if (coucou->map.world[x][y] == id || id == 0)
-				coucou->map.world[x][y] = 0;
+			if (block_exist(coucou, x, y) == 0)
+			{
+				if (coucou->map.world[x][y] == id || id == 0)
+					coucou->map.world[x][y] = 0;
+			}
 			y++;
 		}
 		x++;

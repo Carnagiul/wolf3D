@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 18:11:59 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/06 18:38:41 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/08 20:32:33 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,58 @@ void		ft_free_map_nb(t_map *map)
 	while (map->nb[j])
 		free(map->nb[j++]);
 	free(map->nb);
+}
+
+int			check_if_valid_map(t_map *map)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (map->map[i])
+	{
+		j = 0;
+		map->nb = ft_strsplit(map->map[i], ' ');
+		if (map->world[i][0] != 1 || map->world[i][map->width - 1] != 1)
+			return (1);
+		if (i == 0 || (i + 1) == map->height)
+		{
+			while (map->world[i][j])
+				if (map->world[i][j++] != 1)
+					return (1);
+		}
+		ft_free_map_nb(map);
+		i++;
+	}
+	return (0);
+}
+
+int			verify_map(t_map *map)
+{
+	int		width;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	if (map->height < 3)
+		exit(ft_printf("Error: Bad map file... vf_map\n"));
+	map->nb = ft_strsplit(map->map[i++], ' ');
+	while (map->nb[j])
+		j++;
+	width = j;
+	ft_free_map_nb(map);
+	while (i < map->height)
+	{
+		j = 0;
+		map->nb = ft_strsplit(map->map[i++], ' ');
+		while (map->nb[j])
+			j++;
+		ft_free_map_nb(map);
+		if (j != width)
+			return (1);
+	}
+	return (check_if_valid_map(map));
 }
 
 t_map		ft_gen_world(char *name)

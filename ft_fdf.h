@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/07 04:10:48 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/09 08:57:12 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,40 @@ typedef struct			s_coucou
 	struct s_map		map;
 	struct s_player		p;
 	int					d;
+	int					noclip;
 }						t_coucou;
+
+typedef struct			s_sound
+{
+	int					len;
+	char				*sound;
+}						t_sound;
+
+typedef struct			s_item
+{
+	int					id;
+	int					type_id;
+	int					amout_ammo;
+	int					max_ammo;
+	char				*name;
+	char				*texture_name;
+	struct s_texture	*texture;
+	int					size_actual;
+	int					max_stack_size;
+	struct s_sound		*get_sound;
+	struct s_sound		*drop_sound;
+	struct s_sound		*use_sound;
+}						t_item;
+
+typedef struct			s_inventory
+{
+	struct s_item		*slot1;
+	struct s_item		*slot2;
+	struct s_item		*slot3;
+	struct s_item		*slot4;
+	struct s_item		*slot5;
+	int					actual_solt;
+}						t_inventory;
 
 typedef struct			s_core
 {
@@ -190,5 +223,6 @@ void					ft_wolf_destroy_block(t_coucou *coucou, int id,
 void					ft_wolf_tp(t_coucou *coucou, int x, int y);
 void					ft_cheat_tp(t_coucou *coucou);
 void					ft_cheat_destroy(t_coucou *coucou);
+int						verify_map(t_map *map);
 
 #endif

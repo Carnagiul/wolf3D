@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/06 18:43:42 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/08 01:23:19 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void			ft_wolf_init(char **argv)
 	ft_wolf_init2(argv);
 	coucou = (t_coucou *)malloc(sizeof(t_coucou));
 	coucou->map = ft_gen_world(argv[1]);
+	if (verify_map(&(coucou->map)) == 1)
+		exit(ft_printf("Error: bad file\n"));
 	coucou->win = ft_mlx_extended_gen_win(d[0], d[1], "wolf piquerue");
 	ft_wolf_init3(coucou);
 	coucou->d = d[0];

@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 19:52:09 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/07 03:59:13 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/07 22:51:10 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		hooker(int k, t_coucou *coucou)
 			if (coucou->texturepack + 1 < ft_files_count_dir_wa("./textures/"))
 				coucou->texturepack++;
 		}
+		update_texture(coucou);
 	}
 	coucou->p.can_open = 0;
 	hooker2(coucou);
