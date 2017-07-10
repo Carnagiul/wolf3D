@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 01:29:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/06 20:30:44 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/10 02:06:08 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_img		*ft_mlx_extended_gen_img(t_win *win)
 
 	img = (t_img *)malloc(sizeof(t_img));
 	if (!img)
-		ft_mlx_error("Erreur lors de l'initialisation d'une image", win);
+		ft_mlx_error("Erreur lors de l'initialisation d'une image img", win);
 	img->img_ptr = mlx_new_image(win->mlx, win->width, win->height);
 	if (!img->img_ptr)
 	{

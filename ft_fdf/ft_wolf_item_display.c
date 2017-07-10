@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gnl.h                                           :+:      :+:    :+:   */
+/*   ft_wolf_item_display.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/19 00:05:01 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/10 02:19:47 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/10 04:47:03 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/10 05:23:02 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GNL_H
-# define FT_GNL_H
+#include "../libft.h"
 
-# define BUFF_SIZE	32
-# define MAX_FD		1000
-
-typedef struct		s_gnl
+void		print_list_item(t_item **item_list, int count)
 {
-	int				fd;
-	char			*new;
-	size_t			size;
-	unsigned int	passage;
-}					t_gnl;
+	int		i;
 
-int					get_next_line(int fd, char **line);
-char				*ft_get_content_file(char *file);
-#endif
+	i = 0;
+	while (i < count)
+	{
+		ft_printf("\n\n@Rnew item found@@\n\n");
+		ft_printf("item_id [@G%d@@]\n", item_list[i]->id);
+		if (item_list[i]->type_id == 1)
+			ft_printf("item_type @Gblocks@@\n")
+		if (item_list[i]->type_id == 1)
+			ft_printf("item_type @Gblocks@@\n")
+	}
+}

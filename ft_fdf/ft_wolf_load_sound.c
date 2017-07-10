@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gnl.h                                           :+:      :+:    :+:   */
+/*   ft_wolf_load_sound.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/19 00:05:01 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/10 02:19:47 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/10 04:20:41 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/10 04:23:44 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GNL_H
-# define FT_GNL_H
+#include "../libft.h"
 
-# define BUFF_SIZE	32
-# define MAX_FD		1000
-
-typedef struct		s_gnl
+t_sound		*ft_wolf_load_sound(char *sound_name, char *len)
 {
-	int				fd;
-	char			*new;
-	size_t			size;
-	unsigned int	passage;
-}					t_gnl;
+	t_sound	*sound;
 
-int					get_next_line(int fd, char **line);
-char				*ft_get_content_file(char *file);
-#endif
+	sound = (t_sound *)malloc(sizeof(t_sound));
+	if (!sound)
+	{
+		ft_printf("Error: can't load the sound %s\n", sound_name);
+		exit(0);
+	}
+	sound->len = ft_atoi(len);
+	sound->sound = sound_name;
+	return (sound);
+}

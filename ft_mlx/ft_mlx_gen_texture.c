@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gnl.h                                           :+:      :+:    :+:   */
+/*   ft_mlx_gen_texture.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/19 00:05:01 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/10 02:19:47 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/10 00:40:06 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/10 01:29:23 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GNL_H
-# define FT_GNL_H
+#include "../libft.h"
 
-# define BUFF_SIZE	32
-# define MAX_FD		1000
-
-typedef struct		s_gnl
+t_texture		*ft_mlx_load_texture(char *file, t_win *win)
 {
-	int				fd;
-	char			*new;
-	size_t			size;
-	unsigned int	passage;
-}					t_gnl;
+	t_texture	*texture;
 
-int					get_next_line(int fd, char **line);
-char				*ft_get_content_file(char *file);
-#endif
+	texture = (t_texture *)malloc(sizeof(t_texture));
+	if (!texture)
+	{
+		ft_printf("Error: malloc can't create this texture...\n");
+		exit(0);
+	}
+	texture->name = file;
+	texture->img = ft_mlx_extended_gen_imgxpm(win, file);
+	return (texture);
+}

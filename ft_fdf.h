@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/09 08:57:12 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/10 04:30:52 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct			s_coucou
 	struct s_player		p;
 	int					d;
 	int					noclip;
+	struct s_item		**list_items;
 }						t_coucou;
 
 typedef struct			s_sound
@@ -117,7 +118,7 @@ typedef struct			s_item
 {
 	int					id;
 	int					type_id;
-	int					amout_ammo;
+	int					amount_ammo;
 	int					max_ammo;
 	char				*name;
 	char				*texture_name;
@@ -224,5 +225,9 @@ void					ft_wolf_tp(t_coucou *coucou, int x, int y);
 void					ft_cheat_tp(t_coucou *coucou);
 void					ft_cheat_destroy(t_coucou *coucou);
 int						verify_map(t_map *map);
+t_item					*get_item_id(int id, char *data_line, struct s_win *win);
+t_sound					*ft_wolf_load_sound(char *sound_name, char *len);
+int						count_item_list(char **list);
+int						is_valid_item(char **split);
 
 #endif

@@ -6,137 +6,84 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:54:44 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/09 05:31:18 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/10 05:23:05 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_get_content_file(char *file)
+void		load_itemlist(char **split, t_item **items, t_win *win)
 {
-	int		fd;
-	char	*content;
-	char	*gnl;
+	int		i;
+	int		k;
 
-	fd = open(file, O_RDONLY);
-	if (fd >= 1)
-	{
-		content = ft_strnew(1);
-		while (get_next_line(fd, &gnl))
-		{
-			content = ft_free_join1(content, gnl);
-			content = ft_free_join1(content, "\n");
-			ft_strdel(&gnl);
-		}
-		close(fd);
-		return (content);
-	}
-	else
-		ft_printf("Error: can't open this file... \n");
-	return (NULL);
-}
-
-void	count_item_list(char **split)
-{
-	int	i;
-	int	k;
-
-	k = 0;
 	i = 0;
+	k = 0;
 	while (split[i])
 	{
-		if (split[i][0] == '#')
+		if (split[i][0] != '#')
+		{
+			items[k] = get_item_id(k, split[i], win);
 			k++;
+		}
 		i++;
 	}
-	return (i - k);
 }
 
-int			is_valid_item(char **split)
+void		print_list_items(t_item **item_list, int count)
 {
 	int		i;
 
 	i = 0;
-	while (split[i])
+	while (i < count)
+	{
+		ft_printf("\n\n@RNew item found@@ :\n");
+		ft_printf("\t@Pitem_id @@(@G%d@@)\n", item_list[i]->id);
+		ft_printf("\t@Witem_type_id @@(@G%d@@)\n", item_list[i]->type_id);
+		ft_printf("\t@Citem_amount_ammo @@(@G%d@@)\n", item_list[i]->amount_ammo);
+		ft_printf("\t@Yitem_max_ammo @@(@G%d@@)\n", item_list[i]->max_ammo);
+		ft_printf("\t@Bitem_name @@(@G%s@@)\n", item_list[i]->name);
 		i++;
-	if (i == 14)
-		return (0);
-	return (1);
-}
-
-t_sound		*get_sound(char *sound_name, char *len)
-{
-	t_sound	*sound;
-
-	sound = (t_sound *)malloc(sizeof(t_sound));
-	if (!sound)
-	{
-		ft_printf("Error: can't create sound.\n");
-		exit(0);
 	}
-	sound->len = ft_atoi(len);
-	sound->sound = ft_strdup(sound_name);
-	return (sound);
 }
 
-t_item		*get_item_id(int id, char *data_line)
-{
-	t_item	*item;
-	char	**split;
-
-	item = (t_item *)malloc(sizeof(t_item));
-	split = ft_strsplit(data_line, '\t');
-	if (is_valid_item(split) != 0 || !item)
-	{
-		ft_printf("Error: Can't create item id %d\n", id);
-		exit(0);
-	}
-	item->id = ft_atoi(split[0]);
-	item->type_id = ft_atoi(split[1]);
-	item->amount_ammo = ft_atoi(split[2]);
-	item->max_ammo = ft_atoi(split[3]);
-	item->name = ft_strdup(split[4]);
-	item->texture_name = ft_strdup(split[5]);
-	//item->texture = load_texture(split[6]);
-	item->size_actual = ft_atoi(split[7]);
-	item->size_max = ft_atoi(split[8]);
-	item->get_sound = get_sound(split[10], split[9]);
-	item->drop_sound = get_sound(split[12], split[11]);
-	item->user_sound = get_sound(split[14], split[13]);
-	return (item);
-}
-
-void	get_list_item(void)
+t_item	**get_list_item(t_win *win)
 {
 	char		*item_content;
 	char		**split;
 	int			i;
 	t_item		**item_list;
-	int			k;
+	int			count;
 
-	item_content - ft_get_content_file("./ressources/item_list.wolf3d");
+	item_content = ft_get_content_file("./ressources/item_list.wolf3d");
 	split = ft_strsplit(item_content, '\n');
-	item_list = (t_item **)malloc(sizeof(t_item *) * count_item_list(split));
+	ft_printf("\n\n@Rnb items@@ == %d\n\n", count_item_list(split));
+	count = count_item_list(split);
+	item_list = (t_item **)malloc(sizeof(t_item *) * count);
 	if (!item_list)
 	{
 		ft_printf("Error: can't create list_item...\n");
 		exit(0);
 	}
-	while (split[i])
-	{
-		if (split[i][0] != '#')
-		{
-			item_list[k] = get_item_id(k, split[i]);
-			k++;
-		}
-		i++;
-	}
+	i = 0;
+	load_itemlist(split, item_list, win);
+	ft_strdel_array(split);
+	print_list_items(item_list, count);
+	free(item_content);
+	return (item_list);
 }
 
 int	main(int argc, char **argv)
 {
+	t_item	**item;
+	t_win	*win;
+
+	win = ft_mlx_extended_gen_win(1280, 720, "wolf piquerue");
+	if (win->win && win->mlx)
+		item = get_list_item(win);
 //	ft_wolf_init(argv);
 	(void)argc;
 	(void)argv;
+	while (1) ;
 	return (0);
 }
