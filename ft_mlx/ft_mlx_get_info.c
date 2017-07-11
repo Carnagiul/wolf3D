@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 04:44:37 by piquerue          #+#    #+#             */
-/*   Updated: 2017/05/18 00:57:17 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/11 04:40:00 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int			*ft_mlx_get_size(char *argv, int *d)
 		}
 		i++;
 	}
+	ft_strdel_array(split);
 	return (d);
 }
 
@@ -43,6 +44,8 @@ int			*ft_mlx_extended_parser(int argc, char **argv)
 
 	i = 2;
 	d = (int *)malloc(sizeof(int) * 2);
+	if (!d)
+		exit(ft_printf("Error: ft_mlx_extended_parser\n"));
 	d[0] = 1280;
 	d[1] = 720;
 	if (argc <= 2)
@@ -55,5 +58,7 @@ int			*ft_mlx_extended_parser(int argc, char **argv)
 			d = ft_mlx_get_size(argv[i + 1], d);
 		i += 2;
 	}
+	d[0] = (d[0] < 1280) ? 1280 : d[0];
+	d[1] = (d[1] < 720) ? 720 : d[1];
 	return (d);
 }

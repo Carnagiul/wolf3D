@@ -8,7 +8,7 @@
 #8				2				0				10				pmm					./ressources/pmm.xpm								0				1				null			0					null				0						null				0
 #9				2				0				10				gsh-18				./ressources/gsh18.xpm								0				1				null			0					null				0						null				0
 #10				2				0				10				p9					./ressources/p9.xpm									0				1				null			0					null				0						null				0
-11				2				0				10				lfp586				./ressources/petit_revolver_rework.xpm				0				1				null			0					null				0						null				0
+11				2				0				10				lfp586				./ressources/petit_revolver_rework.xpm				0				1				test			0					test				0						test				0
 #12				3				0				51				p90					./ressources/p90.xpm								0				1				null			0					null				0						null				0
 #13				3				0				31				mp5					./ressources/mp5.xpm								0				1				null			0					null				0						null				0
 #14				4				0				9				sg-cqb				./ressources/g-cqb.xpm								0				1				null			0					null				0						null				0

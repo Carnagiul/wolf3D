@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/10 00:50:15 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/11 05:14:50 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void			ft_wolf_init3(t_coucou *coucou)
 	coucou->p = ft_gen_player();
 	coucou->texture = texturepack(coucou->win);
 	coucou->texturepack = 0;
+	coucou->list_items = get_list_item(coucou->win);
 	update_texture(coucou);
 	coucou->settings = ft_mlx_extended_gen_imgxpm(coucou->win,
 			"./texture_win/settings.xpm");
@@ -71,21 +72,23 @@ void			ft_wolf_init3(t_coucou *coucou)
 			"./texture_win/chat.xpm");
 }
 
-void			ft_wolf_init(char **argv)
+void			ft_wolf_init(int argc, char **argv)
 {
-	int			d[2];
+	int			*d;
 	t_coucou	*coucou;
 
-	d[0] = 1280;
-	d[1] = 720;
 	ft_wolf_init2(argv);
 	coucou = (t_coucou *)malloc(sizeof(t_coucou));
+	if (!coucou)
+		exit(ft_printf("Error: can't create coucou...\n"));
+	d = ft_mlx_extended_parser(argc, argv);
 	coucou->map = ft_gen_world(argv[1]);
 	if (verify_map(&(coucou->map)) == 1)
 		exit(ft_printf("Error: bad file\n"));
 	coucou->win = ft_mlx_extended_gen_win(d[0], d[1], "wolf piquerue");
 	ft_wolf_init3(coucou);
 	coucou->d = d[0];
+	free(d);
 	ft_printf("c\nc\n");
 	mlx_hook(coucou->win->win, 2, (1L << 0), hooker, coucou);
 	mlx_hook(coucou->win->win, 4, (1L << 2), mouse_click, coucou);

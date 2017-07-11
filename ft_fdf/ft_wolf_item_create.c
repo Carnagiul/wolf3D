@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 02:20:24 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/10 04:26:38 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/11 07:26:54 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void		get_item_id2(char **split, t_win *win, t_item *item)
 	item->type_id = ft_atoi(split[1]);
 	item->amount_ammo = ft_atoi(split[2]);
 	item->max_ammo = ft_atoi(split[3]);
-	item->name = split[4];
-	item->texture_name = split[5];
+	item->name = ft_strdup(split[4]);
+	item->texture_name = ft_strdup(split[5]);
 	item->texture = ft_mlx_load_texture(split[5], win);
 	item->size_actual = ft_atoi(split[6]);
 	item->max_stack_size = ft_atoi(split[7]);

@@ -6,13 +6,13 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 04:20:41 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/10 04:23:44 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/11 07:26:44 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-t_sound		*ft_wolf_load_sound(char *sound_name, char *len)
+t_sound		*ft_wolf_load_sound(char *len, char *sound_name)
 {
 	t_sound	*sound;
 
@@ -23,6 +23,6 @@ t_sound		*ft_wolf_load_sound(char *sound_name, char *len)
 		exit(0);
 	}
 	sound->len = ft_atoi(len);
-	sound->sound = sound_name;
+	sound->sound = ft_strdup(sound_name);
 	return (sound);
 }

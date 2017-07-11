@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 19:30:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/07 04:11:40 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/11 04:30:44 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int		hooker_release(int k, t_coucou *coucou)
 				ft_cheat_destroy(coucou);
 			if (ft_strncmp(coucou->p.message, "/tp", 3) == 0)
 				ft_cheat_tp(coucou);
+			if (ft_strncmp(coucou->p.message, "/give", 5) == 0)
+				ft_cheat_give(coucou);
 			else
 				ft_printf("\033[1A\033[K%s say: @R%s@@\n\n", "George",
 					coucou->p.message);
