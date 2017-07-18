@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 03:19:37 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 08:48:11 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct			s_coucou
 	struct s_item		**list_items;
 	struct s_inventory	*inventory;
 	int					menu_start;
+	t_playlist			*playlist;
 }						t_coucou;
 
 typedef struct			s_item
@@ -242,5 +243,6 @@ void					print_item(t_item *item);
 t_inventory				*ft_wolf_inventory_init(void);
 void					ft_wolf_clear_inventory(t_inventory *inv,
 		struct s_win *win);
+void					ft_cheat_music(t_coucou *coucou);
 
 #endif

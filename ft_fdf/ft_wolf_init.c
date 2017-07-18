@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/17 07:57:31 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 08:02:34 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void			ft_wolf_init(int argc, char **argv)
 	ft_wolf_init3(coucou);
 	coucou->d = d[0];
 	free(d);
+	coucou->playlist = NULL;
+	coucou->playlist = ft_playlist_load();
 	ft_printf("c\nc\n");
 	mlx_hook(coucou->win->win, 2, (1L << 0), hooker, coucou);
 	mlx_hook(coucou->win->win, 4, (1L << 2), mouse_click, coucou);

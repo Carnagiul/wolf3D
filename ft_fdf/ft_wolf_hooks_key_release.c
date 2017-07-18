@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 19:30:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 04:30:44 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 08:51:26 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,24 @@ int		check_if_char_is_auth(int k, t_coucou *coucou)
 	return (0);
 }
 
+void	hooker_cmp(t_coucou *coucou)
+{
+	if (ft_strncmp(coucou->p.message, "/destroy", 8) == 0)
+		ft_cheat_destroy(coucou);
+	if (ft_strncmp(coucou->p.message, "/tp", 3) == 0)
+		ft_cheat_tp(coucou);
+	if (ft_strncmp(coucou->p.message, "/give", 5) == 0)
+		ft_cheat_give(coucou);
+	if (ft_strncmp(coucou->p.message, "/music", 6) == 0)
+		ft_cheat_music(coucou);
+	else
+		ft_printf("\033[1A\033[K%s say: @R%s@@\n\n",
+				"George", coucou->p.message);
+	free(coucou->p.message);
+	coucou->p.message = ft_strdup("");
+
+}
+
 int		hooker_release(int k, t_coucou *coucou)
 {
 	int	j;
@@ -66,19 +84,7 @@ int		hooker_release(int k, t_coucou *coucou)
 	{
 		j = check_if_char_is_auth(k, coucou);
 		if (k == 76 && j == 0)
-		{
-			if (ft_strncmp(coucou->p.message, "/destroy", 8) == 0)
-				ft_cheat_destroy(coucou);
-			if (ft_strncmp(coucou->p.message, "/tp", 3) == 0)
-				ft_cheat_tp(coucou);
-			if (ft_strncmp(coucou->p.message, "/give", 5) == 0)
-				ft_cheat_give(coucou);
-			else
-				ft_printf("\033[1A\033[K%s say: @R%s@@\n\n", "George",
-					coucou->p.message);
-			free(coucou->p.message);
-			coucou->p.message = ft_strdup("");
-		}
+			hooker_cmp(coucou);
 	}
 	hooker2(coucou);
 	return (1);

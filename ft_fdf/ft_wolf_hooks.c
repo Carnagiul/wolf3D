@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:12:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/06 20:28:36 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 08:03:36 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ int		hooker2(t_coucou *coucou)
 	if (coucou->p.in_chat == 1)
 		ft_menu_chat(coucou);
 	ft_printf("\033[1A\033[Kfps: %d\n", get_fps());
+	coucou->playlist = ft_playlist_play(coucou->playlist);
 	return (0);
 }

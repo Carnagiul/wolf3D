@@ -6,20 +6,20 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 04:08:20 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/17 04:37:00 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 08:58:51 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_cheat_destroy(t_coucou *coucou)
+void		ft_cheat_destroy(t_coucou *coucou)
 {
 	char	**split;
 	int		i;
 
 	i = 1;
 	split = ft_strsplit(coucou->p.message, ' ');
-	if (strcmp(split[0], "/destroy") != 0)
+	if (ft_strcmp(split[0], "/destroy") != 0)
 	{
 		ft_printf("Error: command is /destroy <blockid> <range>");
 		return ;
@@ -41,14 +41,14 @@ void	ft_cheat_destroy(t_coucou *coucou)
 **		print_item(coucou->inventory->slot1);
 */
 
-void	ft_cheat_give(t_coucou *coucou)
+void		ft_cheat_give(t_coucou *coucou)
 {
 	char	**split;
 	int		i;
 
 	split = ft_strsplit(coucou->p.message, ' ');
 	i = 1;
-	if (strcmp(split[0], "/give") != 0)
+	if (ft_strcmp(split[0], "/give") != 0)
 	{
 		ft_printf("Error: command is /give <item_id>");
 		return ;
@@ -65,14 +65,14 @@ void	ft_cheat_give(t_coucou *coucou)
 	free(split);
 }
 
-void	ft_cheat_tp(t_coucou *coucou)
+void		ft_cheat_tp(t_coucou *coucou)
 {
 	char	**split;
 	int		i;
 
 	i = 1;
 	split = ft_strsplit(coucou->p.message, ' ');
-	if (strcmp(split[0], "/tp") != 0)
+	if (ft_strcmp(split[0], "/tp") != 0)
 	{
 		ft_printf("Error: command is /tp <x> <y>");
 		return ;
@@ -87,4 +87,28 @@ void	ft_cheat_tp(t_coucou *coucou)
 	while (split[i])
 		free(split[i++]);
 	free(split);
+}
+
+void		ft_cheat_music(t_coucou *coucou)
+{
+	char	**split;
+	int		i;
+
+	i = 0;
+	split = ft_strsplit(coucou->p.message, ' ');
+	while (split[i])
+		i++;
+	if (i != 2)
+	{
+		ft_printf("Error: command is /music next");
+		return ;
+	}
+	if (ft_strcmp(split[1], "next") != 0 || ft_strcmp(split[0], "/music") != 0)
+	{
+		ft_printf("Error: command is /music next");
+		return ;
+	}
+	coucou->playlist = coucou->playlist->next;
+	ft_playlist_forceplay(&coucou->playlist);
+	ft_strdel_array(split);
 }
