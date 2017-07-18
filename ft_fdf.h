@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 08:48:11 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 10:06:56 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct			s_player
 	int					in_chat;
 	int					can_open;
 	char				*message;
+	char				*playername;
 }						t_player;
 
 typedef struct			s_coucou
@@ -125,6 +126,7 @@ typedef struct			s_item
 	struct s_sound		*get_sound;
 	struct s_sound		*drop_sound;
 	struct s_sound		*use_sound;
+	int					max_item_array;
 }						t_item;
 
 typedef struct			s_inventory

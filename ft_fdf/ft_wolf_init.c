@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 08:02:34 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 10:07:15 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_player		ft_gen_player(void)
 	p.in_chat = 0;
 	p.can_open = 0;
 	p.message = ft_strdup("");
+	p.playername = ft_strdup("George");
 	return (p);
 }
 

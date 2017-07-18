@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 19:30:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 08:51:26 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 09:35:24 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	hooker_cmp(t_coucou *coucou)
 				"George", coucou->p.message);
 	free(coucou->p.message);
 	coucou->p.message = ft_strdup("");
-
 }
 
 int		hooker_release(int k, t_coucou *coucou)

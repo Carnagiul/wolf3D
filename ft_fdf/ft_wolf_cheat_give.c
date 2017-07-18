@@ -6,27 +6,11 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 03:48:03 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/17 04:56:48 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 09:34:36 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-void		ft_wolf_item_clear(t_item *item, t_win *win)
-{
-	if (item)
-	{
-		free(item->name);
-		free(item->texture_name);
-		free(item->texture->name);
-		free_t_img(item->texture->img, win);
-		free(item->texture);
-		free_t_sound(item->get_sound);
-		free_t_sound(item->drop_sound);
-		free_t_sound(item->use_sound);
-		free(item);
-	}
-}
 
 t_sound		*ft_wolf_sound_copy_content(t_sound *src)
 {
@@ -64,6 +48,7 @@ t_item		*ft_wolf_item_copy_content(t_item *src)
 	item->drop_sound = ft_wolf_sound_copy_content(src->drop_sound);
 	item->use_sound = ft_wolf_sound_copy_content(src->use_sound);
 	item->texture = src->texture;
+	ft_printf("@GGG@@\n\n");
 	return (item);
 }
 
@@ -101,10 +86,12 @@ void		ft_wolf_give(t_coucou *coucou, int id)
 	int		i;
 
 	i = 0;
-	while (coucou->list_items[i] != NULL)
+	ft_printf("@G%d@@\n", coucou->list_items[0]->max_item_array);
+	while (i < coucou->list_items[0]->max_item_array)
 	{
 		if (coucou->list_items[i]->id == id)
 		{
+			ft_printf("@RGG@@\n");
 			if (!coucou->inventory)
 				coucou->inventory = ft_wolf_inventory_init();
 			if (coucou->inventory->actual_slot == 5)

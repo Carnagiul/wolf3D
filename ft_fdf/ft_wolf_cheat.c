@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 04:08:20 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 08:58:51 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 09:21:59 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		ft_cheat_give(t_coucou *coucou)
 	char	**split;
 	int		i;
 
+	ft_printf("@RDATA@@\n\n");
 	split = ft_strsplit(coucou->p.message, ' ');
 	i = 1;
 	if (ft_strcmp(split[0], "/give") != 0)
@@ -56,7 +57,10 @@ void		ft_cheat_give(t_coucou *coucou)
 	while (split[i])
 		i++;
 	if (i == 2)
-		ft_printf("Error: command is disabled\n");
+	{
+		ft_printf("@RDATA@@\n");
+		ft_wolf_give(coucou, ft_atoi(split[1]));
+	}
 	else
 		ft_printf("Error: command is /give <item_id>");
 	i = 0;
