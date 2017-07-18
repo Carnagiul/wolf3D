@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_playlist_add_sound.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/02 17:27:32 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/17 04:34:08 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/18 03:31:38 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/18 07:08:39 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	*ft_memalloc(size_t size)
+void			ft_playlist_add_sound(t_playlist **playlist, t_sound *sound)
 {
-	void	*mem;
+	t_playlist	*list;
 
-	mem = malloc(size);
-	if (!mem)
-		exit(0);
-	return ((mem == NULL) ? NULL : ft_memset(mem, 0, size));
+	ft_printf("new music detected %s ==> %d\n", sound->sound, sound->len);
+	list = *playlist;
+	if (list)
+	{
+		while (list->next)
+			list = list->next;
+		list->next = ft_playlist_create(sound);
+		ft_printf("pushback playlist\n");
+	}
+	else
+	{
+		ft_printf("creation playlist\n");
+		*playlist = ft_playlist_create(sound);
+	}
 }

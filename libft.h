@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 16:01:37 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 07:15:49 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 05:23:04 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 # include <fcntl.h>
 # include <stdint.h>
 # include <dirent.h>
+# include <time.h>
 # include "ft_files.h"
+# include "ft_music.h"
 # include "ft_math.h"
 # include "mlx.h"
 # include "ft_gnl.h"
@@ -36,5 +38,4 @@
 # include "ft_wstr.h"
 # include "ft_fdf.h"
 # include "ft_mlx.h"
-
 #endif

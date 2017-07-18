@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 02:20:24 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 07:26:54 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 03:21:42 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void		get_item_id2(char **split, t_win *win, t_item *item)
 	item->texture = ft_mlx_load_texture(split[5], win);
 	item->size_actual = ft_atoi(split[6]);
 	item->max_stack_size = ft_atoi(split[7]);
-	item->get_sound = ft_wolf_load_sound(split[9], split[8]);
-	item->drop_sound = ft_wolf_load_sound(split[11], split[10]);
-	item->use_sound = ft_wolf_load_sound(split[13], split[12]);
+	item->get_sound = ft_sound_create(split[9], split[8]);
+	item->drop_sound = ft_sound_create(split[11], split[10]);
+	item->use_sound = ft_sound_create(split[13], split[12]);
 }
 
 t_item		*get_item_id(int id, char *data_line, t_win *win)

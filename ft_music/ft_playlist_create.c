@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_playlist_create.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/02 17:27:32 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/17 04:34:08 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/18 03:25:05 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/18 07:02:51 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	*ft_memalloc(size_t size)
+t_playlist		*ft_playlist_create(t_sound *sound)
 {
-	void	*mem;
+	t_playlist	*list;
 
-	mem = malloc(size);
-	if (!mem)
-		exit(0);
-	return ((mem == NULL) ? NULL : ft_memset(mem, 0, size));
+	list = (t_playlist *)malloc(sizeof(t_playlist));
+	if (!list || !sound)
+	{
+		ft_printf("Error: malloc playlist_create...\n");
+		exit(1);
+	}
+	list->sound = sound;
+	list->next = NULL;
+	return (list);
 }

@@ -6,7 +6,7 @@
 #    By: piquerue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 14:20:07 by piquerue          #+#    #+#              #
-#    Updated: 2017/07/05 19:49:07 by piquerue         ###   ########.fr        #
+#    Updated: 2017/07/18 03:24:12 by piquerue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ OBJ_2 = ./obj/main.o
 INCLUDE = $(shell find . -type f | grep "\.h")
 
 LIB = ft_delimiteur/lib.a
+LIB += ft_music/lib.a
 LIB += ft_display/lib.a
 LIB += ft_gnl/lib.a
 LIB += ft_gnl/lib.a
@@ -38,13 +39,13 @@ LIB += ft_files/lib.a
 
 CFLAGS = -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlxS.a $(LIB)
 
-$(NAME): libmaker
-	make project_maker
+$(NAME): libmaker project_maker
 
 obj/%.o: %.c
 	gcc -o $@ -c $< $(CFLAGS)
 
 libmaker:
+	make -C ft_music
 	make -C ft_delimiteur
 	make -C ft_display
 	make -C ft_gnl
@@ -68,6 +69,7 @@ project_maker:
 all: $(NAME)
 
 clean:
+	make -C ft_music clean
 	make -C ft_delimiteur clean
 	make -C ft_display clean
 	make -C ft_gnl clean
@@ -83,6 +85,7 @@ clean:
 	make -C ft_fdf clean
 	rm -rf $(OBJ_2)
 fclean: clean
+	make -C ft_music fclean
 	make -C ft_delimiteur fclean
 	make -C ft_display fclean
 	make -C ft_gnl fclean

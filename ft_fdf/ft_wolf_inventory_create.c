@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_wolf_inventory_create.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/02 17:27:32 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/17 04:34:08 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/17 04:47:51 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/17 04:52:57 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	*ft_memalloc(size_t size)
+t_inventory		*ft_wolf_inventory_init(void)
 {
-	void	*mem;
+	t_inventory	*inv;
 
-	mem = malloc(size);
-	if (!mem)
+	inv = (t_inventory *)malloc(sizeof(t_inventory));
+	if (!inv)
+	{
+		ft_printf("Error: can't create inventory...\n");
 		exit(0);
-	return ((mem == NULL) ? NULL : ft_memset(mem, 0, size));
+	}
+	inv->actual_slot = 0;
+	return (inv);
 }

@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_sound_create.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/02 17:27:32 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/17 04:34:08 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/18 03:21:03 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/18 03:21:18 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	*ft_memalloc(size_t size)
+t_sound		*ft_sound_create(char *len, char *sound_name)
 {
-	void	*mem;
+	t_sound	*sound;
 
-	mem = malloc(size);
-	if (!mem)
+	sound = (t_sound *)malloc(sizeof(t_sound));
+	if (!sound)
+	{
+		ft_printf("Error: can't load the sound %s\n", sound_name);
 		exit(0);
-	return ((mem == NULL) ? NULL : ft_memset(mem, 0, size));
+	}
+	sound->len = ft_atoi(len);
+	sound->sound = ft_strdup(sound_name);
+	return (sound);
 }

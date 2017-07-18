@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 05:14:50 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/17 07:57:31 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,31 @@ void			ft_wolf_init2(char **argv)
 	free(ret);
 }
 
+t_vector		ft_wolf_spawn(t_coucou *coucou)
+{
+	int			i;
+	int			j;
+
+	i = 1;
+	while (i < coucou->map.height)
+	{
+		j = 1;
+		while (j < coucou->map.width)
+		{
+			if (coucou->map.world[i][j] == 0)
+				return (create_vector((double)i + 0.25, (double)j + 0.26));
+			j++;
+		}
+		i++;
+	}
+	ft_printf("can't genereate spawn...\n");
+	exit(0);
+}
+
 void			ft_wolf_init3(t_coucou *coucou)
 {
 	coucou->passage = 0;
-	coucou->pos = create_vector(1.25, 1.26);
+	coucou->pos = ft_wolf_spawn(coucou);
 	coucou->dir = create_vector(-1, 0);
 	coucou->plan = create_vector(0, 0.66);
 	coucou->img = ft_mlx_extended_gen_img(coucou->win);

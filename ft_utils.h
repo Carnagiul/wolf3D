@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 20:32:05 by piquerue          #+#    #+#             */
-/*   Updated: 2016/12/30 23:47:26 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/17 09:05:41 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 char				*ft_itoa_base(int nb, int base);
 int					ft_atoi_base(char *str, int base);
+
+void				ft_malloc_finder1(char *to_find);
 
 #endif

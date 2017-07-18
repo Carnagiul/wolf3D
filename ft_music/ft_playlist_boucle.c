@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wolf_load_sound.c                               :+:      :+:    :+:   */
+/*   ft_playlist_boucle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/10 04:20:41 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 07:26:44 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/18 03:28:40 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/18 07:08:48 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-t_sound		*ft_wolf_load_sound(char *len, char *sound_name)
+void			ft_playlist_boucle(t_playlist **playlist)
 {
-	t_sound	*sound;
+	t_playlist	*list;
+	t_playlist	*first;
 
-	sound = (t_sound *)malloc(sizeof(t_sound));
-	if (!sound)
+	list = *playlist;
+	first = *playlist;
+	if (!list)
 	{
-		ft_printf("Error: can't load the sound %s\n", sound_name);
+		ft_printf("Error: can't boucle the playlist...\n");
 		exit(0);
 	}
-	sound->len = ft_atoi(len);
-	sound->sound = ft_strdup(sound_name);
-	return (sound);
+	while (list->next)
+		list = list->next;
+	list->next = first;
+	ft_playlist_forceplay(&first);
 }

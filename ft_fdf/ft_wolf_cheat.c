@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 04:08:20 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 07:16:29 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/17 04:37:00 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	ft_cheat_destroy(t_coucou *coucou)
 	free(split);
 }
 
+/*
+**		ft_wolf_give(coucou, ft_atoi(split[1]));
+**		print_item(coucou->inventory->slot1);
+*/
+
 void	ft_cheat_give(t_coucou *coucou)
 {
 	char	**split;
@@ -51,10 +56,7 @@ void	ft_cheat_give(t_coucou *coucou)
 	while (split[i])
 		i++;
 	if (i == 2)
-	{
-		ft_wolf_give(coucou, ft_atoi(split[1]));
-		print_item(coucou->inventory->slot1);
-	}
+		ft_printf("Error: command is disabled\n");
 	else
 		ft_printf("Error: command is /give <item_id>");
 	i = 0;

@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_wolf_inventory_clear.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/02 17:27:32 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/17 04:34:08 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/17 04:54:09 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/17 04:54:28 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	*ft_memalloc(size_t size)
+void		ft_wolf_clear_inventory(t_inventory *inv, t_win *win)
 {
-	void	*mem;
-
-	mem = malloc(size);
-	if (!mem)
-		exit(0);
-	return ((mem == NULL) ? NULL : ft_memset(mem, 0, size));
+	if (inv)
+	{
+		if (inv->slot1)
+			ft_wolf_item_clear(inv->slot1, win);
+		if (inv->slot2)
+			ft_wolf_item_clear(inv->slot2, win);
+		if (inv->slot3)
+			ft_wolf_item_clear(inv->slot3, win);
+		if (inv->slot4)
+			ft_wolf_item_clear(inv->slot4, win);
+		if (inv->slot5)
+			ft_wolf_item_clear(inv->slot5, win);
+		inv->actual_slot = 0;
+	}
 }

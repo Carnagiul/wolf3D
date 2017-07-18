@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 05:11:08 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 03:19:37 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,6 @@ typedef struct			s_coucou
 	struct s_inventory	*inventory;
 	int					menu_start;
 }						t_coucou;
-
-typedef struct			s_sound
-{
-	int					len;
-	char				*sound;
-}						t_sound;
 
 typedef struct			s_item
 {
@@ -229,7 +223,6 @@ void					ft_cheat_destroy(t_coucou *coucou);
 int						verify_map(t_map *map);
 t_item					*get_item_id(int id, char *data_line,
 		struct s_win *win);
-t_sound					*ft_wolf_load_sound(char *sound_name, char *len);
 int						count_item_list(char **list);
 int						is_valid_item(char **split);
 void					load_itemlist(char **split, t_item **items,
@@ -239,10 +232,15 @@ t_item					**get_list_item(struct s_win *win);
 
 void					ft_cheat_give(t_coucou *coucou);
 t_inventory				*ft_wolf_inventory_init(void);
-void					free_t_sound(t_sound *sound);
 void					ft_wolf_item_clear(t_item *item, struct s_win *win);
-void					ft_wolf_clear_inventory(t_inventory *inv, struct s_win *win);
-void					ft_wolf_inventory_set_item(t_inventory *inv, t_item *item);
+void					ft_wolf_clear_inventory(t_inventory *inv,
+		struct s_win *win);
+void					ft_wolf_inventory_set_item(t_inventory *inv,
+		t_item *item);
 void					ft_wolf_give(t_coucou *coucou, int id);
 void					print_item(t_item *item);
+t_inventory				*ft_wolf_inventory_init(void);
+void					ft_wolf_clear_inventory(t_inventory *inv,
+		struct s_win *win);
+
 #endif

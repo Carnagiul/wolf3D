@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 17:25:03 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/10 00:39:52 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/18 04:00:20 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ t_texture		*get_texturepack(char *path2, char *file, t_win *win)
 	name = ft_free_join1(name, file);
 	texture = (t_texture *)malloc(sizeof(t_texture));
 	if (!texture)
-	{
-		ft_printf("Error: malloc error of t_texture *\n");
 		exit(0);
-	}
 	texture->name = file;
 	texture->img = ft_mlx_extended_gen_imgxpm(win, name);
 	free(file);
@@ -68,6 +65,8 @@ t_texture		**load_texture_db(t_win *win, char *path2, t_file *content)
 
 	texture = (t_texture **)malloc(sizeof(t_texture *) *
 			ft_files_count_files_wa(path2));
+	if (!texture)
+		exit(0);
 	j = 0;
 	while (j < ft_files_count_files_wa(path2))
 	{
@@ -90,6 +89,8 @@ t_texture		***texturepack(t_win *win)
 	path = ft_strdup("./textures/");
 	texture = (t_texture ***)malloc(sizeof(t_texture **) *
 			ft_files_count_dir_wa(path));
+	if (!texture)
+		exit(0);
 	files = ft_create_array_dir_wa("./textures/");
 	while (i < ft_files_count_dir_wa(path))
 	{
