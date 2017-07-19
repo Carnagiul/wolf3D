@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 10:06:56 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/19 09:46:26 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,16 @@ typedef struct			s_player
 	int					can_open;
 	char				*message;
 	char				*playername;
+	int					in_inventory;
+	int					is_god;
 }						t_player;
+
+typedef struct			s_life_img
+{
+	int					min;
+	int					max;
+	struct s_img		*img;
+}						t_life_img;
 
 typedef struct			s_coucou
 {
@@ -108,8 +117,10 @@ typedef struct			s_coucou
 	int					noclip;
 	struct s_item		**list_items;
 	struct s_inventory	*inventory;
-	int					menu_start;
 	t_playlist			*playlist;
+	struct s_life_img	**life;
+	int					menu_start;
+	int					play_sound;
 }						t_coucou;
 
 typedef struct			s_item
@@ -200,6 +211,7 @@ t_vector				create_vector(double x, double y);
 t_vector				create_vector3d(double x, double y, double z);
 double					ft_dpower(double n, size_t power);
 void					ft_open_menu_config(t_coucou *coucou);
+void					ft_menu_inv(t_coucou *coucou);
 void					ft_wolf_display_texture_ground(int y, int min, int max,
 		t_coucou *coucou);
 void					ft_wolf_display_texture_stonebrick(int y, t_point pt,
@@ -233,18 +245,30 @@ void					load_itemlist(char **split, t_item **items,
 void					print_list_items(t_item **item_list, int count);
 t_item					**get_list_item(struct s_win *win);
 
-void					ft_cheat_give(t_coucou *coucou);
 t_inventory				*ft_wolf_inventory_init(void);
 void					ft_wolf_item_clear(t_item *item, struct s_win *win);
 void					ft_wolf_clear_inventory(t_inventory *inv,
 		struct s_win *win);
 void					ft_wolf_inventory_set_item(t_inventory *inv,
-		t_item *item);
+		t_item *item, struct s_win *win);
 void					ft_wolf_give(t_coucou *coucou, int id);
 void					print_item(t_item *item);
 t_inventory				*ft_wolf_inventory_init(void);
 void					ft_wolf_clear_inventory(t_inventory *inv,
 		struct s_win *win);
 void					ft_cheat_music(t_coucou *coucou);
+t_life_img				**ft_wolf_life_img_init(struct s_win *win);
+void					ft_cheat_give(t_coucou *coucou);
+void					ft_cheat_damage(t_coucou *coucou);
+void					ft_cheat_heal(t_coucou *coucou);
+void					ft_cheat_kill(t_coucou *coucou);
+void					ft_cheat_close(t_coucou *coucou);
+void					ft_cheat_exit(t_coucou *coucou);
+void					ft_cheat_rename(t_coucou *coucou);
+void					ft_cheat_clear(t_coucou *coucou);
+void					ft_cheat_god(t_coucou *coucou);
+void					ft_cheat_play(t_coucou *coucou);
+void					ft_cheat_stop(t_coucou *coucou);
+void					ft_wolf_item_usage(t_coucou *coucou);
 
 #endif

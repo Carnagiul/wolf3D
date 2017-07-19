@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 10:07:15 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/19 09:42:14 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ t_player		ft_gen_player(void)
 	p.in_chat = 0;
 	p.can_open = 0;
 	p.message = ft_strdup("");
+	p.in_inventory = 0;
+	p.is_god = 0;
+	p.life = 100;
 	p.playername = ft_strdup("George");
 	return (p);
 }
@@ -41,13 +44,13 @@ void			ft_wolf_init2(char **argv)
 		i++;
 	if (i < 2)
 	{
-		ft_printf("Error: ./wolf3d <filename.wolf3d> [-username]\n");
+		ft_printf("Error: ./wolf3d <filename.wolf3d>\n");
 		exit(0);
 	}
 	ret = ft_get_extension(argv[1]);
 	if (ft_strcmp(ret, "wolf3d") != 0)
 	{
-		ft_printf("Error: ./wolf3d <filename.wolf3d> [-username]\n");
+		ft_printf("Error: ./wolf3d <filename.wolf3d>\n");
 		exit(0);
 	}
 	free(ret);
@@ -92,6 +95,8 @@ void			ft_wolf_init3(t_coucou *coucou)
 			"./texture_win/map.xpm");
 	coucou->chat = ft_mlx_extended_gen_imgxpm(coucou->win,
 			"./texture_win/chat.xpm");
+	coucou->life = ft_wolf_life_img_init(coucou->win);
+	coucou->play_sound = 1;
 }
 
 void			ft_wolf_init(int argc, char **argv)

@@ -6,7 +6,7 @@
 #    By: piquerue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 14:20:07 by piquerue          #+#    #+#              #
-#    Updated: 2017/07/04 17:16:38 by piquerue         ###   ########.fr        #
+#    Updated: 2017/07/19 09:57:42 by piquerue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,12 @@ OBJ_2 = $(addprefix obj/, $(OBJ))
 INCLUDE = $(shell find ../ -type f | grep "\.h")
 
 obj/%.o: %.c
+	@mkdir -p obj/
 	gcc -o $@ -c $< $(CFLAGS)
 
 $(NAME): $(OBJ_2)
 	gcc -c -Wall -Werror -Wextra $(SRC) -I ../
 	ar rc $(NAME) $(OBJ)
-	mkdir -p obj/
 	mv $(OBJ) obj/
 	ranlib $(NAME)
 

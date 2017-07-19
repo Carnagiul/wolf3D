@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 19:30:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 09:35:24 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/19 09:46:10 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int		player_is_in_menu(t_coucou *coucou)
 		return (1);
 	if (coucou->p.in_chat == 1)
 		return (1);
+	if (coucou->p.in_inventory == 1)
+		return (1);
 	return (0);
 }
 
@@ -60,15 +62,35 @@ void	hooker_cmp(t_coucou *coucou)
 {
 	if (ft_strncmp(coucou->p.message, "/destroy", 8) == 0)
 		ft_cheat_destroy(coucou);
-	if (ft_strncmp(coucou->p.message, "/tp", 3) == 0)
+	else if (ft_strncmp(coucou->p.message, "/tp", 3) == 0)
 		ft_cheat_tp(coucou);
-	if (ft_strncmp(coucou->p.message, "/give", 5) == 0)
+	else if (ft_strncmp(coucou->p.message, "/give", 5) == 0)
 		ft_cheat_give(coucou);
-	if (ft_strncmp(coucou->p.message, "/music", 6) == 0)
+	else if (ft_strncmp(coucou->p.message, "/music", 6) == 0)
 		ft_cheat_music(coucou);
+	else if (ft_strncmp(coucou->p.message, "/damage", 7) == 0)
+		ft_cheat_damage(coucou);
+	else if (ft_strncmp(coucou->p.message, "/heal", 5) == 0)
+		ft_cheat_heal(coucou);
+	else if (ft_strncmp(coucou->p.message, "/kill", 5) == 0)
+		ft_cheat_kill(coucou);
+	else if (ft_strncmp(coucou->p.message, "/exit", 5) == 0)
+		ft_cheat_exit(coucou);
+	else if (ft_strncmp(coucou->p.message, "/close", 5) == 0)
+		ft_cheat_close(coucou);
+	else if (ft_strncmp(coucou->p.message, "/rename", 7) == 0)
+		ft_cheat_rename(coucou);
+	else if (ft_strncmp(coucou->p.message, "/clear", 6) == 0)
+		ft_cheat_clear(coucou);
+	else if (ft_strncmp(coucou->p.message, "/god", 4) == 0)
+		ft_cheat_god(coucou);
+	else if (ft_strncmp(coucou->p.message, "/stop", 5) == 0)
+		ft_cheat_stop(coucou);
+	else if (ft_strncmp(coucou->p.message, "/play", 5) == 0)
+		ft_cheat_play(coucou);
 	else
 		ft_printf("\033[1A\033[K%s say: @R%s@@\n\n",
-				"George", coucou->p.message);
+				coucou->p.playername, coucou->p.message);
 	free(coucou->p.message);
 	coucou->p.message = ft_strdup("");
 }

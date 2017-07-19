@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 09:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 09:35:14 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/19 09:23:12 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void		ft_wolf_item_clear(t_item *item, t_win *win)
 		free_t_sound(item->drop_sound);
 		free_t_sound(item->use_sound);
 		free(item);
+		item = NULL;
 	}
 	(void)win;
 }

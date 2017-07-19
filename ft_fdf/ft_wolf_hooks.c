@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:12:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 08:03:36 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/19 09:42:50 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,17 @@ void	ft_wolf_in_menu(t_coucou *coucou)
 		ft_open_menu_config(coucou);
 	else if (coucou->p.in_menu_map == 1)
 		calc_menu(coucou);
+	else if (coucou->p.in_inventory == 1)
+		ft_menu_inv(coucou);
 	else
 		calc2(coucou);
 }
 
 void	ft_wolf_display(t_coucou *coucou)
 {
+	int	i;
+
+	i = 0;
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win,
 			coucou->img->img_ptr, 0, 0);
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win,
@@ -51,6 +56,18 @@ void	ft_wolf_display(t_coucou *coucou)
 				coucou->settings->width), 0);
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win,
 			coucou->chat->img_ptr, 0, 0);
+	while (i < 20)
+	{
+		if (coucou->p.life <= coucou->life[i]->max &&
+				coucou->life[i]->min <= coucou->p.life)
+		{
+			mlx_put_image_to_window(coucou->win->mlx, coucou->win->win,
+				coucou->life[i]->img->img_ptr, 0,
+				coucou->win->height - coucou->life[i]->img->height);
+		}
+		i++;
+	}
+	ft_menu_inv(coucou);
 }
 
 int		hooker2(t_coucou *coucou)
@@ -72,6 +89,9 @@ int		hooker2(t_coucou *coucou)
 	if (coucou->p.in_chat == 1)
 		ft_menu_chat(coucou);
 	ft_printf("\033[1A\033[Kfps: %d\n", get_fps());
-	coucou->playlist = ft_playlist_play(coucou->playlist);
+	if (coucou->play_sound == 1)
+		coucou->playlist = ft_playlist_play(coucou->playlist);
+	if (coucou->p.life <= 0)
+		ft_wolf_hooks_exit(coucou);
 	return (0);
 }
