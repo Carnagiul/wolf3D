@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_playlist_add_sound.c                            :+:      :+:    :+:   */
+/*   ft_entitiy_type_add.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/18 03:31:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/20 05:54:51 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/20 05:44:13 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/20 06:50:31 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void			ft_playlist_add_sound(t_playlist **playlist, t_sound *sound)
+void	ft_entity_type_add(t_entity_type **type, char *filecontent)
 {
-	t_playlist	*list;
+	t_entity_type *entity;
 
-	list = *playlist;
-	if (list)
+	entity = *type;
+	if (entity)
 	{
-		while (list->next)
-			list = list->next;
-		list->next = ft_playlist_create(sound);
+		while (entity->next)
+			entity = entity->next;
+		entity->next = ft_entity_type_create(filecontent);
 	}
 	else
-		*playlist = ft_playlist_create(sound);
+		*type = ft_entity_type_create(filecontent);
 }

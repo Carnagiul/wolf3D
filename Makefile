@@ -6,7 +6,7 @@
 #    By: piquerue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 14:20:07 by piquerue          #+#    #+#              #
-#    Updated: 2017/07/18 07:53:15 by piquerue         ###   ########.fr        #
+#    Updated: 2017/07/20 08:49:32 by piquerue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,9 @@ LIB += ft_wstr/lib.a
 LIB += ft_fdf/lib.a
 LIB += ft_mlx/lib.a
 LIB += ft_files/lib.a
+LIB += ft_entity/lib.a
 
-CFLAGS = -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlxS.a $(LIB)
+CFLAGS = -g -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlx.a $(LIB)
 
 $(NAME): libmaker project_maker
 
@@ -46,6 +47,7 @@ obj/%.o: %.c
 
 libmaker:
 	make -C ft_music
+	make -C ft_entity
 	make -C ft_delimiteur
 	make -C ft_display
 	make -C ft_gnl
@@ -70,6 +72,7 @@ all: $(NAME)
 
 clean:
 	make -C ft_music clean
+	make -C ft_entity clean
 	make -C ft_delimiteur clean
 	make -C ft_display clean
 	make -C ft_gnl clean
@@ -86,6 +89,7 @@ clean:
 	rm -rf $(OBJ_2)
 fclean: clean
 	make -C ft_music fclean
+	make -C ft_entity fclean
 	make -C ft_delimiteur fclean
 	make -C ft_display fclean
 	make -C ft_gnl fclean
@@ -103,6 +107,7 @@ fclean: clean
 
 re: fclean all
 	make -C ft_delimiteur re
+	make -C ft_enitity re
 	make -C ft_display re
 	make -C ft_gnl re
 	make -C ft_list re

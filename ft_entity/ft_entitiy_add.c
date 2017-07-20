@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_playlist_add_sound.c                            :+:      :+:    :+:   */
+/*   ft_entitiy_add.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/18 03:31:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/20 05:54:51 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/20 06:08:01 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/20 06:50:03 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void			ft_playlist_add_sound(t_playlist **playlist, t_sound *sound)
+void	ft_entity_add(t_entity **ents, t_entity_type **type, t_vector pos, int type_id)
 {
-	t_playlist	*list;
+	t_entity	*ent;
 
-	list = *playlist;
-	if (list)
+	ent = *ents;
+	if (ent)
 	{
-		while (list->next)
-			list = list->next;
-		list->next = ft_playlist_create(sound);
+		while (ent->next)
+			ent = ent->next;
+		ent->next = ft_entity_create(type_id, type, pos);
+		ent->next->id = ent->id + 1;
 	}
 	else
-		*playlist = ft_playlist_create(sound);
+	{
+		*ents = ft_entity_create(type_id, type, pos);
+		(*ents)->id = 1;
+	}
 }

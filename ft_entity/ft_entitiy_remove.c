@@ -1,28 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_playlist_add_sound.c                            :+:      :+:    :+:   */
+/*   ft_entitiy_remove.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/18 03:31:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/20 05:54:51 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/20 06:16:49 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/20 06:50:22 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void			ft_playlist_add_sound(t_playlist **playlist, t_sound *sound)
+void			ft_entity_remove(t_entity **ents, int id)
 {
-	t_playlist	*list;
+	t_entity	*ent;
+	t_entity	*tmp;
+	t_entity	*tmp2;
 
-	list = *playlist;
-	if (list)
+	ent = *ents;
+	tmp = NULL;
+	if (ent)
 	{
-		while (list->next)
-			list = list->next;
-		list->next = ft_playlist_create(sound);
+		while (ent->next)
+		{
+			tmp2 = tmp;
+			tmp = ent;
+			ent = ent->next;
+			if (tmp->id == id)
+			{
+				tmp->next = ent->next;
+				free(tmp);
+				tmp = ent;
+				return ;
+			}
+		}
+		if (tmp->id == id)
+		{
+			tmp2->next = NULL;
+			free(tmp);
+		}
 	}
-	else
-		*playlist = ft_playlist_create(sound);
 }

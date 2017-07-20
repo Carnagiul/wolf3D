@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_playlist_add_sound.c                            :+:      :+:    :+:   */
+/*   ft_entitiy_type_load.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/18 03:31:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/20 05:54:51 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/20 06:42:44 by piquerue          #+#    #+#             */
+/*   Updated: 2017/07/20 06:46:03 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void			ft_playlist_add_sound(t_playlist **playlist, t_sound *sound)
+void	ft_entity_type_load(t_entity_type **type, t_win *win)
 {
-	t_playlist	*list;
+	t_entity_type *ents;
 
-	list = *playlist;
-	if (list)
+	ents = *type;
+	if (!ents)
+		exit(ft_printf("Error: Can't load img ft_entity_type_load...\n"));
+	while (ents->next)
 	{
-		while (list->next)
-			list = list->next;
-		list->next = ft_playlist_create(sound);
+		ents->img = ft_mlx_extended_gen_imgxpm(win, ents->path);
+		ents = ents->next;
 	}
-	else
-		*playlist = ft_playlist_create(sound);
+	ents->img = ft_mlx_extended_gen_imgxpm(win, ents->path);
 }

@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:15:45 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/07 02:52:10 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/20 08:28:23 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void			calc2(t_coucou *coucou)
 		core[i].min = max * i;
 		core[i].max = max * (i + 1);
 		pthread_create(&thread[i], NULL, (void*)calc, &core[i]);
+		if (coucou->entity)
+			pthread_create(&thread[i], NULL, (void*)ft_entity_display, &core[i]);
 	}
 	i = 0;
 	while (i < 4)

@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/19 09:42:14 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/20 07:41:10 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void			ft_wolf_init3(t_coucou *coucou)
 			"./texture_win/chat.xpm");
 	coucou->life = ft_wolf_life_img_init(coucou->win);
 	coucou->play_sound = 1;
+	coucou->entity_type = ft_entity_type_init(coucou->win);
+	coucou->entity = NULL;
 }
 
 void			ft_wolf_init(int argc, char **argv)

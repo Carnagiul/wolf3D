@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 19:30:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/19 09:46:10 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/20 07:40:43 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	hooker_cmp(t_coucou *coucou)
 		ft_cheat_stop(coucou);
 	else if (ft_strncmp(coucou->p.message, "/play", 5) == 0)
 		ft_cheat_play(coucou);
+	else if (ft_strncmp(coucou->p.message, "/spawnentity", 12) == 0)
+		ft_cheat_spawnentity(coucou);
 	else
 		ft_printf("\033[1A\033[K%s say: @R%s@@\n\n",
 				coucou->p.playername, coucou->p.message);
