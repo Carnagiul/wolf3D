@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/20 07:41:28 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/21 10:19:38 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct				s_coucou
 {
 	struct s_entity_type	*entity_type;
 	struct s_entity			*entity;
+	struct s_sprites		*sprite_list;
 	struct s_win			*win;
 	struct s_vector			pos;
 	struct s_vector			dir;
@@ -123,6 +124,7 @@ typedef struct				s_coucou
 	struct s_life_img		**life;
 	int						menu_start;
 	int						play_sound;
+	double					*wall_dist;
 }							t_coucou;
 
 typedef struct				s_item
@@ -158,6 +160,15 @@ typedef struct				s_core
 	int						min;
 	int						max;
 }							t_core;
+
+typedef struct				s_core_entity
+{
+	struct s_coucou			*coucou;
+	int						min;
+	int						max;
+	struct s_entity			*e;
+	struct s_entity_type	*t;
+}							t_core_entity;
 
 typedef struct				s_ray
 {

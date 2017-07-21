@@ -6,106 +6,112 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 07:45:07 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/20 09:12:22 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/21 10:19:04 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-t_ray	ft_wolf_calc_hit_entity2(t_ray ray, t_entity *ent, t_coucou *coucou)
+typedef struct	s_ray_sprites
 {
-	ray.lineheight = (int)(coucou->win->height / ray.perpwalldist);
-	ray.start = -ray.lineheight / 2 + coucou->win->height / 2;
-	ray.end = ray.lineheight / 2 + coucou->win->height / 2;
-	if (ray.start < 0)
-		ray.start = 0;
-	if (ray.end >= coucou->win->height)
-		ray.end = coucou->win->height - 1;
-	(void)ent;
-	return (ray);
-}
+	int					h;
+	int					w;
+	int					min;
+	int					max;
+	double				perpwalldist;
+	struct s_vector		sprite;
+	struct s_vector		transform;
+	double				invdet;
+	struct s_point		start;
+	struct s_point		end;
+	struct s_point		sprite_data;
+	struct s_point		screen_data;
+	struct s_point		texture;
+}						t_ray_sprites;
 
-t_ray	ft_wolf_calc_hit_entity(t_ray ray, t_entity *ent, t_coucou *coucou)
+typedef struct				s_raysprites
 {
-	while (ray.hit == 0)
+	struct s_vector			pos;
+	struct s_vector			transform;
+	double					invdet;
+	double					vmove;
+	struct s_point			screen;
+	struct s_point			start;
+	struct s_point			end;
+	struct s_point			data;
+}							t_raysprites;
+
+t_sprites			*ft_wolf_create_sprite(char *xpm, t_win *win, double x, double y)
+{
+	t_sprites *data;
+
+	data = (t_sprites *)malloc(sizeof(t_sprites));
+	if (!data)
 	{
-		if (ray.sidedist.x < ray.sidedist.y)
-		{
-			ray.sidedist.x += ray.sidedist.x;
-			ray.map.x += ray.step.x;
-			ray.side = 0;
-		}
-		else
-		{
-			ray.sidedist.y += ray.sidedist.y;
-			ray.map.y += ray.step.y;
-			ray.side = 1;
-		}
-		ray.hit = (((int)ent->pos.x == ray.map.x) && ((int)ent->pos.y == ray.map.y)) ? 2 : 0;
-		ray.hit = (coucou->map.world[ray.map.x][ray.map.y] > 0) ? 1 : 0;
+		ft_printf("malloc error\n");
+		exit(1);
 	}
-	if (ray.side == 0)
-		ray.perpwalldist = (ray.map.x - ray.raypos.x + (1 - ray.step.x) / 2)
-			/ ray.raydir.x;
-	else
-		ray.perpwalldist = (ray.map.y - ray.raypos.y + (1 - ray.step.y) / 2)
-			/ ray.raydir.y;
-	return (ft_wolf_calc_hit_entity2(ray, ent, coucou));
+	data->pos = create_vector(x, y);
+	data->next = NULL;
+	data->img = ft_mlx_extended_gen_imgxpm(win, xpm);
+	data->vmove = 0.0;
+	return (data);
 }
 
-void	ft_entity_display_kappa(t_ray ray, t_core *core, int x, t_entity *e)
+void			ft_entity_display(t_core *core)
 {
-	t_point pts[2];
-	t_entity_type	**type_mem;
-	t_entity_type	*type;
+	t_sprites	**mem_data;
+	t_sprites	*sprites;
+	t_coucou	*coucou;
 
-	type_mem = &(core->coucou->entity_type);
-	type = *type_mem;
-	pts[0] = ft_create_point(ray.start, x);
-	pts[1] = ft_create_point(ray.end, x);
-	if (ray.hit == 2)
+	coucou = core->coucou;
+	mem_data = &(coucou->sprite_list);
+	int w = 1280;
+	int h = 720;
+	sprites = *mem_data;
+	while (sprites)
 	{
-		ft_printf("segv at %d\n", x);
-		while (type->next)
+		double spriteX = sprites->pos.x - coucou->pos.x;
+		double spriteY = sprites->pos.y - coucou->pos.y;
+		double invDet = 1.0 / (coucou->plan.x * coucou->dir.y - coucou->dir.x * coucou->plan.y);
+		double transformX = invDet * (coucou->dir.y * spriteX - coucou->dir.x * spriteY);
+		double transformY = invDet * (-coucou->plan.y * spriteX + coucou->plan.x * spriteY);
+		int spriteScreenX = (int)((coucou->win->width / 2) * (1 + transformX / transformY));
+#define uDiv 1
+#define vDiv 1
+#define vMove 0.0
+		int vMoveScreen = (int)(vMove / transformY);
+		int spriteHeight = abs((int)(coucou->win->height / (transformY))) / vDiv;
+		int drawStartY = -spriteHeight / 2 + h / 2 + vMoveScreen;
+		if(drawStartY < 0) drawStartY = 0;
+		int drawEndY = spriteHeight / 2 + h / 2 + vMoveScreen;
+		if(drawEndY >= h) drawEndY = h - 1;
+
+		int spriteWidth = abs( (int) (h / (transformY))) / uDiv;
+		int drawStartX = -spriteWidth / 2 + spriteScreenX;
+		if(drawStartX < 0) drawStartX = 0;
+		int drawEndX = spriteWidth / 2 + spriteScreenX;
+		if(drawEndX >= w) drawEndX = w - 1;
+		if (drawStartX < core->min)
+			drawStartX = core->min;
+		if (drawEndX > core->max)
+			drawEndX = core->max;
+		for(int stripe = drawStartX; stripe < drawEndX; stripe++)
 		{
-			if ((e->is_alive && e->type_id == type->type_id))
+			int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * sprites->img->width / spriteWidth) / 256;
+			if(transformY > 0 && stripe > 0 && stripe < w && transformY < coucou->wall_dist[stripe])
 			{
-				ft_wolf_display_texture(pts, ray, core->coucou->img, type->img);
-				return ;
+				for(int y = drawStartY; y < drawEndY; y++)
+				{
+					int d = (y-vMoveScreen) * 256 - h * 128 + spriteHeight * 128;
+					int texY = ((d * sprites->img->height) / spriteHeight) / 256;
+					coucou->img->img[stripe * 4 + y * coucou->img->size_line] = sprites->img->img[texX * 4 + texY * sprites->img->size_line];
+					coucou->img->img[stripe * 4 + y * coucou->img->size_line + 1] = sprites->img->img[texX * 4 + texY * sprites->img->size_line + 1];
+					coucou->img->img[stripe * 4 + y * coucou->img->size_line + 2] = sprites->img->img[texX * 4 + texY * sprites->img->size_line + 2];
+				}
 			}
-			type = type->next;
 		}
-		if ((e->is_alive && e->type_id == type->type_id))
-		{
-			ft_wolf_display_texture(pts, ray, core->coucou->img, type->img);
-			return ;
-		}
+		sprites = sprites->next;
 	}
 }
 
-void	ft_entity_display(t_core *core)
-{
-	int			x;
-	int			h;
-	t_ray		ray;
-	t_entity	**e_mem;
-	t_entity	*e;
-
-	x = core->min - 1;
-	h = core->coucou->win->height;
-	e_mem = &(core->coucou->entity);
-	while (++x < core->max)
-	{
-		e = *e_mem;
-		while (e->next)
-		{
-			ray = init_ray(core->coucou, x);
-			ray = ft_wolf_calc_hit_entity(ray, e, core->coucou);
-			ft_entity_display_kappa(ray, core, x, e);
-			e = e->next;
-		}
-		ray = init_ray(core->coucou, x);
-		ray = ft_wolf_calc_hit_entity(ray, e, core->coucou);
-		ft_entity_display_kappa(ray, core, x, e);
-	}
-}

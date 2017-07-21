@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 07:33:08 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/20 07:39:32 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/21 07:56:44 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		ft_cheat_spawnentity(t_coucou *coucou)
 		id = ft_atoi(split[1]);
 		if (coucou->map.world[x][y] == 0)
 			ft_entity_add(&(coucou->entity), &(coucou->entity_type),
-					create_vector(x, y), id);
+					create_vector((double)(x + 0.25), (double)(y + 0.13)), id);
 		else
 			ft_printf("Error: can't spawn entity at this point.\n");
 	}

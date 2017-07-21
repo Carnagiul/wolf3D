@@ -6,7 +6,7 @@
 #    By: piquerue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 14:20:07 by piquerue          #+#    #+#              #
-#    Updated: 2017/07/20 08:49:32 by piquerue         ###   ########.fr        #
+#    Updated: 2017/07/21 06:32:47 by piquerue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ LIB += ft_mlx/lib.a
 LIB += ft_files/lib.a
 LIB += ft_entity/lib.a
 
-CFLAGS = -g -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlx.a $(LIB)
+CFLAGS = -g -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlxS.a $(LIB)
 
 $(NAME): libmaker project_maker
 

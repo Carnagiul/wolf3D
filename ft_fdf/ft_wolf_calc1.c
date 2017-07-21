@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:15:45 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/20 08:28:23 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/21 09:50:37 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,30 @@ void			calc(t_core *core)
 		ray = init_ray(core->coucou, x);
 		ray = calc_hit(ray, core->coucou);
 		draw(ray, core, x, h);
+		core->coucou->wall_dist[x] = ray.perpwalldist;
 		x++;
 	}
+}
+
+void			calc_sprite(t_coucou *coucou)
+{
+	pthread_t	thread[10];
+	t_core		core[10];
+	int			i;
+	int			max;
+
+	i = -1;
+	max = coucou->win->width / 10;
+	while (++i < 10)
+	{
+		core[i].coucou = coucou;
+		core[i].min = max * i;
+		core[i].max = max * (i + 1);
+		pthread_create(&thread[i], NULL, (void*)ft_entity_display, &core[i]);
+	}
+	i = 0;
+	while (i < 10)
+		pthread_join(thread[i++], NULL);
 }
 
 void			calc2(t_coucou *coucou)
@@ -110,10 +132,9 @@ void			calc2(t_coucou *coucou)
 		core[i].min = max * i;
 		core[i].max = max * (i + 1);
 		pthread_create(&thread[i], NULL, (void*)calc, &core[i]);
-		if (coucou->entity)
-			pthread_create(&thread[i], NULL, (void*)ft_entity_display, &core[i]);
 	}
 	i = 0;
 	while (i < 4)
 		pthread_join(thread[i++], NULL);
+	calc_sprite(coucou);
 }

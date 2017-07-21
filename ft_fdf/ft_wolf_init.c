@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/20 07:41:10 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/07/21 10:17:49 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ void			ft_wolf_init3(t_coucou *coucou)
 	coucou->play_sound = 1;
 	coucou->entity_type = ft_entity_type_init(coucou->win);
 	coucou->entity = NULL;
+	coucou->wall_dist = ft_utils_init_double_array(coucou->win->width);
+	coucou->sprite_list = ft_wolf_create_sprite("./ressources/entity/skeleton.xpm", coucou->win, 1.23, 1.42);
+	coucou->sprite_list->next = ft_wolf_create_sprite("./ressources/entity/skeleton.xpm", coucou->win, 2.99, 10.42);
+	coucou->sprite_list->next->next = ft_wolf_create_sprite("./ressources/entity/skeleton.xpm", coucou->win, 10.23, 1.42);
+	coucou->sprite_list->next->next->next = ft_wolf_create_sprite("./ressources/entity/skeleton.xpm", coucou->win, 15.23, 15.42);
+	coucou->sprite_list->next->next->next->next = NULL;
 }
 
 void			ft_wolf_init(int argc, char **argv)
