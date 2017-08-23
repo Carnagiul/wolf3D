@@ -124,13 +124,6 @@ typedef struct					s_sprites
 	double						vmove;
 }								t_sprites;
 
-void							ft_entity_add(t_entity **ents, t_entity_type **type, t_vector pos, int type_id);
-t_entity						*ft_entity_create(int id, t_entity_type **type, t_vector pos);
-void							ft_entity_remove(t_entity **ents, int id);
-void							ft_entity_type_add(t_entity_type **type, char *filecontent);
-t_entity_type					*ft_entity_type_create(char *contentfile);
-t_entity_type					*ft_entity_type_init(t_win *win);
-void							ft_entity_type_load(t_entity_type **type, t_win *win);
 void							ft_entity_display(struct s_core *core);
 t_sprites						*ft_wolf_create_sprite(char *xpm, t_win *win, double x, double y);
 

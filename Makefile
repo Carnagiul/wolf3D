@@ -38,7 +38,7 @@ LIB += ft_mlx/lib.a
 LIB += ft_files/lib.a
 LIB += ft_entity/lib.a
 
-CFLAGS = -g -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlxS.a $(LIB)
+CFLAGS = -g -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlxS.a $(LIB) -I /usr/X11/include -g -L /usr/X11/lib -lX11 -lXext
 
 $(NAME): libmaker project_maker
 

@@ -97,13 +97,13 @@ void			ft_wolf_init3(t_coucou *coucou)
 			"./texture_win/chat.xpm");
 	coucou->life = ft_wolf_life_img_init(coucou->win);
 	coucou->play_sound = 1;
-	coucou->entity_type = ft_entity_type_init(coucou->win);
+	coucou->entity_type = NULL;
 	coucou->entity = NULL;
 	coucou->wall_dist = ft_utils_init_double_array(coucou->win->width);
-	coucou->sprite_list = ft_wolf_create_sprite("./ressources/entity/skeleton.xpm", coucou->win, 1.23, 1.42);
-	coucou->sprite_list->next = ft_wolf_create_sprite("./ressources/entity/skeleton.xpm", coucou->win, 2.99, 10.42);
-	coucou->sprite_list->next->next = ft_wolf_create_sprite("./ressources/entity/skeleton.xpm", coucou->win, 10.23, 1.42);
-	coucou->sprite_list->next->next->next = ft_wolf_create_sprite("./ressources/entity/skeleton.xpm", coucou->win, 15.23, 15.42);
+	coucou->sprite_list = ft_wolf_create_sprite("./ressources/entity/pillar.xpm", coucou->win, 1.23, 1.42);
+	coucou->sprite_list->next = ft_wolf_create_sprite("./ressources/entity/barrel.xpm", coucou->win, 2.99, 10.42);
+	coucou->sprite_list->next->next = ft_wolf_create_sprite("./ressources/entity/greenlight.xpm", coucou->win, 10.23, 1.42);
+	coucou->sprite_list->next->next->next = ft_wolf_create_sprite("./ressources/entity/barrel.xpm", coucou->win, 15.23, 15.42);
 	coucou->sprite_list->next->next->next->next = NULL;
 }
 

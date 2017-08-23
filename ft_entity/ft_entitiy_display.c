@@ -103,11 +103,20 @@ void			ft_entity_display(t_core *core)
 			{
 				for(int y = drawStartY; y < drawEndY; y++)
 				{
+					int c = 0;
 					int d = (y-vMoveScreen) * 256 - h * 128 + spriteHeight * 128;
 					int texY = ((d * sprites->img->height) / spriteHeight) / 256;
-					coucou->img->img[stripe * 4 + y * coucou->img->size_line] = sprites->img->img[texX * 4 + texY * sprites->img->size_line];
-					coucou->img->img[stripe * 4 + y * coucou->img->size_line + 1] = sprites->img->img[texX * 4 + texY * sprites->img->size_line + 1];
-					coucou->img->img[stripe * 4 + y * coucou->img->size_line + 2] = sprites->img->img[texX * 4 + texY * sprites->img->size_line + 2];
+					if (sprites->img->img[texX * 4 + texY * sprites->img->size_line] == 0)
+						if (sprites->img->img[texX * 4 + texY * sprites->img->size_line + 1] == 0)
+							if (sprites->img->img[texX * 4 + texY * sprites->img->size_line + 2] == 0)
+								c = 1;
+					if (c == 0)
+					{
+						coucou->img->img[stripe * 4 + y * coucou->img->size_line] = sprites->img->img[texX * 4 + texY * sprites->img->size_line];
+						coucou->img->img[stripe * 4 + y * coucou->img->size_line + 1] = sprites->img->img[texX * 4 + texY * sprites->img->size_line + 1];
+						coucou->img->img[stripe * 4 + y * coucou->img->size_line + 2] = sprites->img->img[texX * 4 + texY * sprites->img->size_line + 2];
+						coucou->img->img[stripe * 4 + y * coucou->img->size_line + 3] = sprites->img->img[texX * 4 + texY * sprites->img->size_line + 3];
+					}
 				}
 			}
 		}
