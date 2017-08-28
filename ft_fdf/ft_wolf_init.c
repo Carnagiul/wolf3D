@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/21 10:17:49 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 03:16:24 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,13 @@ void			ft_wolf_init3(t_coucou *coucou)
 			"./texture_win/chat.xpm");
 	coucou->life = ft_wolf_life_img_init(coucou->win);
 	coucou->play_sound = 1;
-	coucou->entity_type = NULL;
+	coucou->entity_type = ft_entity_type_init(coucou->win);
 	coucou->entity = NULL;
 	coucou->wall_dist = ft_utils_init_double_array(coucou->win->width);
-	coucou->sprite_list = ft_wolf_create_sprite("./ressources/entity/pillar.xpm", coucou->win, 1.23, 1.42);
-	coucou->sprite_list->next = ft_wolf_create_sprite("./ressources/entity/barrel.xpm", coucou->win, 2.99, 10.42);
-	coucou->sprite_list->next->next = ft_wolf_create_sprite("./ressources/entity/greenlight.xpm", coucou->win, 10.23, 1.42);
-	coucou->sprite_list->next->next->next = ft_wolf_create_sprite("./ressources/entity/barrel.xpm", coucou->win, 15.23, 15.42);
-	coucou->sprite_list->next->next->next->next = NULL;
+	coucou->sprite_list =
+		ft_wolf_create_sprite("./ressources/entity/skeleton.xpm",
+				coucou->win, 1.23, 1.42);
+	coucou->sprite_list->next = NULL;
 }
 
 void			ft_wolf_init(int argc, char **argv)
@@ -113,7 +112,7 @@ void			ft_wolf_init(int argc, char **argv)
 	t_coucou	*coucou;
 
 	ft_wolf_init2(argv);
-	coucou = (t_coucou *)malloc(sizeof(t_coucou));
+	coucou = (t_coucou *)ft_malloc(sizeof(t_coucou));
 	if (!coucou)
 		exit(ft_printf("Error: can't create coucou...\n"));
 	d = ft_mlx_extended_parser(argc, argv);

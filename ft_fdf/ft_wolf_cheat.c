@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 04:08:20 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/19 09:49:34 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/22 18:57:36 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ void		ft_cheat_destroy(t_coucou *coucou)
 
 	i = 1;
 	split = ft_strsplit(coucou->p.message, ' ');
+	while (split[i])
+		i++;
 	if (ft_strcmp(split[0], "/destroy") != 0)
 	{
 		ft_printf("Error: command is /destroy <blockid> <range>");
 		ft_strdel_array(split);
+		return ;
 	}
-	while (split[i])
-		i++;
 	if (i == 3)
 		ft_wolf_destroy_block(coucou, ft_atoi(split[1]), ft_atoi(split[2]));
 	else

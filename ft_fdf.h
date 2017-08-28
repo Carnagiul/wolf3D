@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/21 10:19:38 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/23 23:04:32 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,16 +225,19 @@ t_vector					create_vector3d(double x, double y, double z);
 double						ft_dpower(double n, size_t power);
 void						ft_open_menu_config(t_coucou *coucou);
 void						ft_menu_inv(t_coucou *coucou);
-void						ft_wolf_display_texture_ground(int y, int min, int max,
-			t_coucou *coucou);
-void						ft_wolf_display_texture_stonebrick(int y, t_point pt,
+void						ft_wolf_display_texture_ground(int y, int min,
+		int max, t_coucou *coucou);
+void						ft_wolf_display_texture_stonebrick(int y,
+		t_point pt,
 		t_coucou *coucou, t_ray ray);
-void						ft_wolf_display_texture_woodenplanks(int y, t_point pt,
+void						ft_wolf_display_texture_woodenplanks(int y,
+		t_point pt,
 		t_coucou *coucou, t_ray ray);
 void						verline(int y, int min, int max, t_color_mlx color,
 		t_coucou *coucou);
 unsigned int				get_fps(void);
-void						ft_mlx_put_pixel_img(int x, int y, t_color_mlx color,
+void						ft_mlx_put_pixel_img(int x, int y,
+		t_color_mlx color,
 		struct s_img *img);
 void						ft_mlx_draw_linept(t_point pt1, t_point pt2,
 		struct s_img *img, t_color_mlx color);
@@ -284,5 +287,7 @@ void						ft_cheat_play(t_coucou *coucou);
 void						ft_cheat_stop(t_coucou *coucou);
 void						ft_cheat_spawnentity(t_coucou *coucou);
 void						ft_wolf_item_usage(t_coucou *coucou);
+void						calc_sprite(t_coucou *coucou);
+void						hooker_cmp2(t_coucou *coucou);
 
 #endif

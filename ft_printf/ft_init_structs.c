@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 05:28:08 by piquerue          #+#    #+#             */
-/*   Updated: 2016/12/22 01:49:42 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:23:39 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_color			*init_color(void)
 {
 	t_color		*color;
 
-	color = malloc(sizeof(t_color));
+	color = ft_malloc(sizeof(t_color));
 	if (!color)
 		return (NULL);
 	color->eof = "\033[37m";
@@ -35,7 +35,7 @@ t_flags			*ft_init_flags(void)
 {
 	t_flags		*flags;
 
-	flags = (t_flags *)malloc(sizeof(t_flags));
+	flags = (t_flags *)ft_malloc(sizeof(t_flags));
 	if (!flags)
 		return (NULL);
 	flags->h = 0;
@@ -53,7 +53,7 @@ t_precis		*ft_init_precision(void)
 {
 	t_precis	*precis;
 
-	precis = (t_precis *)malloc(sizeof(t_precis));
+	precis = (t_precis *)ft_malloc(sizeof(t_precis));
 	if (!precis)
 		return (NULL);
 	precis->before = 0;
@@ -72,7 +72,7 @@ t_print			*ft_init_printf(void)
 {
 	t_print		*print;
 
-	print = (t_print *)malloc(sizeof(t_print));
+	print = (t_print *)ft_malloc(sizeof(t_print));
 	if (!print)
 		return (NULL);
 	print->i = 0;

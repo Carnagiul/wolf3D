@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 18:11:59 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/17 04:29:19 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 03:28:15 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,22 @@ t_map		ft_get_map(char *name)
 	t_map	map;
 	int		i;
 
-	map.get = ft_strnew(1);
-	map.fd = open(name, O_RDONLY);
+	map.get = ft_get_content_file(name);
+	if ((map.fd = open(name, O_RDONLY)) <= 0)
+		exit(0);
 	i = 0;
 	while (get_next_line(map.fd, &(map.gnl)) >= 1)
 	{
-		map.get = ft_free_join1(map.get, map.gnl);
-		map.get = ft_free_join1(map.get, "\n");
 		ft_strdel(&(map.gnl));
 		i++;
 	}
 	close(map.fd);
+	if (i <= 1)
+		exit(0);
 	map.map = ft_strsplit(map.get, '\n');
 	map.height = i;
 	map.width = 0;
-	map.world = (int **)malloc(sizeof(int *) * i);
+	map.world = (int **)ft_malloc(sizeof(int *) * i);
 	if (!map.world)
 		exit(0);
 	free(map.get);
@@ -63,9 +64,10 @@ int			check_if_valid_map(t_map *map)
 			return (1);
 		if (i == 0 || (i + 1) == map->height)
 		{
-			while (map->world[i][j])
-				if (map->world[i][j++] != 1)
-					return (1);
+			while (map->world[i][j] == 1)
+				j++;
+			if (j != map->width)
+				return (1);
 		}
 		ft_free_map_nb(map);
 		i++;
@@ -88,15 +90,16 @@ int			verify_map(t_map *map)
 		j++;
 	width = j;
 	ft_free_map_nb(map);
-	while (i < map->height)
+	while (i < map->height && map->map[i])
 	{
 		j = 0;
-		map->nb = ft_strsplit(map->map[i++], ' ');
+		map->nb = ft_strsplit(map->map[i], ' ');
 		while (map->nb[j])
 			j++;
 		ft_free_map_nb(map);
 		if (j != width)
 			return (1);
+		i++;
 	}
 	return (check_if_valid_map(map));
 }
@@ -108,6 +111,8 @@ t_map		ft_gen_world(char *name)
 	int		j;
 
 	map = ft_get_map(name);
+	for (int www = 0;map.map[www]; www++)
+		ft_printf("[www:%d] ==> %s\n", www, map.map[www]);
 	i = 0;
 	while (map.map[i])
 	{
@@ -115,7 +120,7 @@ t_map		ft_gen_world(char *name)
 		map.nb = ft_strsplit(map.map[i], ' ');
 		while (map.nb[j])
 			map.width = ++j;
-		if (!(map.world[i] = (int *)malloc(sizeof(int) * j)))
+		if (!(map.world[i] = (int *)ft_malloc(sizeof(int) * j)))
 			exit(0);
 		j = 0;
 		while (map.nb[j])

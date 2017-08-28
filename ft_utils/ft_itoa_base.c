@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 21:31:00 by piquerue          #+#    #+#             */
-/*   Updated: 2016/12/18 20:31:43 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:25:05 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char			*ft_base(int base)
 	int				start;
 	int				k;
 
-	str = (char *)malloc(sizeof(char) * base);
+	str = (char *)ft_malloc(sizeof(char) * base);
 	k = 0;
 	start = -1;
 	while (++start <= 9 && base-- >= 0)

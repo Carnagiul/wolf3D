@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 00:05:01 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 01:07:21 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 03:22:05 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ typedef struct		s_gnl
 
 int					get_next_line(int fd, char **line);
 char				*ft_get_content_file(char *file);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/21 06:36:34 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/21 06:38:52 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:25:18 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ double		*ft_utils_init_double_array(int rows)
 	double	*array;
 	int		i;
 
-	array = (double *)malloc(sizeof(double) * rows);
+	array = (double *)ft_malloc(sizeof(double) * rows);
 	if (!array)
 	{
 		ft_printf("Error: can't malloc double array *\n");

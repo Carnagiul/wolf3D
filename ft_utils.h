@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 20:32:05 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/21 06:39:09 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:05:47 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int					ft_atoi_base(char *str, int base);
 
 void				ft_malloc_finder1(char *to_find);
 double				*ft_utils_init_double_array(int rows);
+void				*ft_malloc(size_t size);
 
 #endif

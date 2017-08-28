@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 03:57:11 by piquerue          #+#    #+#             */
-/*   Updated: 2016/12/30 04:50:42 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:23:56 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_itoa							*k_itoa_k(t_print *print,
 	int							base_len;
 
 	base_len = 10;
-	elem = (t_itoa *)malloc(sizeof(t_itoa));
+	elem = (t_itoa *)ft_malloc(sizeof(t_itoa));
 	if (!elem)
 		return (NULL);
 	elem->nbr = nbr;

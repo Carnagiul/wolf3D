@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 21:11:18 by piquerue          #+#    #+#             */
-/*   Updated: 2016/12/18 20:19:56 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:16:37 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list		*ft_lstnew(void const *content, size_t len)
 {
 	t_list	*list;
 
-	list = (t_list*)malloc(sizeof(*list));
+	list = (t_list*)ft_malloc(sizeof(*list));
 	if (!list)
 		return (NULL);
 	if (!content)
@@ -26,7 +26,7 @@ t_list		*ft_lstnew(void const *content, size_t len)
 	}
 	else
 	{
-		list->content = malloc(sizeof(content));
+		list->content = ft_malloc(sizeof(content));
 		if (list->content == NULL)
 			return (NULL);
 		ft_memcpy((list->content), content, len);

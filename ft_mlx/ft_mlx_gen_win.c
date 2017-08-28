@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 01:26:30 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 00:35:25 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:22:15 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_win			*ft_mlx_extended_gen_win(int width, int height, char *name)
 {
 	t_win		*win;
 
-	win = (t_win *)malloc(sizeof(t_win));
+	win = (t_win *)ft_malloc(sizeof(t_win));
 	if (!win)
 		ft_mlx_error("Erreur lors du malloc de win");
 	win->mlx = mlx_init();

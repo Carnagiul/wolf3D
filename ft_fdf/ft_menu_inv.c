@@ -6,15 +6,20 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 07:27:59 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/19 08:57:04 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/23 22:18:47 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
+void		ft_menu_inv2(t_coucou *coucou, t_item *item, int x, int y)
+{
+	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win,
+			item->texture->img->img_ptr, x, y);
+}
+
 void		ft_menu_inv(t_coucou *coucou)
 {
-	int		x;
 	int		y;
 	int		split;
 	int		id;
@@ -25,29 +30,14 @@ void		ft_menu_inv(t_coucou *coucou)
 	if (coucou->inventory)
 	{
 		if (coucou->inventory->actual_slot >= 1)
-		{
-			x = split * 1;
-			mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->inventory->slot1->texture->img->img_ptr, x, y);
-		}
+			ft_menu_inv2(coucou, coucou->inventory->slot1, split, y);
 		if (coucou->inventory->actual_slot >= 2)
-		{
-			x = split * (2);
-			mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->inventory->slot2->texture->img->img_ptr, x, y);
-		}
+			ft_menu_inv2(coucou, coucou->inventory->slot1, 2 * split, y);
 		if (coucou->inventory->actual_slot >= 3)
-		{
-			x = split * (3);
-			mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->inventory->slot3->texture->img->img_ptr, x, y);
-		}
+			ft_menu_inv2(coucou, coucou->inventory->slot1, 3 * split, y);
 		if (coucou->inventory->actual_slot >= 4)
-		{
-			x = split * (4);
-			mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->inventory->slot4->texture->img->img_ptr, x, y);
-		}
+			ft_menu_inv2(coucou, coucou->inventory->slot1, 4 * split, y);
 		if (coucou->inventory->actual_slot >= 5)
-		{
-			x = split * (5);
-			mlx_put_image_to_window(coucou->win->mlx, coucou->win->win, coucou->inventory->slot5->texture->img->img_ptr, x, y);
-		}
+			ft_menu_inv2(coucou, coucou->inventory->slot1, 5 * split, y);
 	}
 }

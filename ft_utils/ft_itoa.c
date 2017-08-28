@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 17:57:29 by piquerue          #+#    #+#             */
-/*   Updated: 2016/12/18 20:31:42 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:24:55 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char		*ft_itoa(int nb)
 	int		i;
 
 	n = nb;
-	str = (char *)malloc(sizeof(char) * (ft_pow(nb) + 1));
+	str = (char *)ft_malloc(sizeof(char) * (ft_pow(nb) + 1));
 	if (!str)
 		return (ft_strdup("0"));
 	if (nb == 0)

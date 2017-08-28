@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:12:38 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/19 09:42:50 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/23 22:21:57 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_wolf_display(t_coucou *coucou)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win,
 			coucou->img->img_ptr, 0, 0);
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win,
@@ -56,7 +56,7 @@ void	ft_wolf_display(t_coucou *coucou)
 				coucou->settings->width), 0);
 	mlx_put_image_to_window(coucou->win->mlx, coucou->win->win,
 			coucou->chat->img_ptr, 0, 0);
-	while (i < 20)
+	while (++i < 20)
 	{
 		if (coucou->p.life <= coucou->life[i]->max &&
 				coucou->life[i]->min <= coucou->p.life)
@@ -65,7 +65,6 @@ void	ft_wolf_display(t_coucou *coucou)
 				coucou->life[i]->img->img_ptr, 0,
 				coucou->win->height - coucou->life[i]->img->height);
 		}
-		i++;
 	}
 	ft_menu_inv(coucou);
 }

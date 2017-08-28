@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 03:17:20 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 01:06:34 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:16:01 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char				*ft_stock_the_new_line(char *str)
 	len = 0;
 	while (str[len++])
 		;
-	if (!(new = (char *)malloc(sizeof(*new) * len + 1)))
+	if (!(new = (char *)ft_malloc(sizeof(*new) * len + 1)))
 		return (NULL);
 	while (i < len && str[i] != '\n')
 	{

@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cheat_kill.c                                    :+:      :+:    :+:   */
+/*   ft_entitiy_add.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/19 03:42:39 by piquerue          #+#    #+#             */
-/*   Updated: 2017/08/23 22:07:20 by piquerue         ###   ########.fr       */
+/*   Created: 2017/07/20 06:08:01 by piquerue          #+#    #+#             */
+/*   Updated: 2017/08/23 18:03:57 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void		ft_cheat_kill(t_coucou *coucou)
+void	ft_entity_add(t_entity **ents, t_entity_type **type, t_vector pos,
+		int type_id)
 {
-	char	**split;
-	int		i;
+	t_entity	*ent;
 
-	i = 0;
-	split = ft_strsplit(coucou->p.message, ' ');
-	if (!split)
-		exit(ft_printf("Error: malloc on ft_cheat_damage\n"));
-	while (split[i])
-		i++;
-	if (ft_strcmp(split[0], "/kill") != 0 || i != 1)
-		ft_printf("Error: usage is /kill\n");
+	ent = *ents;
+	if (ent)
+	{
+		while (ent->next)
+			ent = ent->next;
+		ent->next = ft_entity_create(type_id, type, pos);
+		ent->next->id = ent->id + 1;
+	}
 	else
-		coucou->p.life = 0;
-	ft_strdel_array(split);
+	{
+		*ents = ft_entity_create(type_id, type, pos);
+		(*ents)->id = 1;
+	}
 }

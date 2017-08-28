@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 02:20:24 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 03:21:42 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:13:06 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_item		*get_item_id(int id, char *data_line, t_win *win)
 	t_item	*item;
 	char	**split;
 
-	item = (t_item *)malloc(sizeof(t_item));
+	item = (t_item *)ft_malloc(sizeof(t_item));
 	split = ft_strsplit(data_line, '\t');
 	if (!item || is_valid_item(split) != 0)
 	{

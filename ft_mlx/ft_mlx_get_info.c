@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 04:44:37 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/11 04:40:00 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:22:31 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int			*ft_mlx_extended_parser(int argc, char **argv)
 	int		*d;
 
 	i = 2;
-	d = (int *)malloc(sizeof(int) * 2);
+	d = (int *)ft_malloc(sizeof(int) * 2);
 	if (!d)
 		exit(ft_printf("Error: ft_mlx_extended_parser\n"));
 	d[0] = 1280;

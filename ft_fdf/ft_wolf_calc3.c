@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cheat_kill.c                                    :+:      :+:    :+:   */
+/*   ft_wolf_calc3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/19 03:42:39 by piquerue          #+#    #+#             */
-/*   Updated: 2017/08/23 22:07:20 by piquerue         ###   ########.fr       */
+/*   Created: 2017/08/23 22:19:55 by piquerue          #+#    #+#             */
+/*   Updated: 2017/08/23 22:20:18 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void		ft_cheat_kill(t_coucou *coucou)
+void			calc_sprite(t_coucou *coucou)
 {
-	char	**split;
-	int		i;
+	pthread_t	thread[10];
+	t_core		core[10];
+	int			i;
+	int			max;
 
+	i = -1;
+	max = coucou->win->width / 10;
+	while (++i < 10)
+	{
+		core[i].coucou = coucou;
+		core[i].min = max * i;
+		core[i].max = max * (i + 1);
+		pthread_create(&thread[i], NULL, (void*)ft_entity_display, &core[i]);
+	}
 	i = 0;
-	split = ft_strsplit(coucou->p.message, ' ');
-	if (!split)
-		exit(ft_printf("Error: malloc on ft_cheat_damage\n"));
-	while (split[i])
-		i++;
-	if (ft_strcmp(split[0], "/kill") != 0 || i != 1)
-		ft_printf("Error: usage is /kill\n");
-	else
-		coucou->p.life = 0;
-	ft_strdel_array(split);
+	while (i < 10)
+		pthread_join(thread[i++], NULL);
 }

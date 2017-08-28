@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 03:48:03 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/19 08:38:27 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:12:14 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_sound		*ft_wolf_sound_copy_content(t_sound *src)
 {
 	t_sound	*sound;
 
-	sound = (t_sound *)malloc(sizeof(t_sound));
+	sound = (t_sound *)ft_malloc(sizeof(t_sound));
 	if (!sound)
 	{
 		ft_printf("Error: can't copy content of sound...\n");
@@ -31,7 +31,7 @@ t_item		*ft_wolf_item_copy_content(t_item *src, t_win *win)
 {
 	t_item	*item;
 
-	item = (t_item *)malloc(sizeof(t_item));
+	item = (t_item *)ft_malloc(sizeof(t_item));
 	if (!item)
 	{
 		ft_printf("Error: can't copy item...\n");
@@ -52,7 +52,8 @@ t_item		*ft_wolf_item_copy_content(t_item *src, t_win *win)
 	return (item);
 }
 
-void		ft_wolf_inventory_set_item(t_inventory *inv, t_item *item, t_win *win)
+void		ft_wolf_inventory_set_item(t_inventory *inv, t_item *item,
+		t_win *win)
 {
 	if (inv->actual_slot == 4)
 	{

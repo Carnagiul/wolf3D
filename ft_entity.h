@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 05:15:47 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/21 10:43:10 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/23 23:03:46 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct					s_entity_data
 	struct s_entity_sound		*sound;
 	struct s_vector				pos;
 	struct s_entity_interact	*interaction;
+	int							id;
 }								t_entity_data;
 
 typedef struct					s_entity_type
@@ -113,6 +114,7 @@ typedef struct					s_entity
 	int							max_health;
 	int							health_actual;
 	int							last_atk;
+	int							id;
 	struct s_entity				*next;
 }								t_entity;
 
@@ -124,7 +126,59 @@ typedef struct					s_sprites
 	double						vmove;
 }								t_sprites;
 
+typedef struct					s_ray_sprites
+{
+	int							h;
+	int							w;
+	int							min;
+	int							max;
+	double						perpwalldist;
+	struct s_vector				sprite;
+	struct s_vector				transform;
+	double						invdet;
+	struct s_point				start;
+	struct s_point				end;
+	struct s_point				sprite_data;
+	struct s_point				screen_data;
+	struct s_point				texture;
+}								t_ray_sprites;
+
+typedef struct					s_raysprites
+{
+	struct s_vector				pos;
+	struct s_vector				transform;
+	double						invdet;
+	double						vmove;
+	struct s_point				screen;
+	struct s_point				start;
+	struct s_point				end;
+	struct s_point				data;
+}								t_raysprites;
+
+void							ft_entity_add(t_entity **ents,
+		t_entity_type **type, t_vector pos, int type_id);
+t_entity						*ft_entity_create(int id,
+		t_entity_type **type, t_vector pos);
+void							ft_entity_remove(t_entity **ents, int id);
+void							ft_entity_type_add(t_entity_type **type,
+		char *filecontent);
+t_entity_type					*ft_entity_type_create(char *contentfile);
+t_entity_type					*ft_entity_type_init(t_win *win);
+void							ft_entity_type_load(t_entity_type **type,
+		t_win *win);
 void							ft_entity_display(struct s_core *core);
-t_sprites						*ft_wolf_create_sprite(char *xpm, t_win *win, double x, double y);
+t_sprites						*ft_wolf_create_sprite(char *xpm, t_win *win,
+		double x, double y);
+t_vector						ft_get_sprite_pos(t_sprites *sprites,
+		t_coucou *coucou);
+t_ray_sprites					ft_calc_start_end(t_ray_sprites ray,
+		t_core *core);
+t_ray_sprites					ft_init_ray_sprite2(t_sprites *sprites,
+		t_coucou *coucou,
+		t_ray_sprites ray, t_core *core);
+int								ft_entity_get_texture_x(t_ray_sprites ray,
+		t_sprites *sprites);
+int								ft_entity_get_texture_y(t_ray_sprites ray,
+		t_sprites *sprites, int y);
 
 #endif

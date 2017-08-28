@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 17:25:03 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/18 04:00:20 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/08/28 02:15:14 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_texture		*get_texturepack(char *path2, char *file, t_win *win)
 
 	name = ft_strjoin(path2, "/");
 	name = ft_free_join1(name, file);
-	texture = (t_texture *)malloc(sizeof(t_texture));
+	texture = (t_texture *)ft_malloc(sizeof(t_texture));
 	if (!texture)
 		exit(0);
 	texture->name = file;
@@ -63,7 +63,7 @@ t_texture		**load_texture_db(t_win *win, char *path2, t_file *content)
 	t_texture	**texture;
 	int			j;
 
-	texture = (t_texture **)malloc(sizeof(t_texture *) *
+	texture = (t_texture **)ft_malloc(sizeof(t_texture *) *
 			ft_files_count_files_wa(path2));
 	if (!texture)
 		exit(0);
@@ -87,7 +87,7 @@ t_texture		***texturepack(t_win *win)
 
 	i = 0;
 	path = ft_strdup("./textures/");
-	texture = (t_texture ***)malloc(sizeof(t_texture **) *
+	texture = (t_texture ***)ft_malloc(sizeof(t_texture **) *
 			ft_files_count_dir_wa(path));
 	if (!texture)
 		exit(0);

@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cheat_kill.c                                    :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/19 03:42:39 by piquerue          #+#    #+#             */
-/*   Updated: 2017/08/23 22:07:20 by piquerue         ###   ########.fr       */
+/*   Created: 2017/08/28 02:04:20 by piquerue          #+#    #+#             */
+/*   Updated: 2017/08/28 02:10:33 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void		ft_cheat_kill(t_coucou *coucou)
+void	*ft_malloc(size_t size)
 {
-	char	**split;
-	int		i;
+	void	*data;
 
-	i = 0;
-	split = ft_strsplit(coucou->p.message, ' ');
-	if (!split)
-		exit(ft_printf("Error: malloc on ft_cheat_damage\n"));
-	while (split[i])
-		i++;
-	if (ft_strcmp(split[0], "/kill") != 0 || i != 1)
-		ft_printf("Error: usage is /kill\n");
-	else
-		coucou->p.life = 0;
-	ft_strdel_array(split);
+	data = malloc(size);
+	if (!data)
+	{
+		ft_putstr("Error on malloc\n");
+		exit(0);
+	}
+	return (data);
 }
