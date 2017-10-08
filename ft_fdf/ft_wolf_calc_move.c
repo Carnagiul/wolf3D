@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/28 22:02:16 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/04 00:50:51 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/08 18:52:10 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,36 @@
 
 void	ft_wolf_hooks_move_up(t_coucou *coucou)
 {
-	if (!coucou->map.world[(int)(coucou->pos.x + coucou->dir.x *
-				coucou->p.move_speed)][(int)coucou->pos.y])
-		coucou->pos.x += coucou->dir.x * coucou->p.move_speed;
-	if (!coucou->map.world[(int)coucou->pos.x][(int)(coucou->pos.y +
-				coucou->dir.y * coucou->p.move_speed)])
-		coucou->pos.y += coucou->dir.y * coucou->p.move_speed;
+	double	x;
+	double	y;
+
+	x = coucou->pos.x + coucou->dir.x * coucou->p.move_speed;
+	y = coucou->pos.y + coucou->dir.y * coucou->p.move_speed;
+	if (x < 0 || x >= coucou->map.height)
+		x = (x < 0) ? 0 : coucou->map.height - 1;
+	if (y < 0 || y >= coucou->map.width)
+		y = (y < 0) ? 0 : coucou->map.width - 1;
+	if (!coucou->map.world[(int)x][(int)coucou->pos.y])
+		coucou->pos.x = x;
+	if (!coucou->map.world[(int)coucou->pos.x][(int)y])
+		coucou->pos.y = y;
 }
 
 void	ft_wolf_hooks_move_down(t_coucou *coucou)
 {
-	if (!coucou->map.world[(int)(coucou->pos.x - coucou->dir.x *
-				coucou->p.move_speed)][(int)coucou->pos.y])
-		coucou->pos.x -= coucou->dir.x * coucou->p.move_speed;
-	if (!coucou->map.world[(int)coucou->pos.x][(int)(coucou->pos.y -
-				coucou->dir.y * coucou->p.move_speed)])
-		coucou->pos.y -= coucou->dir.y * coucou->p.move_speed;
+	double	x;
+	double	y;
+
+	x = coucou->pos.x - coucou->dir.x * coucou->p.move_speed;
+	y = coucou->pos.y - coucou->dir.y * coucou->p.move_speed;
+	if (x < 0 || x >= coucou->map.height)
+		x = (x < 0) ? 0 : coucou->map.height - 1;
+	if (y < 0 || y >= coucou->map.width)
+		y = (y < 0) ? 0 : coucou->map.width - 1;
+	if (!coucou->map.world[(int)x][(int)coucou->pos.y])
+		coucou->pos.x = x;
+	if (!coucou->map.world[(int)coucou->pos.x][(int)y])
+		coucou->pos.y = y;
 }
 
 void	ft_wolf_hooks_move_right(t_coucou *coucou)

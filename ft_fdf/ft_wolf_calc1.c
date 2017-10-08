@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:15:45 by piquerue          #+#    #+#             */
-/*   Updated: 2017/08/23 22:20:13 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/08 18:56:35 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,22 @@ t_ray			calc_hit(t_ray ray, t_coucou *coucou)
 			ray.map.y += ray.step.y;
 			ray.side = 1;
 		}
-		ray.hit = (coucou->map.world[ray.map.x][ray.map.y] > 0) ? 1 : 0;
+		if (ray.map.x >= coucou->map.height || ray.map.y >= coucou->map.width || ray.map.x < 0 || ray.map.y < 0)
+		{
+			ray.side = 2;
+			ray.hit = 1;
+		}
+		else
+			ray.hit = (coucou->map.world[ray.map.x][ray.map.y] > 0) ? 1 : 0;
 	}
 	if (ray.side == 0)
 		ray.perpwalldist = (ray.map.x - ray.raypos.x + (1 - ray.step.x) / 2)
 			/ ray.raydir.x;
-	else
+	else if (ray.side == 1)
 		ray.perpwalldist = (ray.map.y - ray.raypos.y + (1 - ray.step.y) / 2)
 			/ ray.raydir.y;
+	else
+		ray.perpwalldist = coucou->map.height / 2;
 	return (calc_two(ray, coucou));
 }
 
@@ -67,12 +75,15 @@ void			draw(t_ray ray, t_core *core, int x, int h)
 	else
 		color = (ray.raydir.y >= 0) ? create_color(0, 0, 0xFF) :
 			create_color(0xFF, 0, 0xFF);
-	if (core->coucou->map.world[ray.map.x][ray.map.y] == 1)
-		ft_wolf_display_texture_stonebrick(x,
+	if (!(ray.map.x < 0 || ray.map.x >= core->coucou->map.height || ray.map.y < 0 || ray.map.y >= core->coucou->map.width))
+	{
+		if (core->coucou->map.world[ray.map.x][ray.map.y] == 1)
+			ft_wolf_display_texture_stonebrick(x,
 				ft_create_point(ray.start, ray.end), core->coucou, ray);
-	else if (core->coucou->map.world[ray.map.x][ray.map.y] == 2)
-		ft_wolf_display_texture_woodenplanks(x,
+		else if (core->coucou->map.world[ray.map.x][ray.map.y] == 2)
+			ft_wolf_display_texture_woodenplanks(x,
 				ft_create_point(ray.start, ray.end), core->coucou, ray);
+	}
 	else
 		ft_mlx_draw_linept(ft_create_point(x, ray.start),
 				ft_create_point(x, ray.end), core->coucou->img, color);
@@ -102,10 +113,12 @@ void			calc2(t_coucou *coucou)
 	t_core		core[4];
 	int			i;
 	int			max;
+	int			t;
 
+	t = 4;
 	i = -1;
-	max = coucou->win->width / 4;
-	while (++i < 4)
+	max = coucou->win->width / t;
+	while (++i < t)
 	{
 		core[i].coucou = coucou;
 		core[i].min = max * i;
@@ -113,7 +126,7 @@ void			calc2(t_coucou *coucou)
 		pthread_create(&thread[i], NULL, (void*)calc, &core[i]);
 	}
 	i = 0;
-	while (i < 4)
+	while (i < t)
 		pthread_join(thread[i++], NULL);
 	calc_sprite(coucou);
 }
