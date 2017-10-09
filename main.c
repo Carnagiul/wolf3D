@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:54:44 by piquerue          #+#    #+#             */
-/*   Updated: 2017/10/09 16:33:03 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/09 20:41:24 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(int argc, char **argv)
 {
 	ft_wolf_init(argc, argv);
-//	ft_load_gnl_map(argv[1], 0);
 	return (1);
 	(void)argc;
 }

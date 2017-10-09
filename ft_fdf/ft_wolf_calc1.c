@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:15:45 by piquerue          #+#    #+#             */
-/*   Updated: 2017/10/09 18:00:19 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/09 20:38:32 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,7 @@ t_ray			calc_hit(t_ray ray, t_coucou *coucou)
 		else
 			ray.hit = (coucou->map.world[ray.map.x][ray.map.y] != 0) ? 1 : 0;
 	}
-	if (ray.side == 0)
-		ray.perpwalldist = (ray.map.x - ray.raypos.x + (1 - ray.step.x) / 2)
-			/ ray.raydir.x;
-	else if (ray.side == 2)
-		ray.perpwalldist = coucou->map.height / 2;
-	else
-		ray.perpwalldist = (ray.map.y - ray.raypos.y + (1 - ray.step.y) / 2) / ray.raydir.y;
-	return (calc_two(ray, coucou));
+	return (calc_dist_from_hit(ray, coucou));
 }
 
 void			draw(t_ray ray, t_core *core, int x, int h)
@@ -68,15 +61,8 @@ void			draw(t_ray ray, t_core *core, int x, int h)
 	if (ray.end < h)
 		ft_mlx_draw_linept(ft_create_point(x, ray.start), ft_create_point(x, h),
 				core->coucou->img, create_color(0x99, 0x99, 0x99));
-	if (ray.side == 0)
-		color = (ray.raydir.x >= 0) ? create_color(0xFF, 0, 0) :
-			create_color(0x00, 0xFF, 0);
-	else if (ray.side == 2)
-		color = create_color(0xFF, 0xFF, 0xFF);
-	else
-		color = (ray.raydir.y >= 0) ? create_color(0, 0, 0xFF) :
-			create_color(0xFF, 0, 0xFF);
-	if (!(ray.map.x < 0 || ray.map.x >= core->coucou->map.height || ray.map.y < 0 || ray.map.y >= core->coucou->map.width))
+	color = ft_wolf_get_color_side(ray);
+	if (!(calc_if_ray_is_in_map(ray, core->coucou)))
 	{
 		if (core->coucou->map.world[ray.map.x][ray.map.y] == 1)
 			ft_wolf_display_texture_stonebrick(x,

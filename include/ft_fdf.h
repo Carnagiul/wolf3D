@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/10/09 17:45:00 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/09 20:38:40 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,5 +290,8 @@ void						ft_wolf_item_usage(t_coucou *coucou);
 void						calc_sprite(t_coucou *coucou);
 void						hooker_cmp2(t_coucou *coucou);
 int							calc_if_ray_is_in_map(t_ray ray, t_coucou *coucou);
+t_ray						calc_dist_from_hit(t_ray ray, t_coucou *coucou);
+t_color_mlx					ft_wolf_get_color_side(t_ray ray);
+t_ray						calc_two(t_ray ray, t_coucou *coucou);
 
 #endif

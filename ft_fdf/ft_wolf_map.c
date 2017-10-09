@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 18:11:59 by piquerue          #+#    #+#             */
-/*   Updated: 2017/08/28 03:28:15 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/09 20:23:46 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,6 @@ t_map		ft_gen_world(char *name)
 	int		j;
 
 	map = ft_get_map(name);
-	for (int www = 0;map.map[www]; www++)
-		ft_printf("[www:%d] ==> %s\n", www, map.map[www]);
 	i = 0;
 	while (map.map[i])
 	{
