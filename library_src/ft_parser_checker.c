@@ -6,12 +6,12 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 05:30:09 by piquerue          #+#    #+#             */
-/*   Updated: 2016/12/30 05:36:12 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/09 18:06:05 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-#include "../ft_printf_mappeur.h"
+#include "../include/ft_printf_mappeur.h"
 
 int		ft_char_is_delimiteur(const char c)
 {

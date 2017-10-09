@@ -6,12 +6,12 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 19:30:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/08/23 22:41:08 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/09 18:06:54 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-#include "../ft_fdf_map.h"
+#include "../include/ft_fdf_map.h"
 
 void	hooker_not_in_menu(t_coucou *coucou, int k)
 {
