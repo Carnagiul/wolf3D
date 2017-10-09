@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 23:11:51 by piquerue          #+#    #+#             */
-/*   Updated: 2017/08/23 23:04:32 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/09 17:45:00 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,5 +289,6 @@ void						ft_cheat_spawnentity(t_coucou *coucou);
 void						ft_wolf_item_usage(t_coucou *coucou);
 void						calc_sprite(t_coucou *coucou);
 void						hooker_cmp2(t_coucou *coucou);
+int							calc_if_ray_is_in_map(t_ray ray, t_coucou *coucou);
 
 #endif

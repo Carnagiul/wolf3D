@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 23:15:45 by piquerue          #+#    #+#             */
-/*   Updated: 2017/10/08 18:56:35 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/09 18:00:19 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_ray			calc_hit(t_ray ray, t_coucou *coucou)
 			ray.map.y += ray.step.y;
 			ray.side = 1;
 		}
-		if (ray.map.x >= coucou->map.height || ray.map.y >= coucou->map.width || ray.map.x < 0 || ray.map.y < 0)
+		if (calc_if_ray_is_in_map(ray, coucou))
 		{
 			ray.side = 2;
 			ray.hit = 1;
@@ -51,11 +51,10 @@ t_ray			calc_hit(t_ray ray, t_coucou *coucou)
 	if (ray.side == 0)
 		ray.perpwalldist = (ray.map.x - ray.raypos.x + (1 - ray.step.x) / 2)
 			/ ray.raydir.x;
-	else if (ray.side == 1)
-		ray.perpwalldist = (ray.map.y - ray.raypos.y + (1 - ray.step.y) / 2)
-			/ ray.raydir.y;
-	else
+	else if (ray.side == 2)
 		ray.perpwalldist = coucou->map.height / 2;
+	else
+		ray.perpwalldist = (ray.map.y - ray.raypos.y + (1 - ray.step.y) / 2) / ray.raydir.y;
 	return (calc_two(ray, coucou));
 }
 
@@ -72,11 +71,11 @@ void			draw(t_ray ray, t_core *core, int x, int h)
 	if (ray.side == 0)
 		color = (ray.raydir.x >= 0) ? create_color(0xFF, 0, 0) :
 			create_color(0x00, 0xFF, 0);
-	else if (ray.side == 1)
+	else if (ray.side == 2)
+		color = create_color(0xFF, 0xFF, 0xFF);
+	else
 		color = (ray.raydir.y >= 0) ? create_color(0, 0, 0xFF) :
 			create_color(0xFF, 0, 0xFF);
-	else
-		color = create_color(0xFF, 0xFF, 0xFF);
 	if (!(ray.map.x < 0 || ray.map.x >= core->coucou->map.height || ray.map.y < 0 || ray.map.y >= core->coucou->map.width))
 	{
 		if (core->coucou->map.world[ray.map.x][ray.map.y] == 1)
@@ -85,6 +84,9 @@ void			draw(t_ray ray, t_core *core, int x, int h)
 		else if (core->coucou->map.world[ray.map.x][ray.map.y] == 2)
 			ft_wolf_display_texture_woodenplanks(x,
 				ft_create_point(ray.start, ray.end), core->coucou, ray);
+		else
+			ft_mlx_draw_linept(ft_create_point(x, ray.start),
+				ft_create_point(x, ray.end), core->coucou->img, color);
 	}
 	else
 		ft_mlx_draw_linept(ft_create_point(x, ray.start),
