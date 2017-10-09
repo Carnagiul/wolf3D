@@ -46,7 +46,7 @@ t_ray			calc_hit(t_ray ray, t_coucou *coucou)
 			ray.hit = 1;
 		}
 		else
-			ray.hit = (coucou->map.world[ray.map.x][ray.map.y] > 0) ? 1 : 0;
+			ray.hit = (coucou->map.world[ray.map.x][ray.map.y] != 0) ? 1 : 0;
 	}
 	if (ray.side == 0)
 		ray.perpwalldist = (ray.map.x - ray.raypos.x + (1 - ray.step.x) / 2)
@@ -72,9 +72,11 @@ void			draw(t_ray ray, t_core *core, int x, int h)
 	if (ray.side == 0)
 		color = (ray.raydir.x >= 0) ? create_color(0xFF, 0, 0) :
 			create_color(0x00, 0xFF, 0);
-	else
+	else if (ray.side == 1)
 		color = (ray.raydir.y >= 0) ? create_color(0, 0, 0xFF) :
 			create_color(0xFF, 0, 0xFF);
+	else
+		color = create_color(0xFF, 0xFF, 0xFF);
 	if (!(ray.map.x < 0 || ray.map.x >= core->coucou->map.height || ray.map.y < 0 || ray.map.y >= core->coucou->map.width))
 	{
 		if (core->coucou->map.world[ray.map.x][ray.map.y] == 1)

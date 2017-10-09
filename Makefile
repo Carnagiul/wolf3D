@@ -6,7 +6,7 @@
 #    By: piquerue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 14:20:07 by piquerue          #+#    #+#              #
-#    Updated: 2017/08/24 00:33:30 by piquerue         ###   ########.fr        #
+#    Updated: 2017/10/09 16:31:06 by piquerue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ all: $(NAME)
 .PHONY : all clean fclean re
 
 obj/%.o: %.c $(INCLUDE)
-	gcc -o $@ -c $< $(CFLAGS)
+	gcc -o $@ -c $<  -Wall -Wextra -Werror
 
 $(LIB): $(INCLUDE)
 	@make -C ft_music
@@ -66,7 +66,7 @@ $(LIB): $(INCLUDE)
 $(NAME): $(LIB) $(OBJ_2)
 	@mkdir -p obj/
 	@gcc -c $(SRC) -Wall -Werror -Wextra
-	@gcc -o $(NAME) $(OBJ) $(CFLAGS)
+	@gcc -o $(NAME) $(OBJ) $(CFLAGS) -Wall -Wextra -Werror
 	@mv -f $(OBJ) obj/
 
 clean:
