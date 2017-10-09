@@ -6,7 +6,7 @@
 #    By: piquerue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 14:20:07 by piquerue          #+#    #+#              #
-#    Updated: 2017/10/09 17:34:11 by piquerue         ###   ########.fr        #
+#    Updated: 2017/10/09 21:30:15 by piquerue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,16 +27,16 @@ CFLAGS = -g -lpthread -lmlx -framework OpenGL -framework AppKit mlx/libmlxS.a $(
 
 all: $(NAME)
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re lib
 
 obj/%.o: %.c $(INCLUDE)
 	gcc -o $@ -c $<  -Wall -Wextra -Werror
 
-$(LIB): $(INCLUDE)
+lib: $(INCLUDE)
 	@make -C library_src
 	@make -C ft_fdf
 
-$(NAME): $(LIB) $(OBJ_2)
+$(NAME): lib $(OBJ_2)
 	@mkdir -p obj/
 	@gcc -c $(SRC) -Wall -Werror -Wextra
 	@gcc -o $(NAME) $(OBJ) $(CFLAGS) -Wall -Wextra -Werror
