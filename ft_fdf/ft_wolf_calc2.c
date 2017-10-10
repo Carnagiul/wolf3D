@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/05 19:01:32 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/05 19:17:21 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/10 17:12:18 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void			ft_part1(t_point pt[2], t_coucou *coucou, t_color_mlx color)
 
 void			ft_part0(t_point pt[2], t_coucou *coucou, int i, int j)
 {
+	if (i < 0 || i >= coucou->map.height)
+		return ;
+	if (j < 0 || j >= coucou->map.width)
+		return ;
 	if (coucou->map.world[i][j] == 0 && j == (int)coucou->pos.y &&
 			i == (int)coucou->pos.x)
 		ft_part1(pt, coucou, create_color(0, 0, 255));

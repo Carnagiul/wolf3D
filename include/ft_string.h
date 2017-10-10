@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 20:37:22 by piquerue          #+#    #+#             */
-/*   Updated: 2017/07/05 20:05:48 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/10 17:10:03 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ char	*ft_strrchr(char const *str, int c);
 char	*ft_string_capitalize(char *str);
 char	*ft_reverse(char *str);
 char	*ft_get_extension(char *str);
+int		ft_count_array_string(char **array);
 
 #endif

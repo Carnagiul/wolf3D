@@ -1,2 +1,8 @@
-PROCESSID=$(ps | grep "./wolf3d" | grep -v "grep" | sed 's/^[ ]*//g' | cut -d" " -f1)
-	leaks -q $PROCESSID
+#!/bin/bash
+
+while ((1))
+do
+	clear
+	leaks -q wolf3d
+	sleep 2
+done

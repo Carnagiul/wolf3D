@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 18:11:59 by piquerue          #+#    #+#             */
-/*   Updated: 2017/10/09 20:23:46 by piquerue         ###   ########.fr       */
+/*   Updated: 2017/10/10 17:11:30 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_map		ft_get_map(char *name)
 	if (i <= 1)
 		exit(0);
 	map.map = ft_strsplit(map.get, '\n');
-	map.height = i;
+	map.height = ft_count_array_string(map.map);
 	map.width = 0;
 	map.world = (int **)ft_malloc(sizeof(int *) * i);
 	if (!map.world)
@@ -120,12 +120,9 @@ t_map		ft_gen_world(char *name)
 			map.width = ++j;
 		if (!(map.world[i] = (int *)ft_malloc(sizeof(int) * j)))
 			exit(0);
-		j = 0;
-		while (map.nb[j])
-		{
+		j = -1;
+		while (map.nb[++j])
 			map.world[i][j] = ft_atoi(map.nb[j]);
-			j++;
-		}
 		j = 0;
 		ft_free_map_nb(&map);
 		i++;
