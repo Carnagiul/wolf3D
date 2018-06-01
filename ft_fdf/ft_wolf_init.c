@@ -6,11 +6,13 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 11:34:43 by piquerue          #+#    #+#             */
-/*   Updated: 2017/10/10 14:19:57 by piquerue         ###   ########.fr       */
+/*   Updated: 2018/06/01 16:50:27 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 
 t_player		ft_gen_player(void)
 {
@@ -38,6 +40,7 @@ void			ft_wolf_init2(char **argv)
 {
 	int			i;
 	char		*ret;
+	struct stat	buf;
 
 	i = 1;
 	while (argv[i])
@@ -48,7 +51,8 @@ void			ft_wolf_init2(char **argv)
 		exit(0);
 	}
 	ret = ft_get_extension(argv[1]);
-	if (ft_strcmp(ret, "wolf3d") != 0)
+	lstat(argv[1], &buf);
+	if (ft_strcmp(ret, "wolf3d") != 0 || S_ISLNK(buf.st_mode) == 1)
 	{
 		ft_printf("Error: ./wolf3d <filename.wolf3d>\n");
 		exit(0);
