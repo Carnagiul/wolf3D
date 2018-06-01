@@ -6,7 +6,7 @@
 /*   By: piquerue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 04:42:58 by piquerue          #+#    #+#             */
-/*   Updated: 2016/12/30 05:24:12 by piquerue         ###   ########.fr       */
+/*   Updated: 2018/06/01 16:13:26 by piquerue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_printf_parser_digit_2(char c, char c2, t_print *print)
 	}
 }
 
-void		ft_printf_parser_digit(char c, ...)
+void		ft_printf_parser_digit(const int c, ...)
 {
 	va_list	vl;
 	t_print	*print;
@@ -31,7 +31,7 @@ void		ft_printf_parser_digit(char c, ...)
 
 	va_start(vl, c);
 	print = va_arg(vl, t_print *);
-	c2 = (char)va_arg(vl, t_print *);
+	c2 = (char)va_arg(vl, int);
 	va_end(vl);
 	if (print->precision->before_display == 0 && c == '0' &&
 			print->precision->dot_found == 0 && (c2 == '#' || c2 == '%' ||
@@ -41,7 +41,7 @@ void		ft_printf_parser_digit(char c, ...)
 		return ;
 	}
 	if (print->precision->dot_found == 1)
-		ft_printf_parser_digit_2(c, c2, print);
+		ft_printf_parser_digit_2((char)c, c2, print);
 	else
 	{
 		print->precision->before_display *= 10;
@@ -49,7 +49,7 @@ void		ft_printf_parser_digit(char c, ...)
 	}
 }
 
-void		ft_printf_parser_flags(char c, ...)
+void		ft_printf_parser_flags(const int c, ...)
 {
 	va_list	vl;
 	t_print	*print;
@@ -73,7 +73,7 @@ void		ft_printf_parser_flags(char c, ...)
 		print->flags->dollard++;
 }
 
-void		ft_printf_parser_specs(char c, ...)
+void		ft_printf_parser_specs(const int c, ...)
 {
 	va_list	vl;
 	t_print	*print;
