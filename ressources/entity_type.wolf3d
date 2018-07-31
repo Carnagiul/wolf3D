@@ -1,3 +1,0 @@
-#type_id		#path									#name			#max_life		#damage_atk				#damage_cooldown		#sound_duration_damage		#sound_path_damage		#sound_death_duration		#sound_death_path
-1				./ressources/entity/skeleton.xpm		skeleton		10				10						10						0							null					0							null
-2				./ressources/entity/zombie.xpm			zombie			10				50						1						0							null					0							null
