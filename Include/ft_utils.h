@@ -26,5 +26,7 @@ void				*ft_malloc(size_t size);
 void				ft_exit_error(void);
 void				ft_init_exit_error(void);
 void				free_char_ss(char **str);
+float				ft_atof(const char *str);
+void				*ft_realloc(void *ptr, size_t size);
 
 #endif

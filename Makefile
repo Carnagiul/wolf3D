@@ -12,6 +12,7 @@
 
 NAME = lem-in
 
+CFLAGS2 = -Ofast
 CFLAGS = -Wall -Werror -Wextra -Ofast -Wunreachable-code
 
 C = $(shell find . -type f | grep "\.c")
@@ -37,7 +38,7 @@ R = 0
 
 $(NAME): check display $(O)
 	@sh .sh_tool/grep_clang.sh
-	@gcc -o $(NAME) $(O)
+	@gcc -o $(NAME) $(O) `sdl-config --cflags --libs`
 	@printf "\033[1A\033[KCompiling Project \033[33m%s\033[37m\n" $(NAME)
 
 all: $(NAME)

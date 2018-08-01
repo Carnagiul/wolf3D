@@ -27,6 +27,8 @@
 # include <sys/stat.h>
 # include <pwd.h>
 # include <grp.h>
+# include <math.h>
+# include <SDL/SDL.h>
 # include "ft_math.h"
 # include "ft_files.h"
 # include "ft_gnl.h"
@@ -38,5 +40,6 @@
 # include "ft_string.h"
 # include "ft_printf.h"
 # include "ft_wstr.h"
+# include "ft_doomlike.h"
 
 #endif

@@ -41,5 +41,6 @@ char	*ft_strchr(char const *str, int c);
 char	*ft_strrchr(char const *str, int c);
 char	*ft_string_capitalize(char *str);
 char	*ft_reverse(char *str);
+char	**ft_strsplitwhitespace(char const *s);
 
 #endif

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 static void	managecmd(char **argv, int argc)
 {
@@ -29,5 +29,6 @@ int			main(int argc, char **argv)
 {
 	ft_init_exit_error();
 	managecmd(argv, argc);
+	kappa();
 	_exit(0);
 }
