@@ -39,7 +39,7 @@ lib: $(INCLUDE)
 
 $(NAME): lib $(OBJ_2)
 	@gcc -c $(SRC) -Wall -Werror -Wextra
-	@gcc -o $(NAME) $(OBJ) $(CFLAGS) -Wall -Wextra -Werror
+	@gcc -o $(NAME) $(OBJ) $(CFLAGS) -Wall -Wextra -Werror -lmlx
 	@mv -f $(OBJ) obj/
 
 clean:
