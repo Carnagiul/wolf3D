@@ -36,6 +36,8 @@ R = 0
 #		R = ${R}
 #	@done
 
+#@gcc -o $(NAME) $(O) `-lSDL2 -lSDL2main -lSDL2_ttf`
+
 $(NAME): check display $(O)
 	@sh .sh_tool/grep_clang.sh
 	@gcc -o $(NAME) $(O) `sdl-config --cflags --libs`

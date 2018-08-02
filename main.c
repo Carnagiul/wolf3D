@@ -29,6 +29,6 @@ int			main(int argc, char **argv)
 {
 	ft_init_exit_error();
 	managecmd(argv, argc);
-	kappa();
+	kappa(argc, argv);
 	_exit(0);
 }
