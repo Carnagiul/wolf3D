@@ -14,15 +14,6 @@
 
 static unsigned NumSectors = 0;
 
-#ifdef VisibilityTracking
-#define MaxVisibleSectors 256
-t_xy VisibleFloorBegins[MaxVisibleSectors][W], VisibleFloorEnds[MaxVisibleSectors][W];
-char VisibleFloors[MaxVisibleSectors][W];
-t_xy VisibleCeilBegins[MaxVisibleSectors][W], VisibleCeilEnds[MaxVisibleSectors][W];
-char VisibleCeils[MaxVisibleSectors][W];
-unsigned NumVisibleSectors=0;
-#endif
-
 /* Player: location */
 static struct player
 {
@@ -37,17 +28,12 @@ static struct player
 
 static SDL_Surface* surface = NULL;
 
-static void SaveFrame1(void)
-{
-	return;
-}
-static void SaveFrame2(void)
-{
-	return;
-}
-
 static void LoadData(void)
 {
+	FILE	*fp;
+	char	Buf[256];
+	char	word[256];
+	
 	FILE* fp = fopen("map.txt", "rt");
 	if(!fp) { perror("map.txt"); exit(1); }
 	char Buf[256], word[256], *ptr;
@@ -81,9 +67,6 @@ static void LoadData(void)
 				sect->npoints   = m /= 2;
 				sect->neighbors = malloc( (m  ) * sizeof(*sect->neighbors) );
 				sect->vertex    = malloc( (m+1) * sizeof(*sect->vertex)    );
-#ifdef VisibilityTracking
-				sect->visible = 0;
-#endif
 				for(n=0; n<m; ++n) sect->neighbors[n] = numbers[m + n];
 				for(n=0; n<m; ++n)
 				{
@@ -333,49 +316,7 @@ static int Scaler_Next(struct Scaler* i)
 			float square = MIN(W/20.f/0.8, H/29.f), X = square*0.8, Y = square, X0 = (W-18*square*0.8)/2, Y0 = (H-28*square)/2;
 			for(float x=0; x<=18; ++x) line(X0+x*X, Y0+0*Y, X0+ x*X, Y0+28*Y, 0x002200);
 			for(float y=0; y<=28; ++y) line(X0+0*X, Y0+y*Y, X0+18*X, Y0+ y*Y, 0x002200);
-
-#ifdef VisibilityTracking
-			for(unsigned c=0; c<NumSectors; ++c) if(sectors[c].visible) fillpolygon(&sectors[c], 0x220000);
-#endif
 			fillpolygon(&sectors[player.sector], 0x440000);
-
-#ifdef VisibilityTracking
-			for(unsigned c=0; c<NumVisibleSectors; ++c)
-			{
-				/*struct xy vert[W*2];
-				  t_sector temp_sector = {0,0,vert,0,0,0};
-				  for(unsigned x=0; x<W; ++x)  if(VisibleFloors[c][x]) vert[temp_sector.npoints++] = VisibleFloorBegins[c][x];
-				  for(unsigned x=W; x-- > 0; ) if(VisibleFloors[c][x]) vert[temp_sector.npoints++] = VisibleFloorEnds[c][x];
-				  fillpolygon(&temp_sector, 0x222200);
-				  temp_sector.npoints = 0;
-				  for(unsigned x=0; x<W; ++x)  if(VisibleCeils[c][x]) vert[temp_sector.npoints++] = VisibleCeilBegins[c][x];
-				  for(unsigned x=W; x-- > 0; ) if(VisibleCeils[c][x]) vert[temp_sector.npoints++] = VisibleCeilEnds[c][x];
-				  fillpolygon(&temp_sector, 0x220022);*/
-
-				for(unsigned x=0; x<W; ++x)
-				{
-					if(VisibleFloors[c][x])
-						line(CLAMP(X0 + VisibleFloorBegins[c][x].y*X, 0,W-1), CLAMP(Y0 + (28-VisibleFloorBegins[c][x].x)*Y, 0,H-1),
-								CLAMP(X0 + VisibleFloorEnds[c][x].y*X, 0,W-1), CLAMP(Y0 + (28-VisibleFloorEnds[c][x].x)*Y, 0,H-1),
-								0x222200);
-					if(VisibleCeils[c][x])
-						line(CLAMP(X0 + VisibleCeilBegins[c][x].y*X, 0,W-1), CLAMP(Y0 + (28-VisibleCeilBegins[c][x].x)*Y, 0,H-1),
-								CLAMP(X0 + VisibleCeilEnds[c][x].y*X, 0,W-1), CLAMP(Y0 + (28-VisibleCeilEnds[c][x].x)*Y, 0,H-1),
-								0x28003A);
-				}
-			}
-			/*for(unsigned n=0; n<NumVisibleFloors; ++n)
-			  {
-			  printf("%g,%g - %g,%g\n", VisibleFloorBegins[n].x, VisibleFloorBegins[n].y,
-			  VisibleFloorEnds[n].x, VisibleFloorEnds[n].y );
-			  line( X0+VisibleFloorBegins[n].x*X, Y0+VisibleFloorBegins[n].y*Y,
-			  X0+VisibleFloorEnds[n].x*X,   Y0+VisibleFloorEnds[n].y*Y,
-			  n*0x010101
-			//0x550055
-			);
-			}*/
-#endif
-
 			for(unsigned c=0; c<NumSectors; ++c)
 			{
 				unsigned a = c;
@@ -390,19 +331,12 @@ static int Scaler_Next(struct Scaler* i)
 				{
 					float x0 = 28-vert[b].x, x1 = 28-vert[b+1].x;
 					unsigned vertcolor = a==player.sector ? 0x55FF55
-#ifdef VisibilityTracing
-						: sect->visible ? 0x55FF55
-#endif
 						: 0x00AA00;
 
 					line( X0+vert[b].y*X, Y0+x0*Y,
 							X0+vert[b+1].y*X, Y0+x1*Y,
 							(a == player.sector)
 							? (sect->neighbors[b] >= 0 ? 0xFF5533 : 0xFFFFFF)
-#ifdef VisibilityTracing
-							: (sect->visible)
-							?   (sect->neighbors[b] >= 0 ? 0xFF3333 : 0xAAAAAA)
-#endif
 							: (sect->neighbors[b] >= 0 ? 0x880000 : 0x6A6A6A)
 						);
 
@@ -425,7 +359,6 @@ static int Scaler_Next(struct Scaler* i)
 			BloomPostprocess();
 
 			SDL_UnlockSurface(surface);
-			SaveFrame1();
 
 			//static unsigned skip=0;
 			//if(++skip >= 1) { skip=0; SDL_Flip(surface); }
@@ -521,19 +454,11 @@ Rescan:
 					{
 						case 0:
 							continue;
-							/* Note: This used to be a problem for my engine, but is not anymore, so it is disabled.
-							   If you enable this change, you will not need the IntersectBox calls in some locations anymore.
-							   if(sect->neighbors[b] == sect->neighbors[c]) continue;
-							   fprintf(stderr, "Sector %u: Edges %u-%u and %u-%u are parallel, but have different neighbors. This would pose problems for collision detection.\n",
-							   a,  b,c, c,d);
-							   break;
-							 */
 						case -1:
 							fprintf(stderr, "Sector %u: Edges %u-%u and %u-%u create a concave turn. This would be rendered wrong.\n",
 									a,  b,c, c,d);
 							break;
 						default:
-							// This edge is fine.
 							continue;
 					}
 					fprintf(stderr, "- Splitting sector, using (%g,%g) as anchor", vert[c].x,vert[c].y);
@@ -630,61 +555,6 @@ Rescan:
 			//if(phase == 0) { phase = 1; goto Rescan; }
 			printf("%d sectors.\n", NumSectors);
 
-#if 0
-			/* This code creates the simplified map file for the program featured in the YouTube video. */
-			FILE *fp = fopen("map-clear.txt", "wt");
-			unsigned NumVertexes = 0;
-			struct xy vert[256];
-			int       done[256];
-			for(unsigned n=0; n<NumSectors; ++n)
-				for(unsigned s=0; s<sectors[n].npoints; ++s)
-				{
-					struct xy point = sectors[n].vertex[(s+1)%sectors[n].npoints];
-					unsigned v=0;
-					for(; v<NumVertexes; ++v)
-						if(point.x == vert[v].x && point.y == vert[v].y)
-							break;
-					if(v == NumVertexes)
-					{ done[NumVertexes] = -1; vert[NumVertexes++] = point; }
-				}
-
-			// Sort the vertexes by Y coordinate, X coordinate
-			qsort(vert, NumVertexes, sizeof(*vert), vert_compare);
-
-			for(unsigned m=0,v=0; v<NumVertexes; ++v)
-			{
-				if(done[v] >= 0) continue;
-				fprintf(fp, "vertex\t%g\t%g", vert[v].y, vert[v].x); done[v] = m++;
-				for(unsigned v2=v+1; v2<NumVertexes; ++v2)
-					if(done[v2] < 0 && vert[v2].y == vert[v].y)
-					{ fprintf(fp, " %g", vert[v2].x); done[v2] = m++; }
-				fprintf(fp, "\n");
-			}
-			fprintf(fp, "\n");
-
-			for(unsigned n=0; n<NumSectors; ++n)
-			{
-				fprintf(fp, "sector\t%g %g\t", sectors[n].floor, sectors[n].ceil);
-				int wid = 0;
-				for(unsigned s=0; s<sectors[n].npoints; ++s)
-				{
-					struct xy point = sectors[n].vertex[(s+1)%sectors[n].npoints];
-					unsigned v=0;
-					for(; v<NumVertexes; ++v)
-						if(point.x == vert[v].x && point.y == vert[v].y)
-							break;
-					wid += fprintf(fp, " %u", done[v]);
-				}
-				fprintf(fp, "%*s", 24-wid, "");
-				for(unsigned s=0; s<sectors[n].npoints; ++s)
-					fprintf(fp, "%d ", sectors[n].neighbors[s]);
-				fprintf(fp, "\n");
-			}
-
-			fprintf(fp, "\nplayer\t%g %g\t%g\t%d\n", player.where.x, player.where.z, player.angle, player.sector);
-
-			fclose(fp);
-#endif
 		}
 
 static void vline(int x, int y1,int y2, int top,int middle,int bottom)
@@ -741,15 +611,6 @@ static void vline(int x, int y1,int y2, int top,int middle,int bottom)
 			short ytop[W]={0}, ybottom[W], renderedsectors[NumSectors];
 			for(unsigned x=0; x<W; ++x) ybottom[x] = H-1;
 			for(unsigned n=0; n<NumSectors; ++n) renderedsectors[n] = 0;
-#ifdef VisibilityTracking
-			for(unsigned n=0; n<NumSectors; ++n) sectors[n].visible=0;
-#endif
-#ifdef VisibilityTracking
-			memset(VisibleFloors, 0, sizeof(VisibleFloors));
-			memset(VisibleCeils, 0, sizeof(VisibleCeils));
-			NumVisibleSectors=0;
-#endif
-
 			/*Begin whole-screen rendering from where the player is. */
 			*head = (struct item) { player.sector, 0, W-1 };
 			if(++head == queue+MAXQUEUE) head = queue;
@@ -764,9 +625,6 @@ static void vline(int x, int y1,int y2, int top,int middle,int bottom)
 
 				if(renderedsectors[now.sectorno] & 0x21) continue; // Odd = still rendering, 0x20 = give up
 				++renderedsectors[now.sectorno];
-#ifdef VisibilityTracking
-				sectors[now.sectorno].visible=1;
-#endif
 				/* Render each wall of this sector that is facing towards player. */
 				const t_sector* const sect = &sectors[now.sectorno];
 				/* This loop can be used to illustrate currently rendering window. Should be disabled otherwise. */
@@ -894,30 +752,6 @@ static void vline(int x, int y1,int y2, int top,int middle,int bottom)
 						/* Render floor: everything below this sector's floor height. */
 						vline(x, cyb+1, ybottom[x], 0x0000FF,0x0000AA,0x0000FF);
 
-#ifdef VisibilityTracking
-						// Keep track of what the player can see for a neat map gimmick.
-						{unsigned n = NumVisibleSectors;
-							if(ybottom[x] >= (cyb+1))
-							{
-								float FloorXbegin,FloorZbegin,FloorXend,FloorZend;
-								CeilingFloorScreenCoordinatesToMapCoordinates(yfloor, x,cyb+1,      FloorXbegin,FloorZbegin);
-								CeilingFloorScreenCoordinatesToMapCoordinates(yfloor, x,ybottom[x], FloorXend,  FloorZend);
-								VisibleFloorBegins[n][x] = (t_xy){FloorXbegin,FloorZbegin};
-								VisibleFloorEnds[n][x] = (t_xy){FloorXend,FloorZend};
-								VisibleFloors[n][x] = 1;
-							}
-							if((cya-1) >= ytop[x])
-							{
-								float CeilXbegin, CeilZbegin, CeilXend, CeilZend;
-								CeilingFloorScreenCoordinatesToMapCoordinates(yceil, x,ytop[x],     CeilXbegin,CeilZbegin);
-								CeilingFloorScreenCoordinatesToMapCoordinates(yceil, x,cya-1,       CeilXend,  CeilZend);
-								VisibleCeilBegins[n][x] = (t_xy){CeilXbegin,CeilZbegin};
-								VisibleCeilEnds[n][x] = (t_xy){CeilXend,CeilZend};
-								VisibleCeils[n][x] = 1;
-							}
-						}
-#endif
-
 						/* Is there another sector behind this edge? */
 						if(neighbor >= 0)
 						{
@@ -973,13 +807,9 @@ static void vline(int x, int y1,int y2, int top,int middle,int bottom)
 					}
 				}
 				++renderedsectors[now.sectorno];
-#ifdef VisibilityTracking
-				NumVisibleSectors += 1;
-#endif
 			}
 
 			SDL_UnlockSurface(surface);
-			SaveFrame2();
 			//static unsigned skip=0;
 			//if(/*++skip >= 10 && */!map) { skip=0; SDL_Flip(surface); }
 		}

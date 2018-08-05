@@ -41,18 +41,33 @@ sector	16 36	23 24 26 25	x x x x
 sector	16 26	6 7 43  42 26 24	x x x x x x
 
 # stairs
-sector	 2 20	14 14.5 28 27	x x x x
-sector	 3 20	14.5 15 29 28	x x x x
-sector	 4 20	15 15.5 30 29	x x x x
-sector	 5 20	15.5 17 31 30	x x x x
-sector	7 24	17 17.5 32 31	x x x x
-sector	9 24	17.5 19 33 32	x x x x
-sector	11 28	19 21 34 33	x x x x
-sector	13 28	21 22 35 34	x x x x
+sector	 2 20	14 15 28 27	x x x x
+sector	 4 20	15 16 29 28	x x x x
+sector	 6 20	16 17 30 29	x x x x
+sector	 8 20	17 18 31 30	x x x x
+sector	10 24	18 19 32 31	x x x x
+sector	12 24	19 20 33 32	x x x x
+sector	14 28	20 21 34 33	x x x x
+sector	16 28	21 22 35 34	x x x x
 
 # stairs windows
 sector	 8 14	10 11 18 17	x x x x
 sector	 8 14	30 31 38 37	x x x x
 
 # Player: Location (x y), angle, and sector number
-player 2.3 6 0.66 0
+player	2 9	0	0
+#player 2.3 6 0.4 0
+
+
+
+# Light sources: Location (x z y; xz = 2d coordinates, y = height), sector number, color (r g b)
+light	 2  4 18	0	247 228 170	# left corner of beginning
+light	 2 14 18	0	247 228 170	# right corner of beginning
+light	 9  9 11	4	247 170 112	# in hideout, redder
+light	26  3 26	5	183 204 218	# cold in upstairs, back left corner
+light	26 15 26	5	183 204 218	# cold in upstairs, back right corner
+# A row of small lights upstairs in the back
+light	1.2  3 30	24	247 228 170
+light	1.2  7 30	24	247 228 170
+light	1.2 11 30	24	247 228 170
+light	1.2 15 30	24	247 228 170
