@@ -55,4 +55,4 @@ sector	 8 14	10 11 18 17	x x x x
 sector	 8 14	30 31 38 37	x x x x
 
 # Player: Location (x y), angle, and sector number
-player 2.3 6 0.4 0
+player 2.3 6 0.66 0
