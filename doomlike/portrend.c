@@ -33,13 +33,21 @@ static void LoadData(void)
 	FILE	*fp;
 	char	Buf[256];
 	char	word[256];
-	
-	FILE* fp = fopen("map.txt", "rt");
+	char	*ptr;
+	t_xy	vertex[MAXVERTICES];
+	t_xy	*vertexptr;
+	float	x;
+	float	y;
+	float	angle;
+	float	number;
+	float	numbers[MAXEDGES];
+	int		n;
+	int		m;
+
+	fp = fopen("map.txt", "rt");
 	if(!fp) { perror("map.txt"); exit(1); }
-	char Buf[256], word[256], *ptr;
-	t_xy vertex[MAXVERTICES], *vertexptr = vertex;
-	float x,y,angle,number, numbers[MAXEDGES];
-	int n, m;
+	vertexptr = vertex;
+
 	while(fgets(Buf, sizeof Buf, fp))
 		switch(sscanf(ptr = Buf, "%32s%n", word, &n) == 1 ? word[0] : '\0')
 		{
